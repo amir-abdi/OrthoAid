@@ -77,7 +77,35 @@ namespace OrthoAid_3DSimulator
             //MinimizeBox = false;
             //HelpButton = true;
 
-            UpdateUI();            
+            UpdateUI();
+
+            this.BringToFront();
+            this.Focus();
+            this.KeyPreview = true;
+
+            SetFeatureToAllControls(this.Controls);
+        }
+
+        private void SetFeatureToAllControls(Control.ControlCollection cc)
+        {
+            if (cc != null)
+            {
+                foreach (Control control in cc)
+                {
+                    control.PreviewKeyDown += new PreviewKeyDownEventHandler(control_PreviewKeyDown);
+                    SetFeatureToAllControls(control.Controls);
+
+                }
+            }
+        }
+
+        void control_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {                
+                    e.IsInputKey = true;
+                    
+            }
         }
 
         private void glControlCast_Paint(object sender, PaintEventArgs e)
@@ -312,6 +340,18 @@ namespace OrthoAid_3DSimulator
 
             for (int i = 0; i < 12; ++i)
                 weightTextBoxex[i].Text = config.weights[i].ToString();
+
+            nUpDown_order.Value = config.polynomialFitOrder;
+
+            switch (config.fitFunction)
+            {
+                case Common.FitFunction.polynomial:
+                    rb_fitPoly.Checked = true;
+                    break;
+                case Common.FitFunction.noroozi:
+                    rb_fitNoroozi.Checked = true;                
+                    break;
+            }
         }
 
         private void InsertSelectedPointsInListBox(ListView lbox_selectedPoints, Common.Vbo handle)
@@ -510,8 +550,24 @@ namespace OrthoAid_3DSimulator
         }
 
         private void b_Calculate_Click(object sender, EventArgs e)
-        {            
-            if (selectedIndex<1 || selectedIndex > 34)
+        {
+            if (tab_Maintab.SelectedIndex == 4)
+            {
+                switch (tab_Maintab.SelectedIndex)
+                {
+                    case 4:
+                        //Curve Fit
+                        CalculateCurveFit(GetSelectedVBO());
+                        
+                        break;
+                }
+
+                UpdateTeethAndPlanesUI();
+                return;
+            }
+
+
+            if (selectedIndex < 1 || selectedIndex > 34)
             {
                 MessageBox.Show("No Tooth or Plane Selected. Select a tooth or plane first.", "Error in Calculation");
                 return;
@@ -520,7 +576,7 @@ namespace OrthoAid_3DSimulator
             if (selectedIndex >= 1 && selectedIndex <= 32)
             {
                 switch (tab_Maintab.SelectedIndex)
-                {
+                {                    
                     case 0:
                     case 3:
                         //Inclination
@@ -1564,5 +1620,40 @@ All Rights Preserved.", "OrthoAid V2.0");
             toolboxPanel_p.Visible = false;
         }
 
+        private void tab_Maintab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tab_Maintab.SelectedIndex == 4)
+            {
+                gb_teeh.Visible = false;
+            }
+            else
+                gb_teeh.Visible = true;
+        }
+
+        private void b_cleftProj_Click(object sender, EventArgs e)
+        {
+            Vector3 TL = vbo1.verticesData.vertices[vbo1.selectedVertices[0]];
+            Vector3 TR = vbo1.verticesData.vertices[vbo1.selectedVertices[1]];            
+            Vector3 CLL = vbo1.verticesData.vertices[vbo1.selectedVertices[2]];
+            Vector3 CLR  = vbo1.verticesData.vertices[vbo1.selectedVertices[3]];
+            Vector3 P = vbo1.verticesData.vertices[vbo1.selectedVertices[4]];
+
+            Vector3 T = (TL + TR) / 2;
+            Common.Plane sagPlane = new Common.Plane(TL - TR, T);
+            float PTP = sagPlane.Angle2Vector(P - T);            
+        }
+
+        private void nUpDown_order_ValueChanged(object sender, EventArgs e)
+        {
+            config.polynomialFitOrder = nUpDown_order.Value;
+        }
+
+        private void rb_fitFunction_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb_fitPoly.Checked)
+                config.fitFunction = Common.FitFunction.polynomial;
+            else if (rb_fitNoroozi.Checked)
+                config.fitFunction = Common.FitFunction.noroozi;
+        }
     }
 }

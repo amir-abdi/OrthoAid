@@ -15,6 +15,7 @@ namespace OrthoAid_3DSimulator.Common
     public enum VerticesSelectionType { vertices, trueVertices };
     public enum BBPChoice { User, AutoMiddle };
     public enum SuperimposeChoise { Order, YDir, Equal };
+    public enum FitFunction { polynomial, noroozi};
 
     public struct CalculationResults
     {

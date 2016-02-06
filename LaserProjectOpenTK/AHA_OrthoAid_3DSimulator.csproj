@@ -52,9 +52,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MathNet.Numerics, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MathNet.Numerics, Version=3.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MathNet.Numerics.3.7.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <HintPath>..\packages\MathNet.Numerics.3.10.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
     <Reference Include="OpenTK.Compatibility, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
@@ -74,6 +75,9 @@
   <ItemGroup>
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\Configuration.cs" />
+    <Compile Include="Main\curveFit.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pop ups\PopUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +164,7 @@
     </Compile>
     <None Include="Configs\app.config" />
     <None Include="Configs\packages.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

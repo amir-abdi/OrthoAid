@@ -244,12 +244,18 @@ namespace OrthoAid_3DSimulator
                 UpdateUI();                
             }
             else if (e.KeyCode == Keys.Up)
-            {                
-                    targetOffset.Y += 2;
+            {
+                if (lview_selectedPoints1.SelectedItems.Count != 0 ||
+                    lview_selectedPoints2.SelectedItems.Count != 0)
+                    return;
+                targetOffset.Y += 2;
                     eyeOffset.Y += 2;                
             }
             else if (e.KeyCode == Keys.Down)
             {
+                if (lview_selectedPoints1.SelectedItems.Count != 0 ||
+                    lview_selectedPoints2.SelectedItems.Count != 0)
+                    return;
                 targetOffset.Y -= 2;
                 eyeOffset.Y -= 2;
             }

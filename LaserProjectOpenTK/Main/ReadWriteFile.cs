@@ -964,10 +964,16 @@ namespace OrthoAid_3DSimulator
                 //    handle.selectedVertices.Add(uint.Parse(tokens[3]));
                 //}
 
-                sr.ReadLine(); //SKIPPING XYZ DATA
-                string[] tokens = sr.ReadLine().Split(',');
-                for (int i = 0; i < tokens.Length - 1; ++i) //-1 for the last comma
-                    handle.selectedVertices.Add(uint.Parse(tokens[i]));
+                //sr.ReadLine(); //SKIPPING XYZ DATA
+                //string[] tokens = sr.ReadLine().Split(',');
+                //for (int i = 0; i < tokens.Length - 1; ++i) //-1 for the last comma
+                //    handle.selectedVertices.Add(uint.Parse(tokens[i]));
+
+                while (sr.Peek() != -1)
+                {
+                    string[] tokens = sr.ReadLine().Split(',');
+                    handle.selectedVertices.Add(uint.Parse(tokens[3]));
+                }
 
                 sr.Close();
                 UpdateUI();

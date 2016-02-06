@@ -10,6 +10,9 @@ namespace OrthoAid_3DSimulator.Common
 {
     public class Configuration
     {
+        public FitFunction fitFunction = FitFunction.polynomial;        
+        public decimal polynomialFitOrder = 4;
+
         public double[] weights = new double[13];
 
         public int windowHeight = 700;

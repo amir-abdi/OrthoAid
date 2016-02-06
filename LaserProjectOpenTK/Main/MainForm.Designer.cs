@@ -452,6 +452,12 @@ namespace OrthoAid_3DSimulator
             this.label46 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.rb_fitPoly = new System.Windows.Forms.RadioButton();
+            this.rb_fitNoroozi = new System.Windows.Forms.RadioButton();
+            this.nUpDown_order = new System.Windows.Forms.NumericUpDown();
+            this.pl_curveFit = new System.Windows.Forms.Panel();
             this.lb_numVerticesReduced = new System.Windows.Forms.Label();
             this.lb_RDCastLabel = new System.Windows.Forms.Label();
             this.w1_tb = new System.Windows.Forms.TextBox();
@@ -491,6 +497,9 @@ namespace OrthoAid_3DSimulator
             this.tab_Dislocation.SuspendLayout();
             this.tab_Distance2Plane.SuspendLayout();
             this.tab_SuperInclin.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDown_order)).BeginInit();
             this.gb_weight.SuspendLayout();
             this.toolboxPanel_p.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -853,28 +862,28 @@ namespace OrthoAid_3DSimulator
             // 
             this.triangulatePointCloudToolStripMenuItem.Name = "triangulatePointCloudToolStripMenuItem";
             this.triangulatePointCloudToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.triangulatePointCloudToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.triangulatePointCloudToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.triangulatePointCloudToolStripMenuItem.Text = "Triangulate Point Cloud";
             this.triangulatePointCloudToolStripMenuItem.Click += new System.EventHandler(this.triangulatePointCloudToolStripMenuItem_Click);
             // 
             // meshInfoToolStripMenuItem
             // 
             this.meshInfoToolStripMenuItem.Name = "meshInfoToolStripMenuItem";
-            this.meshInfoToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.meshInfoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.meshInfoToolStripMenuItem.Text = "Mesh info";
             this.meshInfoToolStripMenuItem.Click += new System.EventHandler(this.meshInfoToolStripMenuItem_Click);
             // 
             // deleteNoisyPointsToolStripMenuItem
             // 
             this.deleteNoisyPointsToolStripMenuItem.Name = "deleteNoisyPointsToolStripMenuItem";
-            this.deleteNoisyPointsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.deleteNoisyPointsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.deleteNoisyPointsToolStripMenuItem.Text = "Delete Noisy Points";
             this.deleteNoisyPointsToolStripMenuItem.Click += new System.EventHandler(this.deleteNoisyPointsToolStripMenuItem_Click);
             // 
             // computeNormalsToolStripMenuItem
             // 
             this.computeNormalsToolStripMenuItem.Name = "computeNormalsToolStripMenuItem";
-            this.computeNormalsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.computeNormalsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.computeNormalsToolStripMenuItem.Text = "Compute Normals";
             this.computeNormalsToolStripMenuItem.Click += new System.EventHandler(this.computeNormalsToolStripMenuItem_Click);
             // 
@@ -2122,11 +2131,13 @@ namespace OrthoAid_3DSimulator
             this.tab_Maintab.Controls.Add(this.tab_Dislocation);
             this.tab_Maintab.Controls.Add(this.tab_Distance2Plane);
             this.tab_Maintab.Controls.Add(this.tab_SuperInclin);
+            this.tab_Maintab.Controls.Add(this.tabPage1);
             this.tab_Maintab.Location = new System.Drawing.Point(0, 3);
             this.tab_Maintab.Name = "tab_Maintab";
             this.tab_Maintab.SelectedIndex = 0;
             this.tab_Maintab.Size = new System.Drawing.Size(796, 237);
             this.tab_Maintab.TabIndex = 89;
+            this.tab_Maintab.SelectedIndexChanged += new System.EventHandler(this.tab_Maintab_SelectedIndexChanged);
             // 
             // tab_Inclination
             // 
@@ -5200,6 +5211,83 @@ namespace OrthoAid_3DSimulator
             this.label44.TabIndex = 0;
             this.label44.Text = "Cast1";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Controls.Add(this.pl_curveFit);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(788, 211);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Curve Fit";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.rb_fitPoly);
+            this.panel1.Controls.Add(this.rb_fitNoroozi);
+            this.panel1.Controls.Add(this.nUpDown_order);
+            this.panel1.Location = new System.Drawing.Point(6, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 51);
+            this.panel1.TabIndex = 6;
+            // 
+            // rb_fitPoly
+            // 
+            this.rb_fitPoly.AutoSize = true;
+            this.rb_fitPoly.Checked = true;
+            this.rb_fitPoly.Location = new System.Drawing.Point(8, 6);
+            this.rb_fitPoly.Name = "rb_fitPoly";
+            this.rb_fitPoly.Size = new System.Drawing.Size(104, 17);
+            this.rb_fitPoly.TabIndex = 4;
+            this.rb_fitPoly.TabStop = true;
+            this.rb_fitPoly.Text = "Polynomial Order";
+            this.rb_fitPoly.UseVisualStyleBackColor = true;
+            this.rb_fitPoly.CheckedChanged += new System.EventHandler(this.rb_fitFunction_CheckedChanged);
+            // 
+            // rb_fitNoroozi
+            // 
+            this.rb_fitNoroozi.AutoSize = true;
+            this.rb_fitNoroozi.Location = new System.Drawing.Point(8, 28);
+            this.rb_fitNoroozi.Name = "rb_fitNoroozi";
+            this.rb_fitNoroozi.Size = new System.Drawing.Size(115, 17);
+            this.rb_fitNoroozi.TabIndex = 5;
+            this.rb_fitNoroozi.Text = "Noroozi B-Function";
+            this.rb_fitNoroozi.UseVisualStyleBackColor = true;
+            this.rb_fitNoroozi.CheckedChanged += new System.EventHandler(this.rb_fitFunction_CheckedChanged);
+            // 
+            // nUpDown_order
+            // 
+            this.nUpDown_order.Location = new System.Drawing.Point(118, 5);
+            this.nUpDown_order.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nUpDown_order.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nUpDown_order.Name = "nUpDown_order";
+            this.nUpDown_order.Size = new System.Drawing.Size(51, 20);
+            this.nUpDown_order.TabIndex = 1;
+            this.nUpDown_order.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.nUpDown_order.ValueChanged += new System.EventHandler(this.nUpDown_order_ValueChanged);
+            // 
+            // pl_curveFit
+            // 
+            this.pl_curveFit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pl_curveFit.Location = new System.Drawing.Point(356, 9);
+            this.pl_curveFit.Name = "pl_curveFit";
+            this.pl_curveFit.Size = new System.Drawing.Size(425, 195);
+            this.pl_curveFit.TabIndex = 0;
+            // 
             // lb_numVerticesReduced
             // 
             this.lb_numVerticesReduced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -5499,6 +5587,10 @@ namespace OrthoAid_3DSimulator
             this.tab_Distance2Plane.PerformLayout();
             this.tab_SuperInclin.ResumeLayout(false);
             this.tab_SuperInclin.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDown_order)).EndInit();
             this.gb_weight.ResumeLayout(false);
             this.gb_weight.PerformLayout();
             this.toolboxPanel_p.ResumeLayout(false);
@@ -5950,7 +6042,13 @@ namespace OrthoAid_3DSimulator
         private System.Windows.Forms.Panel toolboxPanel_p;
         private System.Windows.Forms.Button collapse_b;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button expand_b;        
+        private System.Windows.Forms.Button expand_b;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Panel pl_curveFit;
+        private System.Windows.Forms.NumericUpDown nUpDown_order;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton rb_fitPoly;
+        private System.Windows.Forms.RadioButton rb_fitNoroozi;
     }
 }
 
