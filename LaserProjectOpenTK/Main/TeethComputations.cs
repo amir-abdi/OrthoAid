@@ -32,20 +32,27 @@ namespace OrthoAid_3DSimulator
         
         Common.Plane[] Planes1; //TeethAxisPlane + OcclusalPlane + SagitalPlane
         Common.Plane[] Planes2; //TeethAxisPlane + OcclusalPlane + SagitalPlane
+        List<Common.Plane[]> Planes;
         Common.Plane[] PlanesRelative;
         const int OCCLUSALPLANE_INDEX = 33;
         const int SAGITALPLANE_INDEX = 34;
+        const int CURVEPLANE_INDEX = 35;
         const float TANGENT_LINE_LENGTH = 20;
-               
+        const int NUM_CHECKBOXES = 39;               
         const float PLANE_DRAW_RADIUS_TOOTH = 10;
         const float PLANE_DRAW_RADIUS_OTHER = 50;
         const float TANGENT_VECTOR_LENGTH = 7;
+        Dictionary<int, int> Plane_CB1 = new Dictionary<int, int>();
+        Dictionary<int, int> Plane_CB2 = new Dictionary<int, int>();
+        List<Dictionary<int, int>> Plane_CB;
 
         Common.Dislocation[] Dislocations;
         Common.DistanceToPlane[] Distance2OcclusalPlane1;
         Common.DistanceToPlane[] Distance2SagitalPlane1;
         Common.DistanceToPlane[] Distance2OcclusalPlane2;
         Common.DistanceToPlane[] Distance2SagitalPlane2;
+        List<Common.DistanceToPlane[]> Distance2SagitalPlane;
+        List<Common.DistanceToPlane[]> Distance2OcclusalPlane;
 
         private void CalculateDisLocation(int selectedToothIndex)
         {
@@ -66,7 +73,7 @@ namespace OrthoAid_3DSimulator
         }
 
         private bool DefineTeethPlaneAndTangentLine(Common.Vbo handle, ref Common.Plane toothAxisPlane, 
-            int selectedToothIndex, ref Common.Plane[] Planes)
+            int selectedToothIndex,  Common.Plane[] Planes)
         {
             try
             {
@@ -176,22 +183,28 @@ namespace OrthoAid_3DSimulator
         private void InitTeethBoxes()
         {                      
             t = new Label[37];
-            tcb = new CheckBox[37];
+            tcb = new CheckBox[NUM_CHECKBOXES];
             tvalues1 = new Label[33];
             tvalues2 = new Label[33];
             tvalues3 = new Label[33];
             tvalues4 = new Label[33];
             tvalues5 = new Label[33];
             tvalues6 = new Label[33];
-            tvalues7 = new Label[33];        
-            Planes1 = new Common.Plane[35];
-            Planes2 = new Common.Plane[35];
-            PlanesRelative = new Common.Plane[35];
+            tvalues7 = new Label[33];
+
+            Planes1 = new Common.Plane[CURVEPLANE_INDEX+1];
+            Planes2 = new Common.Plane[CURVEPLANE_INDEX+1];
+            PlanesRelative = new Common.Plane[CURVEPLANE_INDEX+1];
+            Planes = new List<Common.Plane[]>() { Planes1, Planes2, PlanesRelative };
+
             Dislocations = new Common.Dislocation[33];
             Distance2OcclusalPlane1 = new Common.DistanceToPlane[33];
             Distance2SagitalPlane1 = new Common.DistanceToPlane[33];
             Distance2OcclusalPlane2 = new Common.DistanceToPlane[33];
             Distance2SagitalPlane2 = new Common.DistanceToPlane[33];
+            Distance2SagitalPlane = new List<Common.DistanceToPlane[]>() { Distance2SagitalPlane1, Distance2SagitalPlane2 };
+            Distance2OcclusalPlane = new List<Common.DistanceToPlane[]>() { Distance2OcclusalPlane1, Distance2OcclusalPlane2 };
+
             weightTextBoxex = new TextBox[12];
 
             t[1] = t1; t[2] = t2; t[3] = t3; t[4] = t4; t[5] = t5; t[6] = t6; t[7] = t7; t[8] = t8; t[9] = t9; t[10] = t10;
@@ -209,6 +222,8 @@ namespace OrthoAid_3DSimulator
             tcb[34] = cb_saggitalPlane1;
             tcb[35] = cb_occlusalPlane2;
             tcb[36] = cb_saggitalPlane2;
+            tcb[37] = cb_curvePlane1;
+            tcb[38] = cb_curvePlane2;
 
             //Inclication
             tvalues1[1] = v1t1; tvalues1[2] = v1t2; tvalues1[3] = v1t3; tvalues1[4] = v1t4; tvalues1[5] = v1t5; tvalues1[6] = v1t6; tvalues1[7] = v1t7; tvalues1[8] = v1t8; tvalues1[9] = v1t9; tvalues1[10] = v1t10;
@@ -262,12 +277,14 @@ namespace OrthoAid_3DSimulator
             //projectedPointsOnAxisPlane = new List<Vector3>[33];
             //tangentLinePoints = new List<Vector3>[33];
 
-            for (int i = 0; i <= SAGITALPLANE_INDEX; i++)
+            for (int i = 0; i <= CURVEPLANE_INDEX; i++)
             {
-                Planes1[i] = null;
-                Planes2[i] = null;
-                PlanesRelative[i] = null;
+                Planes[0][i] = null;
+                Planes[1][i] = null;
+                Planes[2][i] = null;
             }
+            
+
             //for (int i = 0; i < OCCLUSALPLANE_INDEX; i++)
             //{
             //    projectedPointsOnAxisPlane[i] = null;
@@ -642,6 +659,7 @@ namespace OrthoAid_3DSimulator
             }
 
             plane = new Common.Plane(verts[sel[0]], verts[sel[1]], verts[sel[2]], "occlusal " + planeNumber.ToString(), PLANE_DRAW_RADIUS_OTHER);
+            plane.valid = true;
             return true;
         }
 
@@ -672,7 +690,7 @@ namespace OrthoAid_3DSimulator
 
         private void DisableAllCheckBoxes()
         {
-            for (int i = 1; i <= SAGITALPLANE_INDEX; ++i)
+            for (int i = 1; i < NUM_CHECKBOXES; ++i)
             {
                 tcb[i].Enabled = false;
                 tcb[i].Checked = false;
@@ -681,82 +699,62 @@ namespace OrthoAid_3DSimulator
 
         private void UpdateTeethAndPlanesUI()
         {
-            if (Planes1[OCCLUSALPLANE_INDEX] != null && Planes2[OCCLUSALPLANE_INDEX] != null)
-                lb_occlusalPlanesAngle.Text = Planes1[OCCLUSALPLANE_INDEX].Angle2Plane(Planes2[OCCLUSALPLANE_INDEX]).ToString("f2");            
+            //angle between occlusal planes
+            if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[1][OCCLUSALPLANE_INDEX] != null)
+                lb_occlusalPlanesAngle.Text = Planes[0][OCCLUSALPLANE_INDEX].Angle2Plane(Planes[1][OCCLUSALPLANE_INDEX]).ToString("f2");
 
             //Inclination Tab --> CheckBoxes
-            if (GetSelectedVbOIndex() == 1)
-                for (int i = 1; i <= 32; ++i)
-                {
-                    if (Planes1[i] != null && Planes1[i].valid)
-                    {
-                        tcb[i].Enabled = true;
-                        //tcb[i].Checked = true;
-                    }
-                    else
-                    {
-                        tcb[i].Enabled = false;
-                        tcb[i].Checked = false;
-                    }
-                }
+            int vboind = GetSelectedVbOIndex();
+            if (vboind == 0)
+                return;
 
-            else
+            for (int i = 1; i <= 32; ++i)
             {
-                for (int i = 1; i <= 32; ++i)
+                if (Planes[vboind-1][i] != null && Planes[vboind-1][i].valid)
                 {
-                    if (Planes2[i] != null && Planes2[i].valid)
-                    {
-                        tcb[i].Enabled = true;
-                        //tcb[i].Checked = true;
-                    }
-                    else
-                    {
-                        tcb[i].Enabled = false;
-                        tcb[i].Checked = false;
-                    }
+                    tcb[i].Enabled = true;
+                    tcb[i].Checked = true;
+                }
+                else
+                {
+                    tcb[i].Enabled = false;
+                    tcb[i].Checked = false;
                 }
             }
-
 
             //Handling Occlusal/Sagital Checkboxes separately because of the index numbers in the arrays!
-            if (Planes1[OCCLUSALPLANE_INDEX] != null && Planes1[OCCLUSALPLANE_INDEX].valid)
-                tcb[33].Enabled = true;
+            if (Planes[vboind-1][OCCLUSALPLANE_INDEX] != null && Planes[vboind-1][OCCLUSALPLANE_INDEX].valid)
+                tcb[Plane_CB[vboind-1][OCCLUSALPLANE_INDEX]].Enabled = true;
             else
             {
-                tcb[33].Enabled = false;
-                tcb[33].Checked = false;
+                tcb[Plane_CB[vboind-1][OCCLUSALPLANE_INDEX]].Enabled = false;
+                tcb[Plane_CB[vboind-1][OCCLUSALPLANE_INDEX]].Checked = false;
             }
             
-            if (Planes1[SAGITALPLANE_INDEX] != null && Planes1[SAGITALPLANE_INDEX].valid)
-                tcb[34].Enabled = true;
+            if (Planes[vboind-1][SAGITALPLANE_INDEX] != null && Planes[vboind-1][SAGITALPLANE_INDEX].valid)
+                tcb[Plane_CB[vboind-1][SAGITALPLANE_INDEX]].Enabled = true;
             else
             {
-                tcb[34].Enabled = false;
-                tcb[34].Checked = false;
+                tcb[Plane_CB[vboind-1][SAGITALPLANE_INDEX]].Enabled = false;
+                tcb[Plane_CB[vboind-1][SAGITALPLANE_INDEX]].Checked = false;
             }
-            if (Planes2[OCCLUSALPLANE_INDEX] != null && Planes2[OCCLUSALPLANE_INDEX].valid)
-                tcb[35].Enabled = true;
+            if (Planes[vboind-1][CURVEPLANE_INDEX] != null && Planes[vboind-1][CURVEPLANE_INDEX].valid)
+                tcb[Plane_CB[vboind-1][CURVEPLANE_INDEX]].Enabled = true;
             else
             {
-                tcb[35].Enabled = false;
-                tcb[35].Checked = false;
+                tcb[Plane_CB[vboind-1][CURVEPLANE_INDEX]].Enabled = false;
+                tcb[Plane_CB[vboind-1][CURVEPLANE_INDEX]].Checked = false;
             }
-            if (Planes2[SAGITALPLANE_INDEX] != null && Planes2[SAGITALPLANE_INDEX].valid)
-                tcb[36].Enabled = true;
-            else
-            {
-                tcb[36].Enabled = false;
-                tcb[36].Checked = false;
-            }
+            
 
             //Inclination Tab --> Values
             if (GetSelectedVbOIndex() == 2)
             {
                 for (int i = 1; i < OCCLUSALPLANE_INDEX; ++i)
                 {
-                    if (Planes2[i] != null && Planes2[i].validInclination)
+                    if (Planes[1][i] != null && Planes[1][i].validInclination)
                     {
-                        tvalues1[i].Text = Planes2[i].inclination.ToString("f2");
+                        tvalues1[i].Text = Planes[1][i].inclination.ToString("f2");
                     }
                     else
                         tvalues1[i].Text = "0";
@@ -766,9 +764,9 @@ namespace OrthoAid_3DSimulator
             {
                 for (int i = 1; i < OCCLUSALPLANE_INDEX; ++i)
                 {
-                    if (Planes1[i] != null && Planes1[i].validInclination)
+                    if (Planes[0][i] != null && Planes[0][i].validInclination)
                     {
-                        tvalues1[i].Text = Planes1[i].inclination.ToString("f2");
+                        tvalues1[i].Text = Planes[0][i].inclination.ToString("f2");
                     }
                     else
                         tvalues1[i].Text = "0";
@@ -825,19 +823,19 @@ namespace OrthoAid_3DSimulator
             //Superimposed Inclination tab
             for (int i = 1; i <= 32; ++i)
             {
-                if (Planes1[i] != null && Planes1[i].validInclination)                
-                    tvalues5[i].Text = Planes1[i].inclination.ToString("f2");                
+                if (Planes[0][i] != null && Planes[0][i].validInclination)                
+                    tvalues5[i].Text = Planes[0][i].inclination.ToString("f2");                
                 else
                     tvalues5[i].Text = "0";
-                if (Planes2[i] != null && Planes2[i].validInclination)
-                    tvalues6[i].Text = Planes2[i].inclination.ToString("f2");
+                if (Planes[1][i] != null && Planes[1][i].validInclination)
+                    tvalues6[i].Text = Planes[1][i].inclination.ToString("f2");
                 else
                     tvalues6[i].Text = "0";
 
-                if (Planes1[OCCLUSALPLANE_INDEX] != null && Planes1[OCCLUSALPLANE_INDEX].valid &&
-                    Planes2[i] != null && Planes2[i].validInclination &&
-                    PlanesRelative[i] != null && PlanesRelative[i].validInclination)
-                    tvalues7[i].Text = PlanesRelative[i].inclination.ToString("f2");
+                if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[0][OCCLUSALPLANE_INDEX].valid &&
+                    Planes[1][i] != null && Planes[1][i].validInclination &&
+                    Planes[2][i] != null && Planes[2][i].validInclination)
+                    tvalues7[i].Text = Planes[2][i].inclination.ToString("f2");
                 else
                     tvalues7[i].Text = "0";
             }
@@ -863,7 +861,8 @@ namespace OrthoAid_3DSimulator
                 MessageBox.Show("To define a Sagital Plane, first define the Occlusal Plane, then select 2 points on the midline.", "Wrong number of selected points");
                 return false;
             }
-            plane = new Common.Plane(verts[sel[0]], verts[sel[1]], occlusalPlane.GetNormal());            
+            plane = new Common.Plane(verts[sel[0]], verts[sel[1]], occlusalPlane.GetNormal());
+            plane.valid = true;
             return true;
         }
         
@@ -871,8 +870,8 @@ namespace OrthoAid_3DSimulator
         {
             if ((handle.selectedVertices.Count != 1))
             {
-                if ((selectedIndex == 1 && (Planes1[OCCLUSALPLANE_INDEX] == null || Planes1[SAGITALPLANE_INDEX] == null)) ||
-                    (selectedIndex == 2 && (Planes2[OCCLUSALPLANE_INDEX] == null || Planes2[SAGITALPLANE_INDEX] == null)))
+                if ((selectedIndex == 1 && (Planes[0][OCCLUSALPLANE_INDEX] == null || Planes[0][SAGITALPLANE_INDEX] == null)) ||
+                    (selectedIndex == 2 && (Planes[1][OCCLUSALPLANE_INDEX] == null || Planes[1][SAGITALPLANE_INDEX] == null)))
                 {
                     MessageBox.Show("After defining the Occlusal/Sagital Plane, select a tooth and a cusp tip to calculate the distance from the cusp tip to the defined plane.", "Wrong number of points");
                     return;
@@ -886,29 +885,29 @@ namespace OrthoAid_3DSimulator
 
             if (GetSelectedVbOIndex() == 1)
             {
-                if (Planes1[OCCLUSALPLANE_INDEX] != null && Planes1[OCCLUSALPLANE_INDEX].valid)
+                if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[0][OCCLUSALPLANE_INDEX].valid)
                 {
-                    Distance2OcclusalPlane1[selectedIndex].length = (float)Planes1[OCCLUSALPLANE_INDEX].Distance2Point(verts[sel[0]]);
+                    Distance2OcclusalPlane1[selectedIndex].length = (float)Planes[0][OCCLUSALPLANE_INDEX].Distance2Point(verts[sel[0]]);
                     Distance2OcclusalPlane1[selectedIndex].valid = true;
                 }
 
-                if (Planes1[SAGITALPLANE_INDEX] != null && Planes1[SAGITALPLANE_INDEX].valid)
+                if (Planes[0][SAGITALPLANE_INDEX] != null && Planes[0][SAGITALPLANE_INDEX].valid)
                 {
-                    Distance2SagitalPlane1[selectedIndex].length = (float)Planes1[SAGITALPLANE_INDEX].Distance2Point(verts[sel[0]]);
+                    Distance2SagitalPlane1[selectedIndex].length = (float)Planes[0][SAGITALPLANE_INDEX].Distance2Point(verts[sel[0]]);
                     Distance2SagitalPlane1[selectedIndex].valid = true;
                 }
             }
             else if (GetSelectedVbOIndex() == 2)
             {
-                if (Planes2[OCCLUSALPLANE_INDEX] != null && Planes2[OCCLUSALPLANE_INDEX].valid)
+                if (Planes[1][OCCLUSALPLANE_INDEX] != null && Planes[1][OCCLUSALPLANE_INDEX].valid)
                 {
-                    Distance2OcclusalPlane2[selectedIndex].length = (float)Planes2[OCCLUSALPLANE_INDEX].Distance2Point(verts[sel[0]]);
+                    Distance2OcclusalPlane2[selectedIndex].length = (float)Planes[1][OCCLUSALPLANE_INDEX].Distance2Point(verts[sel[0]]);
                     Distance2OcclusalPlane2[selectedIndex].valid = true;
                 }
 
-                if (Planes2[SAGITALPLANE_INDEX] != null && Planes2[SAGITALPLANE_INDEX].valid)
+                if (Planes[1][SAGITALPLANE_INDEX] != null && Planes[1][SAGITALPLANE_INDEX].valid)
                 {
-                    Distance2SagitalPlane2[selectedIndex].length = (float)Planes2[SAGITALPLANE_INDEX].Distance2Point(verts[sel[0]]);
+                    Distance2SagitalPlane2[selectedIndex].length = (float)Planes[1][SAGITALPLANE_INDEX].Distance2Point(verts[sel[0]]);
                     Distance2SagitalPlane2[selectedIndex].valid = true;
                 }
             }

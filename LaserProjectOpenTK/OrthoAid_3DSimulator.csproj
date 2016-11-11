@@ -153,7 +153,7 @@
       <DependentUpon>MeshInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -270,7 +270,18 @@
     <Content Include="lib\OpenTK.Compatibility.dll" />
     <Content Include="lib\OpenTK.dll" />
     <Content Include="lib\OpenTK.GLControl.dll" />
+    <EmbeddedResource Include="wire_polynomials\man_1.txt" />
+    <EmbeddedResource Include="wire_polynomials\man_2.txt" />
+    <EmbeddedResource Include="wire_polynomials\man_3.txt" />
+    <EmbeddedResource Include="wire_polynomials\man_4.txt" />
+    <EmbeddedResource Include="wire_polynomials\man_5.txt" />
+    <EmbeddedResource Include="wire_polynomials\max_1.txt" />
+    <EmbeddedResource Include="wire_polynomials\max_2.txt" />
+    <EmbeddedResource Include="wire_polynomials\max_3.txt" />
+    <EmbeddedResource Include="wire_polynomials\max_4.txt" />
+    <EmbeddedResource Include="wire_polynomials\max_5.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

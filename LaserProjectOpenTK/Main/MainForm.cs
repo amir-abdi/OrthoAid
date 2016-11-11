@@ -38,11 +38,24 @@ namespace OrthoAid_3DSimulator
                     control.KeyDown += MainForm_KeyDown;
                     control.KeyUp += MainForm_KeyUp;                    
                 }
-            }
+            }            
         }
-        
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+            InitTeethBoxes();
+
+            Plane_CB1.Add(OCCLUSALPLANE_INDEX, 33);
+            Plane_CB1.Add(SAGITALPLANE_INDEX, 34);
+            Plane_CB1.Add(CURVEPLANE_INDEX, 37);
+            Plane_CB2.Add(OCCLUSALPLANE_INDEX, 35);
+            Plane_CB2.Add(SAGITALPLANE_INDEX, 36);
+            Plane_CB2.Add(CURVEPLANE_INDEX, 38);
+            Plane_CB = new List<Dictionary<int, int>>() { Plane_CB1, Plane_CB2 };
+
+            WirePolynomials[0] = new Common.PolynomialParametric2DCurve[7]; //mandible
+            WirePolynomials[1] = new Common.PolynomialParametric2DCurve[7]; //maxilla
+
             toolStripMenu.ImageScalingSize = new Size(32, 32);
 
             this.MouseWheel += MouseWheel_UpDown;
@@ -84,6 +97,7 @@ namespace OrthoAid_3DSimulator
             this.KeyPreview = true;
 
             SetFeatureToAllControls(this.Controls);
+
         }
 
         private void SetFeatureToAllControls(Control.ControlCollection cc)
@@ -551,115 +565,98 @@ namespace OrthoAid_3DSimulator
 
         private void b_Calculate_Click(object sender, EventArgs e)
         {
-            if (tab_Maintab.SelectedIndex == 4)
+
+            switch (tab_Maintab.SelectedIndex)
             {
-                switch (tab_Maintab.SelectedIndex)
-                {
-                    case 4:
-                        //Curve Fit
-                        CalculateCurveFit(GetSelectedVBO());
-                        
-                        break;
-                }
-
-                UpdateTeethAndPlanesUI();
-                return;
-            }
-
-
-            if (selectedIndex < 1 || selectedIndex > 34)
-            {
-                MessageBox.Show("No Tooth or Plane Selected. Select a tooth or plane first.", "Error in Calculation");
-                return;
-            }
-
-            if (selectedIndex >= 1 && selectedIndex <= 32)
-            {
-                switch (tab_Maintab.SelectedIndex)
-                {                    
-                    case 0:
-                    case 3:
-                        //Inclination
-                        if (GetSelectedVbOIndex() == 1)
-                        {
-                            if (DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes1[selectedIndex], selectedIndex, ref Planes1))
-                                tcb[selectedIndex].Checked = true;
-                        }
-                        else if (GetSelectedVbOIndex() == 2)
-                        {
-                            if (DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes2[selectedIndex], selectedIndex, ref Planes2))
-                                tcb[selectedIndex].Checked = true;
-
-                            if (Planes1[OCCLUSALPLANE_INDEX] != null && Planes1[OCCLUSALPLANE_INDEX].valid)
-                                DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref PlanesRelative[selectedIndex], selectedIndex, ref Planes1);                            
-                        }
-
-                        break;
-                    case 1:
-                        //Dislocation
-                        CalculateDisLocation(this.selectedIndex);
-                        break;
-                    case 2:
-                        //Distance to Plane
-                        CalculateDistanceToPlane(GetSelectedVBO(), this.selectedIndex);
-                        break;
-                    /*case 3:
-                        //Superimposed Inclination
-                        if (GetSelectedVbOIndex() == 1)
-                        {
-                            DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes1[selectedIndex], selectedIndex, ref Planes1);
-                                
-                        }
-                        else if (GetSelectedVbOIndex() == 2)
-                        {
-                            DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes2[selectedIndex], selectedIndex, ref Planes2);
-
-                            if (Planes1[OCCLUSALPLANE_INDEX] != null && Planes1[OCCLUSALPLANE_INDEX].valid)
-                                DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref PlanesRelative[selectedIndex], selectedIndex, ref Planes1);                            
-                        }
-                        break;*/
-                        
-                }
-            }
-            else if (selectedIndex == OCCLUSALPLANE_INDEX)
-            {
-                if (GetSelectedVbOIndex() == 1)
-                {
-                    if (DefineOcclusalPlane(GetSelectedVBO(), ref Planes1[selectedIndex], selectedIndex))
+                case 0: // planes
+                    int vboind = GetSelectedVbOIndex();
+                    if (selectedIndex == OCCLUSALPLANE_INDEX)
                     {
-                        UpdateTeethAndPlanesUI();
-                        tcb[selectedIndex].Checked = true;
+                        if (DefineOcclusalPlane(GetSelectedVBO(), ref Planes[vboind-1][selectedIndex], selectedIndex))
+                        {
+                            UpdateTeethAndPlanesUI();
+                            tcb[Plane_CB[vboind-1][OCCLUSALPLANE_INDEX]].Checked = true;
+                        }
                     }
-                }
-                else
-                {
-                    if (DefineOcclusalPlane(GetSelectedVBO(), ref Planes2[selectedIndex], selectedIndex))
+                    else if (selectedIndex == SAGITALPLANE_INDEX)
                     {
-                        UpdateTeethAndPlanesUI();
-                        tcb[selectedIndex+2].Checked = true;
+                        if (DefineSagitalPlane(GetSelectedVBO(), ref Planes[vboind-1][selectedIndex], selectedIndex, Planes[vboind-1][OCCLUSALPLANE_INDEX]))
+                        {
+                            UpdateTeethAndPlanesUI();
+                            tcb[Plane_CB[vboind-1][SAGITALPLANE_INDEX]].Checked = true;
+                        }
                     }
-                }
+                    break;                    
+                case 5:
+                    //Curve Fit
+                    int num = GetSelectedVBO().selectedVertices.Count;
+                    if (num < 2)
+                    {
+                        MessageBox.Show("At least 2 points needs to be selected in order to fit a polynomial curve.", "Error in Curve Fitting");
+                        return;
+                    }
+                    CalculateCurveFit(GetSelectedVBO());
+                    break;
+                case 1: //inclination
+                case 2: //dislocation
+                case 3: //distance to plane
+                case 4: //superimposed inclination                   
+                    if (selectedIndex < 1 || selectedIndex > 34)
+                    {
+                        MessageBox.Show("No Tooth or Plane Selected. Select a tooth or plane first.", "Error in Calculation");
+                        return;
+                    }
+
+                    if (selectedIndex >= 1 && selectedIndex <= 32)
+                    {
+                        switch (tab_Maintab.SelectedIndex)
+                        {
+                            case 1:
+                            case 4:
+                                //Inclination
+                                if (GetSelectedVbOIndex() == 1)
+                                {
+                                    if (DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[0][selectedIndex], selectedIndex, Planes[0]))
+                                        tcb[selectedIndex].Checked = true;
+                                }
+                                else if (GetSelectedVbOIndex() == 2)
+                                {
+                                    if (DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[1][selectedIndex], selectedIndex,  Planes[1]))
+                                        tcb[selectedIndex].Checked = true;
+
+                                    if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[0][OCCLUSALPLANE_INDEX].valid)
+                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[2][selectedIndex], selectedIndex, Planes[0]);
+                                }
+
+                                break;
+                            case 2:
+                                //Dislocation
+                                CalculateDisLocation(this.selectedIndex);
+                                break;
+                            case 3:
+                                //Distance to Plane
+                                CalculateDistanceToPlane(GetSelectedVBO(), this.selectedIndex);
+                                break;
+                                /*case 3:
+                                    //Superimposed Inclination
+                                    if (GetSelectedVbOIndex() == 1)
+                                    {
+                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[0][selectedIndex], selectedIndex, ref Planes[0]);
+
+                                    }
+                                    else if (GetSelectedVbOIndex() == 2)
+                                    {
+                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[1][selectedIndex], selectedIndex, ref Planes[1]);
+
+                                        if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[0][OCCLUSALPLANE_INDEX].valid)
+                                            DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[2][selectedIndex], selectedIndex, ref Planes[0]);                            
+                                    }
+                                    break;*/
+
+                        }
+                    }                    
+                    break; //case 3
             }
-            else if (selectedIndex == SAGITALPLANE_INDEX)
-            {
-                if (GetSelectedVbOIndex() == 1)
-                {
-                    if (DefineSagitalPlane(GetSelectedVBO(), ref Planes1[selectedIndex], selectedIndex, Planes1[OCCLUSALPLANE_INDEX]))
-                    {
-                        UpdateTeethAndPlanesUI();
-                        tcb[selectedIndex].Checked = true;
-                    }
-                }
-                else
-                {
-                    if (DefineSagitalPlane(GetSelectedVBO(), ref Planes2[selectedIndex], selectedIndex, Planes2[OCCLUSALPLANE_INDEX]))
-                    {
-                        UpdateTeethAndPlanesUI();
-                        tcb[selectedIndex+2].Checked = true;
-                    }
-                }
-            }
-            
             UpdateTeethAndPlanesUI();
         }
 
@@ -798,13 +795,14 @@ namespace OrthoAid_3DSimulator
 
         private void saveCalculations_ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DirectoryCheck("Calculations");
+            //DirectoryCheck("Calculations");
 
             try
             {
                 SaveFileDialog sfd = new SaveFileDialog();
-                sfd.InitialDirectory = Directory.GetCurrentDirectory() + "\\Calculations";
-                
+                //sfd.InitialDirectory = Directory.GetCurrentDirectory() + "\\Calculations";
+                string addr = config.lastLoadedMeshFileAddress1;
+                sfd.InitialDirectory = Directory.GetParent(addr).FullName;
                 /*switch (GetSelectedVbOIndex())
                 {
                     case 1:
@@ -896,12 +894,14 @@ namespace OrthoAid_3DSimulator
 
         private void loadCalculations_ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DirectoryCheck("Calculations");
+            //DirectoryCheck("Calculations");
 
             try
             {
                 OpenFileDialog lfd = new OpenFileDialog();
-                lfd.InitialDirectory = Directory.GetCurrentDirectory() + "\\Calculations";
+                //lfd.InitialDirectory = Directory.GetCurrentDirectory() + "\\Calculations";
+                string addr = config.lastLoadedMeshFileAddress1;
+                lfd.InitialDirectory = Directory.GetParent(addr).FullName;
 
                 switch (GetSelectedVbOIndex())
                 {
@@ -1485,9 +1485,9 @@ namespace OrthoAid_3DSimulator
 
             for (int i = 1; i <= 34; i++)
             {
-                Planes1[i] = null;
-                Planes2[i] = null;
-                PlanesRelative[i] = null;
+                Planes[0][i] = null;
+                Planes[1][i] = null;
+                Planes[2][i] = null;
             }
 
             UpdateTeethAndPlanesUI();
@@ -1622,12 +1622,19 @@ All Rights Preserved.", "OrthoAid V2.0");
 
         private void tab_Maintab_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tab_Maintab.SelectedIndex == 4)
+            switch (tab_Maintab.SelectedIndex)
             {
-                gb_teeh.Visible = false;
-            }
-            else
-                gb_teeh.Visible = true;
+                case 0: //planes
+                case 5: //curve fit
+                    gb_teeh.Visible = false;
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    gb_teeh.Visible = true;
+                    break;
+            }            
         }
 
         private void b_cleftProj_Click(object sender, EventArgs e)
@@ -1655,5 +1662,6 @@ All Rights Preserved.", "OrthoAid V2.0");
             else if (rb_fitNoroozi.Checked)
                 config.fitFunction = Common.FitFunction.noroozi;
         }
+
     }
 }

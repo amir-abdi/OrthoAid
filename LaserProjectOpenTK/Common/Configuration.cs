@@ -10,6 +10,8 @@ namespace OrthoAid_3DSimulator.Common
 {
     public class Configuration
     {
+        public int NumWires = 5;
+
         public FitFunction fitFunction = FitFunction.polynomial;        
         public decimal polynomialFitOrder = 4;
 

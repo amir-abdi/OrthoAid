@@ -110,18 +110,18 @@ namespace OrthoAid_3DSimulator
             Vector3[] pointsOnSurface_approx_projected = new Vector3[pointsOnSurface_approx_index.Count];
             for (int i = 0; i < pointsOnSurface_approx_index.Count; i++)
             {
-                pointsOnSurface_approx_projected[i] = Planes1[OCCLUSALPLANE_INDEX].ProjectPointOnPlane
+                pointsOnSurface_approx_projected[i] = Planes[0][OCCLUSALPLANE_INDEX].ProjectPointOnPlane
                     (handle.verticesData.vertices[pointsOnSurface_approx_index[i]]);
             }
 
             Vector3 rotationAxis_Horizontal;
             float rotationDegree;
-            Planes1[OCCLUSALPLANE_INDEX].RotationAxisAndDegreeToMakePlaneHorizontal(out rotationAxis_Horizontal, out rotationDegree);
+            Planes[0][OCCLUSALPLANE_INDEX].RotationAxisAndDegreeToMakePlaneHorizontal(out rotationAxis_Horizontal, out rotationDegree);
             
             Vector3[] horizPoints = Common.Plane.RotatePointsAroundAxis(pointsOnSurface_approx_projected,
                 rotationAxis_Horizontal, rotationDegree);
 
-            Vector3[] selectProjected = Planes1[OCCLUSALPLANE_INDEX].ProjectPointOnPlane(select);
+            Vector3[] selectProjected = Planes[0][OCCLUSALPLANE_INDEX].ProjectPointOnPlane(select);
             Vector3[] horizSelectPoints = Common.Plane.RotatePointsAroundAxis(selectProjected,
                 rotationAxis_Horizontal, rotationDegree);
 

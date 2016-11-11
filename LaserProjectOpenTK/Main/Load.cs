@@ -94,13 +94,12 @@ namespace OrthoAid_3DSimulator
             //if (flags.RandomColorEnable == true)
             //    GL.EnableClientState(ArrayCap.ColorArray);
             GL.EnableClientState(ArrayCap.VertexArray);
-            
+
 
             //Select            
             //selectBuffer = new uint[selectBufferSize];
             //initBackFrameBuffer();
 
-            InitTeethBoxes();
 
             openGLInitiated = true;
             Common.Logger.Log_GLError("MainForm", "OpenGL", "glControlCast_Load");
@@ -450,7 +449,7 @@ namespace OrthoAid_3DSimulator
             Application.Idle += Application_Idle;
 
             InitVerticesStats(ref handle);
-            InitTeethBoxes();
+            //InitTeethBoxes();
 
             if (handle.vboName == "vbo1")
             {

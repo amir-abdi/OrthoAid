@@ -17,6 +17,15 @@ namespace OrthoAid_3DSimulator.Common
     public enum SuperimposeChoise { Order, YDir, Equal };
     public enum FitFunction { polynomial, noroozi};
 
+    public struct PolynomialParametric2DCurve
+    {
+        public MathNet.Numerics.LinearAlgebra.Double.DenseVector CoeffsX;
+        public MathNet.Numerics.LinearAlgebra.Double.DenseVector CoeffsY;
+        public double minT, maxT;
+        public int degree;
+        public FitFunction fitFunction;
+    }
+
     public struct CalculationResults
     {
         public Dislocation[] dislocation;

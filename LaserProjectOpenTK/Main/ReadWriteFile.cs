@@ -11,6 +11,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Platform;
 using System.Xml.Serialization;
 using Microsoft.Office.Interop.Excel;
+using System.Reflection;
 
 
 namespace OrthoAid_3DSimulator
@@ -25,6 +26,8 @@ namespace OrthoAid_3DSimulator
 
         private void AutoLoadFiles()
         {
+            ReadWirePolynomials();
+
             if (config.lastLoadedMeshFileAddress1 != "empty" && File.Exists(config.lastLoadedMeshFileAddress1))
             {
                 switch (config.lastLoadedMeshType1)
@@ -34,22 +37,16 @@ namespace OrthoAid_3DSimulator
                         break;
                     case "mesh":
                         LoadMesh(config.lastLoadedMeshFileAddress1, vbo1);
-                        
-                        string selectionFileAddress = Directory.GetCurrentDirectory() + "\\Selection\\" 
-                            + Path.GetFileNameWithoutExtension(config.lastLoadedMeshFileAddress1) + ".sel";
+                                                
                         string selectionFileAddressMain = Directory.GetParent(config.lastLoadedMeshFileAddress1).FullName +
                             "\\" + Path.GetFileNameWithoutExtension(config.lastLoadedMeshFileAddress1) + ".sel";
                         
                         if (File.Exists(selectionFileAddressMain))                            
                             ReadSelectionFile(selectionFileAddressMain, vbo1);
-                        else if (File.Exists(selectionFileAddress))
-                        {
-                            ReadSelectionFile(selectionFileAddress, vbo1);
-                        }
-                        //string calculationFileAddress = Directory.GetCurrentDirectory() + "\\Calculation"
-                        //    + Path.GetFileNameWithoutExtension(config.lastLoadedMeshFileAddress1) + ".cal";
-                        //if (File.Exists(calculationFileAddress))
-                        //    ReadCalculationResults_Cal(calculationFileAddress);
+                        string calculationFileAddress = Directory.GetParent(config.lastLoadedMeshFileAddress1).FullName +
+                            "\\" + Path.GetFileNameWithoutExtension(config.lastLoadedMeshFileAddress1) + ".cal";
+                        if (File.Exists(calculationFileAddress))
+                            ReadCalculationResults_Cal(calculationFileAddress);
                         break;
                 }
             }
@@ -70,18 +67,12 @@ namespace OrthoAid_3DSimulator
                         break;
                     case "mesh":
                         LoadMesh(config.lastLoadedMeshFileAddress2, vbo2);
-
-                        string selectionFileAddress = Directory.GetCurrentDirectory() + "\\Selection\\" 
-                            + Path.GetFileNameWithoutExtension(config.lastLoadedMeshFileAddress2) + ".sel";
+                        
                         string selectionFileAddressMain = Directory.GetParent(config.lastLoadedMeshFileAddress2).FullName +
                             "\\" + Path.GetFileNameWithoutExtension(config.lastLoadedMeshFileAddress2) + ".sel";
                         
                         if (File.Exists(selectionFileAddressMain))                            
                             ReadSelectionFile(selectionFileAddressMain, vbo2);
-                        else if (File.Exists(selectionFileAddress))
-                        {
-                            ReadSelectionFile(selectionFileAddress, vbo2);
-                        }
                         break;
                 }
             }
@@ -527,10 +518,10 @@ namespace OrthoAid_3DSimulator
         {
             Common.CalculationResults temp;
             if (handleID == 1)
-                temp = new Common.CalculationResults(Planes1, Dislocations, PlanesRelative,
+                temp = new Common.CalculationResults(Planes[0], Dislocations, Planes[2],
                     Distance2OcclusalPlane1, Distance2SagitalPlane1);
             else
-                temp = new Common.CalculationResults(Planes2, Dislocations, PlanesRelative,
+                temp = new Common.CalculationResults(Planes[1], Dislocations, Planes[2],
                     Distance2OcclusalPlane2, Distance2SagitalPlane2);
 
             MemoryStream ms = new MemoryStream();
@@ -559,9 +550,9 @@ namespace OrthoAid_3DSimulator
                 
                 //used to write calculation files separately. now I write only one txt calculation file
                 /*if (GetSelectedVbOIndex() == 1)
-                    P = Planes1;
+                    P = Planes[0];
                 else
-                    P = Planes2;*/          
+                    P = Planes[1];*/          
                 
                 //The following is commented, because reading the txt file seemed like a bad idea.
                 /*if (P[OCCLUSALPLANE_INDEX] != null && P[OCCLUSALPLANE_INDEX].valid)
@@ -579,7 +570,7 @@ namespace OrthoAid_3DSimulator
                 tw.Write("\n");
                 tw.WriteLine("Inclinations of Cast1");
                 tw.Write("ToothNo,inclination\n");                                
-                P = Planes1;
+                P = Planes[0];
                 for (int i = 1; i <= 32; i++)
                 {
                     if (P[i] != null && P[i].validInclination)
@@ -592,7 +583,7 @@ namespace OrthoAid_3DSimulator
                 tw.Write("\n");
                 tw.WriteLine("Inclinations of Cast2");
                 tw.Write("ToothNo,inclination\n");
-                P = Planes2;
+                P = Planes[1];
                 for (int i = 1; i <= 32; i++)
                 {
                     if (P[i] != null && P[i].validInclination)
@@ -607,9 +598,9 @@ namespace OrthoAid_3DSimulator
                 tw.Write("ToothNo,inclination\n");
                 for (int i = 1; i <= 32; i++)
                 {
-                    if (PlanesRelative[i] != null && PlanesRelative[i].validInclination)
+                    if (Planes[2][i] != null && Planes[2][i].validInclination)
                     {
-                        tw.Write(i.ToString() + "," + PlanesRelative[i].inclination.ToString() + "\n");
+                        tw.Write(i.ToString() + "," + Planes[2][i].inclination.ToString() + "\n");
                     }
                 }
 
@@ -630,7 +621,7 @@ namespace OrthoAid_3DSimulator
 
                 //Distance to Plane1
                 tw.Write("\n");
-                tw.WriteLine("Distance to Planes1");
+                tw.WriteLine("Distance to Planes[0]");
                 tw.WriteLine("ToothNo,Distance_Occlusal,Distance_Sagital");
                 for (int i = 1; i <= 32; i++)
                 {
@@ -648,7 +639,7 @@ namespace OrthoAid_3DSimulator
 
                 //Distance to Plane2
                 tw.Write("\n");
-                tw.WriteLine("Distance to Planes2");
+                tw.WriteLine("Distance to Planes[1]");
                 tw.WriteLine("ToothNo,Distance_Occlusal,Distance_Sagital");
                 for (int i = 1; i <= 32; i++)
                 {
@@ -667,8 +658,8 @@ namespace OrthoAid_3DSimulator
                 //Angle between Occlusal Planes
                 tw.Write("\n");
                 tw.WriteLine("Angle between occlusal planes in degrees");
-                if (Planes1[OCCLUSALPLANE_INDEX] != null && Planes2[OCCLUSALPLANE_INDEX] != null)
-                    tw.WriteLine(Planes1[OCCLUSALPLANE_INDEX].Angle2Plane(Planes2[OCCLUSALPLANE_INDEX]));
+                if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[1][OCCLUSALPLANE_INDEX] != null)
+                    tw.WriteLine(Planes[0][OCCLUSALPLANE_INDEX].Angle2Plane(Planes[1][OCCLUSALPLANE_INDEX]));
 
                 tw.Close();
                 
@@ -689,37 +680,22 @@ namespace OrthoAid_3DSimulator
                 XmlSerializer serializer = new XmlSerializer(typeof(Common.CalculationResults));
                 Common.CalculationResults temp = (Common.CalculationResults)serializer.Deserialize(fs);
                 serializer = null;
-
-                if (GetSelectedVbOIndex() == 1)
+                int vboind = GetSelectedVbOIndex();
+                Planes[vboind-1] = temp.planes;
+                for (int i = 0; i < Planes[vboind-1].Length; i++)
                 {
-                    Planes1 = temp.planes;
-                    for (int i = 0; i < Planes1.Length; i++)
-                    {
-                        if (Planes1[i] != null && Planes1[i].valid)
-                            Planes1[i].validInclination = true;                        
-                    }
-                    Distance2OcclusalPlane1 = temp.distanceToOccPlane;
-                    Distance2SagitalPlane1 = temp.distanceToSagPlane;
+                    if (Planes[vboind-1][i] != null && Planes[vboind-1][i].valid)
+                        Planes[vboind-1][i].validInclination = true;                        
                 }
-                else
-                {
-                    Planes2 = temp.planes;
-                    for (int i = 0; i < Planes2.Length; i++)
-                    {
-                        if (Planes2[i] != null && Planes2[i].valid)
-                            Planes2[i].validInclination = true;                        
-                    }
-                    Distance2OcclusalPlane2 = temp.distanceToOccPlane;
-                    Distance2SagitalPlane2 = temp.distanceToSagPlane;
-                }
+                Distance2OcclusalPlane[vboind-1] = temp.distanceToOccPlane;
+                Distance2SagitalPlane[vboind-1] = temp.distanceToSagPlane;
 
-                PlanesRelative = temp.rplanes;
-                for (int i = 0; i < PlanesRelative.Length; i++)
+                Planes[2] = temp.rplanes;
+                for (int i = 0; i < Planes[2].Length; i++)
                 {
-                    if (PlanesRelative[i] != null && PlanesRelative[i].valid)
-                        PlanesRelative[i].validInclination = true;
+                    if (Planes[2][i] != null && Planes[2][i].valid)
+                        Planes[2][i].validInclination = true;
                 }
-
                 Dislocations = temp.dislocation;
                 
                 fs.Close();
@@ -742,9 +718,9 @@ namespace OrthoAid_3DSimulator
             {
                 Common.Plane[] P;
                 if (GetSelectedVbOIndex() == 1)
-                    P = Planes1;
+                    P = Planes[0];
                 else
-                    P = Planes2;
+                    P = Planes[1];
 
                 string[] header1 = sr.ReadLine().Split(',');
                 if (header1[0] != "OrthoAid - TXT Calculation File")
@@ -789,9 +765,9 @@ namespace OrthoAid_3DSimulator
                         break;
                     int toothNo = int.Parse(tokens[0]);
                     float inclination = float.Parse(tokens[1]);
-                    PlanesRelative[toothNo] = new Common.Plane();
-                    PlanesRelative[toothNo].inclination = inclination;
-                    PlanesRelative[toothNo].validInclination = true;
+                    Planes[2][toothNo] = new Common.Plane();
+                    Planes[2][toothNo].inclination = inclination;
+                    Planes[2][toothNo].validInclination = true;
                 }
 
                 string header4 = sr.ReadLine();
@@ -1017,6 +993,57 @@ namespace OrthoAid_3DSimulator
             catch (Exception err)
             {
                 workbook.Close();
+            }
+        }
+
+        private void ReadWirePolynomials()
+        {            
+            int num_wires = config.NumWires;
+            //string src_folder = "..\\..\\wire_polynomials\\";
+
+            string[] prefix = { "man", "max" };
+            
+            for (int i = 0; i < num_wires; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {                    
+                    string resourceName = "OrthoAid_3DSimulator.wire_polynomials." + prefix[j] + "_" + (i + 1).ToString() + ".txt";
+                    
+                    //var t = Assembly.GetExecutingAssembly().GetManifestResourceNames(); 
+                    // should mark the file as "embedded resource" to work
+                    using (Stream strm = @Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                    {
+                        StreamReader sr = new StreamReader(strm);
+
+
+                        //(Properties.Resources.ResourceManager.GetObject(prefix[j] + "_" + (i + 1).ToString() + ".txt");
+
+                        int degree = int.Parse(sr.ReadLine());
+                        double[] fitX = new double[degree + 1];
+                        double[] fitY = new double[degree + 1];
+
+                        string[] tokens = sr.ReadLine().Split(' ');
+                        Debug.Assert(tokens.Length == degree + 2);
+                        for (int p = 0; p < degree + 1; ++p) fitX[p] = double.Parse(tokens[p]);
+
+                        tokens = sr.ReadLine().Split(' ');
+                        Debug.Assert(tokens.Length == degree + 2);
+                        for (int p = 0; p < degree + 1; ++p) fitY[p] = double.Parse(tokens[p]);
+
+                        double minT = double.Parse(sr.ReadLine());
+                        double maxT = double.Parse(sr.ReadLine());
+
+                        WirePolynomials[j][i].CoeffsX = new MathNet.Numerics.LinearAlgebra.Double.DenseVector(fitX);
+                        WirePolynomials[j][i].CoeffsY = new MathNet.Numerics.LinearAlgebra.Double.DenseVector(fitY);
+                        WirePolynomials[j][i].minT = minT;
+                        WirePolynomials[j][i].maxT = maxT;
+                        WirePolynomials[j][i].degree = degree;
+                        WirePolynomials[j][i].fitFunction = Common.FitFunction.polynomial;
+                        sr.Close();
+                    }
+                    
+                }
+                
             }
         }
     }

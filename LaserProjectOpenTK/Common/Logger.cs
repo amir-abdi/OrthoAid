@@ -44,7 +44,7 @@ namespace OrthoAid_3DSimulator.Common
             string filename = @"Log\" + "Log_" + (lastFileNumber+1).ToString() + "_Date&Time-" + DateTime.Now.Year.ToString() + '-' +
                                                 DateTime.Now.Month.ToString() + '-' +
                                                 DateTime.Now.Day.ToString() + '-' +
-                                                DateTime.Now.ToLongTimeString() + ".txt";
+                                                DateTime.Now.ToLongTimeString() + ".log";
             filename = filename.Replace(':', '.');
             sw = new StreamWriter(File.Create(filename));
         }

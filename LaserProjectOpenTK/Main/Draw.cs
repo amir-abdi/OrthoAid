@@ -54,29 +54,29 @@ namespace OrthoAid_3DSimulator
             if (vbo1.validVertices && vbo1.show)
             {
                 for (int i = 1; i < OCCLUSALPLANE_INDEX; ++i)
-                    if (tcb[i].Checked && Planes1[i] != null && Planes1[i].valid)
+                    if (tcb[i].Checked && Planes[0][i] != null && Planes[0][i].valid)
                     {
-                        //DrawPlane(Planes1[i], Color.Pink);
-                        //DrawProjectedPoints(Planes1[i].projectedPointsOnAxisPlane, Color.Yellow);
-                        DrawTangentLine(Planes1[i].tangentPoints, Color.BlueViolet);
+                        //DrawPlane(Planes[0][i], Color.Pink);
+                        //DrawProjectedPoints(Planes[0][i].projectedPointsOnAxisPlane, Color.Yellow);
+                        DrawTangentLine(Planes[0][i].tangentPoints, Color.BlueViolet);
                     }
 
-                for (int i = OCCLUSALPLANE_INDEX; i <= SAGITALPLANE_INDEX; ++i)
-                    if (tcb[i].Checked && Planes1[i] != null && Planes1[i].valid)
-                        DrawPlane(Planes1[i], Color.Blue);
+                for (int i = OCCLUSALPLANE_INDEX; i <= CURVEPLANE_INDEX; ++i)
+                    if (tcb[Plane_CB1[i]].Checked && Planes[0][i] != null && Planes[0][i].valid)
+                        DrawPlane(Planes[0][i], Color.Blue);
             }
             if (vbo2.validVertices && vbo2.show)
             {
                 for (int i = 1; i < OCCLUSALPLANE_INDEX; ++i)
-                    if (tcb[i].Checked && Planes2[i]!=null && Planes2[i].valid)
+                    if (tcb[i].Checked && Planes[1][i]!=null && Planes[1][i].valid)
                     {
-                        //DrawPlane(Planes2[i], Color.Pink);
-                        //DrawProjectedPoints(Planes2[i].projectedPointsOnAxisPlane, Color.Yellow);
-                        DrawTangentLine(Planes2[i].tangentPoints, Color.YellowGreen);
+                        //DrawPlane(Planes[1][i], Color.Pink);
+                        //DrawProjectedPoints(Planes[1][i].projectedPointsOnAxisPlane, Color.Yellow);
+                        DrawTangentLine(Planes[1][i].tangentPoints, Color.YellowGreen);
                     }
-                for (int i = OCCLUSALPLANE_INDEX; i <= SAGITALPLANE_INDEX; ++i)
-                    if (tcb[i+2].Checked && Planes2[i] != null && Planes2[i].valid)
-                        DrawPlane(Planes2[i], Color.Yellow);
+                for (int i = OCCLUSALPLANE_INDEX; i <= CURVEPLANE_INDEX; ++i)
+                    if (tcb[Plane_CB2[i]].Checked && Planes[1][i] != null && Planes[1][i].valid)
+                        DrawPlane(Planes[1][i], Color.Yellow);
             }
 
             if (config.editMode == Common.EditMode.Ruler)

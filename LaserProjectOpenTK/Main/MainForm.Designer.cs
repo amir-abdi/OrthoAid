@@ -136,49 +136,18 @@ namespace OrthoAid_3DSimulator
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.vScroll_lightIntensity = new System.Windows.Forms.VScrollBar();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.lb_occlusalPlanesAngle = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.cb_occlusalPlane2 = new System.Windows.Forms.CheckBox();
-            this.gb_teeh = new System.Windows.Forms.GroupBox();
-            this.t32 = new System.Windows.Forms.Label();
-            this.t31 = new System.Windows.Forms.Label();
-            this.t29 = new System.Windows.Forms.Label();
-            this.t9 = new System.Windows.Forms.Label();
-            this.t8 = new System.Windows.Forms.Label();
-            this.t10 = new System.Windows.Forms.Label();
-            this.t7 = new System.Windows.Forms.Label();
-            this.t11 = new System.Windows.Forms.Label();
-            this.t6 = new System.Windows.Forms.Label();
-            this.t21 = new System.Windows.Forms.Label();
-            this.t12 = new System.Windows.Forms.Label();
-            this.t5 = new System.Windows.Forms.Label();
-            this.t20 = new System.Windows.Forms.Label();
-            this.t13 = new System.Windows.Forms.Label();
-            this.t4 = new System.Windows.Forms.Label();
-            this.t19 = new System.Windows.Forms.Label();
-            this.t14 = new System.Windows.Forms.Label();
-            this.t3 = new System.Windows.Forms.Label();
-            this.t18 = new System.Windows.Forms.Label();
-            this.t15 = new System.Windows.Forms.Label();
-            this.t2 = new System.Windows.Forms.Label();
-            this.t17 = new System.Windows.Forms.Label();
-            this.t16 = new System.Windows.Forms.Label();
-            this.t1 = new System.Windows.Forms.Label();
-            this.t24 = new System.Windows.Forms.Label();
-            this.t25 = new System.Windows.Forms.Label();
-            this.t23 = new System.Windows.Forms.Label();
-            this.t26 = new System.Windows.Forms.Label();
-            this.t22 = new System.Windows.Forms.Label();
-            this.t27 = new System.Windows.Forms.Label();
-            this.t28 = new System.Windows.Forms.Label();
-            this.t30 = new System.Windows.Forms.Label();
             this.b_clearCalculations = new System.Windows.Forms.Button();
-            this.lb_occlusalPlane = new System.Windows.Forms.Label();
-            this.lb_saggitalPlane = new System.Windows.Forms.Label();
-            this.cb_occlusalPlane1 = new System.Windows.Forms.CheckBox();
-            this.cb_saggitalPlane2 = new System.Windows.Forms.CheckBox();
-            this.cb_saggitalPlane1 = new System.Windows.Forms.CheckBox();
             this.tab_Maintab = new System.Windows.Forms.TabControl();
+            this.tab_Planes = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lb_occlusalPlanesAngle = new System.Windows.Forms.Label();
+            this.lb_saggitalPlane = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cb_saggitalPlane1 = new System.Windows.Forms.CheckBox();
+            this.cb_occlusalPlane2 = new System.Windows.Forms.CheckBox();
+            this.cb_saggitalPlane2 = new System.Windows.Forms.CheckBox();
+            this.cb_occlusalPlane1 = new System.Windows.Forms.CheckBox();
+            this.lb_occlusalPlane = new System.Windows.Forms.Label();
             this.tab_Inclination = new System.Windows.Forms.TabPage();
             this.cb_t16 = new System.Windows.Forms.CheckBox();
             this.cb_t15 = new System.Windows.Forms.CheckBox();
@@ -452,12 +421,56 @@ namespace OrthoAid_3DSimulator
             this.label46 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tab_CurveFit = new System.Windows.Forms.TabPage();
+            this.lb_curve2occlusalPlane = new System.Windows.Forms.Label();
+            this.pl_wireMatch = new System.Windows.Forms.Panel();
+            this.cb_curvePlane2 = new System.Windows.Forms.CheckBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lv_wires = new System.Windows.Forms.ListView();
+            this.b_matchingWire = new System.Windows.Forms.Button();
+            this.rb_maxilla = new System.Windows.Forms.RadioButton();
+            this.rb_mandible = new System.Windows.Forms.RadioButton();
+            this.lb_curvefit_rmse_z = new System.Windows.Forms.Label();
+            this.lb_curvefit_rmse_xy = new System.Windows.Forms.Label();
+            this.cb_curvePlane1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rb_fitPoly = new System.Windows.Forms.RadioButton();
             this.rb_fitNoroozi = new System.Windows.Forms.RadioButton();
             this.nUpDown_order = new System.Windows.Forms.NumericUpDown();
             this.pl_curveFit = new System.Windows.Forms.Panel();
+            this.gb_teeh = new System.Windows.Forms.GroupBox();
+            this.t32 = new System.Windows.Forms.Label();
+            this.t31 = new System.Windows.Forms.Label();
+            this.t29 = new System.Windows.Forms.Label();
+            this.t9 = new System.Windows.Forms.Label();
+            this.t8 = new System.Windows.Forms.Label();
+            this.t10 = new System.Windows.Forms.Label();
+            this.t7 = new System.Windows.Forms.Label();
+            this.t11 = new System.Windows.Forms.Label();
+            this.t6 = new System.Windows.Forms.Label();
+            this.t21 = new System.Windows.Forms.Label();
+            this.t12 = new System.Windows.Forms.Label();
+            this.t5 = new System.Windows.Forms.Label();
+            this.t20 = new System.Windows.Forms.Label();
+            this.t13 = new System.Windows.Forms.Label();
+            this.t4 = new System.Windows.Forms.Label();
+            this.t19 = new System.Windows.Forms.Label();
+            this.t14 = new System.Windows.Forms.Label();
+            this.t3 = new System.Windows.Forms.Label();
+            this.t18 = new System.Windows.Forms.Label();
+            this.t15 = new System.Windows.Forms.Label();
+            this.t2 = new System.Windows.Forms.Label();
+            this.t17 = new System.Windows.Forms.Label();
+            this.t16 = new System.Windows.Forms.Label();
+            this.t1 = new System.Windows.Forms.Label();
+            this.t24 = new System.Windows.Forms.Label();
+            this.t25 = new System.Windows.Forms.Label();
+            this.t23 = new System.Windows.Forms.Label();
+            this.t26 = new System.Windows.Forms.Label();
+            this.t22 = new System.Windows.Forms.Label();
+            this.t27 = new System.Windows.Forms.Label();
+            this.t28 = new System.Windows.Forms.Label();
+            this.t30 = new System.Windows.Forms.Label();
             this.lb_numVerticesReduced = new System.Windows.Forms.Label();
             this.lb_RDCastLabel = new System.Windows.Forms.Label();
             this.w1_tb = new System.Windows.Forms.TextBox();
@@ -490,16 +503,18 @@ namespace OrthoAid_3DSimulator
             this.toolStripMenu.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.gb_teeh.SuspendLayout();
             this.tab_Maintab.SuspendLayout();
+            this.tab_Planes.SuspendLayout();
             this.tab_Inclination.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tab_Dislocation.SuspendLayout();
             this.tab_Distance2Plane.SuspendLayout();
             this.tab_SuperInclin.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tab_CurveFit.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDown_order)).BeginInit();
+            this.gb_teeh.SuspendLayout();
             this.gb_weight.SuspendLayout();
             this.toolboxPanel_p.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -1523,7 +1538,7 @@ namespace OrthoAid_3DSimulator
             | System.Windows.Forms.AnchorStyles.Left)));
             this.b_Calculate.BackgroundImage = global::OrthoAid_3DSimulator.Properties.Resources.bottomControl;
             this.b_Calculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
-            this.b_Calculate.Location = new System.Drawing.Point(815, 137);
+            this.b_Calculate.Location = new System.Drawing.Point(815, 181);
             this.b_Calculate.Name = "b_Calculate";
             this.b_Calculate.Size = new System.Drawing.Size(63, 29);
             this.b_Calculate.TabIndex = 61;
@@ -1582,17 +1597,8 @@ namespace OrthoAid_3DSimulator
             this.groupBox6.BackColor = System.Drawing.Color.Lavender;
             this.groupBox6.BackgroundImage = global::OrthoAid_3DSimulator.Properties.Resources.bottomControl;
             this.groupBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.groupBox6.Controls.Add(this.lb_occlusalPlanesAngle);
-            this.groupBox6.Controls.Add(this.label12);
-            this.groupBox6.Controls.Add(this.cb_occlusalPlane2);
-            this.groupBox6.Controls.Add(this.gb_teeh);
             this.groupBox6.Controls.Add(this.b_clearCalculations);
             this.groupBox6.Controls.Add(this.b_Calculate);
-            this.groupBox6.Controls.Add(this.lb_occlusalPlane);
-            this.groupBox6.Controls.Add(this.lb_saggitalPlane);
-            this.groupBox6.Controls.Add(this.cb_occlusalPlane1);
-            this.groupBox6.Controls.Add(this.cb_saggitalPlane2);
-            this.groupBox6.Controls.Add(this.cb_saggitalPlane1);
             this.groupBox6.Controls.Add(this.tab_Maintab);
             this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox6.Location = new System.Drawing.Point(3, 397);
@@ -1601,458 +1607,13 @@ namespace OrthoAid_3DSimulator
             this.groupBox6.TabIndex = 88;
             this.groupBox6.TabStop = false;
             // 
-            // lb_occlusalPlanesAngle
-            // 
-            this.lb_occlusalPlanesAngle.AutoSize = true;
-            this.lb_occlusalPlanesAngle.Location = new System.Drawing.Point(842, 223);
-            this.lb_occlusalPlanesAngle.Name = "lb_occlusalPlanesAngle";
-            this.lb_occlusalPlanesAngle.Size = new System.Drawing.Size(13, 13);
-            this.lb_occlusalPlanesAngle.TabIndex = 95;
-            this.lb_occlusalPlanesAngle.Text = "0";
-            this.lb_occlusalPlanesAngle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(796, 206);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(108, 13);
-            this.label12.TabIndex = 94;
-            this.label12.Text = "Occlusal Plane Angle";
-            // 
-            // cb_occlusalPlane2
-            // 
-            this.cb_occlusalPlane2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cb_occlusalPlane2.AutoSize = true;
-            this.cb_occlusalPlane2.Enabled = false;
-            this.cb_occlusalPlane2.Location = new System.Drawing.Point(869, 55);
-            this.cb_occlusalPlane2.Name = "cb_occlusalPlane2";
-            this.cb_occlusalPlane2.Size = new System.Drawing.Size(15, 14);
-            this.cb_occlusalPlane2.TabIndex = 93;
-            this.cb_occlusalPlane2.UseVisualStyleBackColor = true;
-            // 
-            // gb_teeh
-            // 
-            this.gb_teeh.BackgroundImage = global::OrthoAid_3DSimulator.Properties.Resources.teeth_tabled;
-            this.gb_teeh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.gb_teeh.Controls.Add(this.t32);
-            this.gb_teeh.Controls.Add(this.t31);
-            this.gb_teeh.Controls.Add(this.t29);
-            this.gb_teeh.Controls.Add(this.t9);
-            this.gb_teeh.Controls.Add(this.t8);
-            this.gb_teeh.Controls.Add(this.t10);
-            this.gb_teeh.Controls.Add(this.t7);
-            this.gb_teeh.Controls.Add(this.t11);
-            this.gb_teeh.Controls.Add(this.t6);
-            this.gb_teeh.Controls.Add(this.t21);
-            this.gb_teeh.Controls.Add(this.t12);
-            this.gb_teeh.Controls.Add(this.t5);
-            this.gb_teeh.Controls.Add(this.t20);
-            this.gb_teeh.Controls.Add(this.t13);
-            this.gb_teeh.Controls.Add(this.t4);
-            this.gb_teeh.Controls.Add(this.t19);
-            this.gb_teeh.Controls.Add(this.t14);
-            this.gb_teeh.Controls.Add(this.t3);
-            this.gb_teeh.Controls.Add(this.t18);
-            this.gb_teeh.Controls.Add(this.t15);
-            this.gb_teeh.Controls.Add(this.t2);
-            this.gb_teeh.Controls.Add(this.t17);
-            this.gb_teeh.Controls.Add(this.t16);
-            this.gb_teeh.Controls.Add(this.t1);
-            this.gb_teeh.Controls.Add(this.t24);
-            this.gb_teeh.Controls.Add(this.t25);
-            this.gb_teeh.Controls.Add(this.t23);
-            this.gb_teeh.Controls.Add(this.t26);
-            this.gb_teeh.Controls.Add(this.t22);
-            this.gb_teeh.Controls.Add(this.t27);
-            this.gb_teeh.Controls.Add(this.t28);
-            this.gb_teeh.Controls.Add(this.t30);
-            this.gb_teeh.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.gb_teeh.Location = new System.Drawing.Point(74, 63);
-            this.gb_teeh.Margin = new System.Windows.Forms.Padding(0);
-            this.gb_teeh.Name = "gb_teeh";
-            this.gb_teeh.Size = new System.Drawing.Size(711, 135);
-            this.gb_teeh.TabIndex = 92;
-            this.gb_teeh.TabStop = false;
-            // 
-            // t32
-            // 
-            this.t32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t32.BackColor = System.Drawing.Color.Transparent;
-            this.t32.Location = new System.Drawing.Point(8, 74);
-            this.t32.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t32.Name = "t32";
-            this.t32.Size = new System.Drawing.Size(40, 46);
-            this.t32.TabIndex = 0;
-            this.t32.UseCompatibleTextRendering = true;
-            this.t32.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t31
-            // 
-            this.t31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t31.BackColor = System.Drawing.Color.Transparent;
-            this.t31.Location = new System.Drawing.Point(62, 74);
-            this.t31.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t31.Name = "t31";
-            this.t31.Size = new System.Drawing.Size(42, 50);
-            this.t31.TabIndex = 0;
-            this.t31.UseCompatibleTextRendering = true;
-            this.t31.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t29
-            // 
-            this.t29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t29.BackColor = System.Drawing.Color.Transparent;
-            this.t29.Location = new System.Drawing.Point(166, 75);
-            this.t29.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t29.Name = "t29";
-            this.t29.Size = new System.Drawing.Size(35, 50);
-            this.t29.TabIndex = 0;
-            this.t29.UseCompatibleTextRendering = true;
-            this.t29.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t9
-            // 
-            this.t9.BackColor = System.Drawing.Color.Transparent;
-            this.t9.Location = new System.Drawing.Point(361, 16);
-            this.t9.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t9.Name = "t9";
-            this.t9.Size = new System.Drawing.Size(27, 50);
-            this.t9.TabIndex = 0;
-            this.t9.UseCompatibleTextRendering = true;
-            this.t9.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t8
-            // 
-            this.t8.BackColor = System.Drawing.Color.Transparent;
-            this.t8.Location = new System.Drawing.Point(323, 17);
-            this.t8.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t8.Name = "t8";
-            this.t8.Size = new System.Drawing.Size(27, 50);
-            this.t8.TabIndex = 0;
-            this.t8.UseCompatibleTextRendering = true;
-            this.t8.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t10
-            // 
-            this.t10.BackColor = System.Drawing.Color.Transparent;
-            this.t10.Location = new System.Drawing.Point(399, 17);
-            this.t10.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t10.Name = "t10";
-            this.t10.Size = new System.Drawing.Size(27, 50);
-            this.t10.TabIndex = 0;
-            this.t10.UseCompatibleTextRendering = true;
-            this.t10.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t7
-            // 
-            this.t7.BackColor = System.Drawing.Color.Transparent;
-            this.t7.Location = new System.Drawing.Point(286, 20);
-            this.t7.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t7.Name = "t7";
-            this.t7.Size = new System.Drawing.Size(27, 45);
-            this.t7.TabIndex = 0;
-            this.t7.UseCompatibleTextRendering = true;
-            this.t7.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t11
-            // 
-            this.t11.BackColor = System.Drawing.Color.Transparent;
-            this.t11.Location = new System.Drawing.Point(436, 13);
-            this.t11.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t11.Name = "t11";
-            this.t11.Size = new System.Drawing.Size(27, 50);
-            this.t11.TabIndex = 0;
-            this.t11.UseCompatibleTextRendering = true;
-            this.t11.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t6
-            // 
-            this.t6.BackColor = System.Drawing.Color.Transparent;
-            this.t6.Location = new System.Drawing.Point(248, 14);
-            this.t6.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t6.Name = "t6";
-            this.t6.Size = new System.Drawing.Size(27, 50);
-            this.t6.TabIndex = 0;
-            this.t6.UseCompatibleTextRendering = true;
-            this.t6.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t21
-            // 
-            this.t21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t21.BackColor = System.Drawing.Color.Transparent;
-            this.t21.Location = new System.Drawing.Point(472, 76);
-            this.t21.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t21.Name = "t21";
-            this.t21.Size = new System.Drawing.Size(27, 50);
-            this.t21.TabIndex = 0;
-            this.t21.UseCompatibleTextRendering = true;
-            this.t21.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t12
-            // 
-            this.t12.BackColor = System.Drawing.Color.Transparent;
-            this.t12.Location = new System.Drawing.Point(475, 15);
-            this.t12.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t12.Name = "t12";
-            this.t12.Size = new System.Drawing.Size(27, 50);
-            this.t12.TabIndex = 0;
-            this.t12.UseCompatibleTextRendering = true;
-            this.t12.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t5
-            // 
-            this.t5.BackColor = System.Drawing.Color.Transparent;
-            this.t5.Location = new System.Drawing.Point(210, 14);
-            this.t5.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t5.Name = "t5";
-            this.t5.Size = new System.Drawing.Size(27, 50);
-            this.t5.TabIndex = 0;
-            this.t5.UseCompatibleTextRendering = true;
-            this.t5.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t20
-            // 
-            this.t20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t20.BackColor = System.Drawing.Color.Transparent;
-            this.t20.Location = new System.Drawing.Point(510, 76);
-            this.t20.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t20.Name = "t20";
-            this.t20.Size = new System.Drawing.Size(35, 50);
-            this.t20.TabIndex = 0;
-            this.t20.UseCompatibleTextRendering = true;
-            this.t20.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t13
-            // 
-            this.t13.BackColor = System.Drawing.Color.Transparent;
-            this.t13.Location = new System.Drawing.Point(515, 15);
-            this.t13.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t13.Name = "t13";
-            this.t13.Size = new System.Drawing.Size(28, 50);
-            this.t13.TabIndex = 0;
-            this.t13.UseCompatibleTextRendering = true;
-            this.t13.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t4
-            // 
-            this.t4.BackColor = System.Drawing.Color.Transparent;
-            this.t4.Location = new System.Drawing.Point(166, 15);
-            this.t4.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t4.Name = "t4";
-            this.t4.Size = new System.Drawing.Size(35, 50);
-            this.t4.TabIndex = 0;
-            this.t4.UseCompatibleTextRendering = true;
-            this.t4.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t19
-            // 
-            this.t19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t19.BackColor = System.Drawing.Color.Transparent;
-            this.t19.Location = new System.Drawing.Point(549, 73);
-            this.t19.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t19.Name = "t19";
-            this.t19.Size = new System.Drawing.Size(44, 47);
-            this.t19.TabIndex = 0;
-            this.t19.UseCompatibleTextRendering = true;
-            this.t19.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t14
-            // 
-            this.t14.BackColor = System.Drawing.Color.Transparent;
-            this.t14.Location = new System.Drawing.Point(549, 15);
-            this.t14.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t14.Name = "t14";
-            this.t14.Size = new System.Drawing.Size(44, 50);
-            this.t14.TabIndex = 0;
-            this.t14.UseCompatibleTextRendering = true;
-            this.t14.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t3
-            // 
-            this.t3.BackColor = System.Drawing.Color.Transparent;
-            this.t3.Location = new System.Drawing.Point(119, 13);
-            this.t3.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t3.Name = "t3";
-            this.t3.Size = new System.Drawing.Size(44, 50);
-            this.t3.TabIndex = 0;
-            this.t3.Tag = "3";
-            this.t3.UseCompatibleTextRendering = true;
-            this.t3.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t18
-            // 
-            this.t18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t18.BackColor = System.Drawing.Color.Transparent;
-            this.t18.Location = new System.Drawing.Point(607, 73);
-            this.t18.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t18.Name = "t18";
-            this.t18.Size = new System.Drawing.Size(42, 47);
-            this.t18.TabIndex = 0;
-            this.t18.UseCompatibleTextRendering = true;
-            this.t18.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t15
-            // 
-            this.t15.BackColor = System.Drawing.Color.Transparent;
-            this.t15.Location = new System.Drawing.Point(599, 14);
-            this.t15.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t15.Name = "t15";
-            this.t15.Size = new System.Drawing.Size(50, 48);
-            this.t15.TabIndex = 0;
-            this.t15.UseCompatibleTextRendering = true;
-            this.t15.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t2
-            // 
-            this.t2.BackColor = System.Drawing.Color.Transparent;
-            this.t2.Location = new System.Drawing.Point(63, 11);
-            this.t2.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t2.Name = "t2";
-            this.t2.Size = new System.Drawing.Size(50, 50);
-            this.t2.TabIndex = 0;
-            this.t2.Tag = "2";
-            this.t2.UseCompatibleTextRendering = true;
-            this.t2.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t17
-            // 
-            this.t17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t17.BackColor = System.Drawing.Color.Transparent;
-            this.t17.Location = new System.Drawing.Point(663, 74);
-            this.t17.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t17.Name = "t17";
-            this.t17.Size = new System.Drawing.Size(41, 43);
-            this.t17.TabIndex = 0;
-            this.t17.UseCompatibleTextRendering = true;
-            this.t17.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t16
-            // 
-            this.t16.BackColor = System.Drawing.Color.Transparent;
-            this.t16.Location = new System.Drawing.Point(658, 11);
-            this.t16.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t16.Name = "t16";
-            this.t16.Size = new System.Drawing.Size(50, 50);
-            this.t16.TabIndex = 0;
-            this.t16.UseCompatibleTextRendering = true;
-            this.t16.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t1
-            // 
-            this.t1.BackColor = System.Drawing.Color.Transparent;
-            this.t1.Location = new System.Drawing.Point(4, 11);
-            this.t1.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t1.Name = "t1";
-            this.t1.Size = new System.Drawing.Size(50, 50);
-            this.t1.TabIndex = 0;
-            this.t1.Tag = "1";
-            this.t1.UseCompatibleTextRendering = true;
-            this.t1.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t24
-            // 
-            this.t24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t24.BackColor = System.Drawing.Color.Transparent;
-            this.t24.Location = new System.Drawing.Point(362, 76);
-            this.t24.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t24.Name = "t24";
-            this.t24.Size = new System.Drawing.Size(27, 50);
-            this.t24.TabIndex = 0;
-            this.t24.UseCompatibleTextRendering = true;
-            this.t24.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t25
-            // 
-            this.t25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t25.BackColor = System.Drawing.Color.Transparent;
-            this.t25.Location = new System.Drawing.Point(322, 76);
-            this.t25.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t25.Name = "t25";
-            this.t25.Size = new System.Drawing.Size(27, 50);
-            this.t25.TabIndex = 0;
-            this.t25.UseCompatibleTextRendering = true;
-            this.t25.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t23
-            // 
-            this.t23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t23.BackColor = System.Drawing.Color.Transparent;
-            this.t23.Location = new System.Drawing.Point(399, 76);
-            this.t23.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t23.Name = "t23";
-            this.t23.Size = new System.Drawing.Size(27, 50);
-            this.t23.TabIndex = 0;
-            this.t23.UseCompatibleTextRendering = true;
-            this.t23.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t26
-            // 
-            this.t26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t26.BackColor = System.Drawing.Color.Transparent;
-            this.t26.Location = new System.Drawing.Point(286, 76);
-            this.t26.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t26.Name = "t26";
-            this.t26.Size = new System.Drawing.Size(27, 50);
-            this.t26.TabIndex = 0;
-            this.t26.UseCompatibleTextRendering = true;
-            this.t26.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t22
-            // 
-            this.t22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t22.BackColor = System.Drawing.Color.Transparent;
-            this.t22.Location = new System.Drawing.Point(436, 77);
-            this.t22.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t22.Name = "t22";
-            this.t22.Size = new System.Drawing.Size(27, 50);
-            this.t22.TabIndex = 0;
-            this.t22.UseCompatibleTextRendering = true;
-            this.t22.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t27
-            // 
-            this.t27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t27.BackColor = System.Drawing.Color.Transparent;
-            this.t27.Location = new System.Drawing.Point(251, 74);
-            this.t27.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t27.Name = "t27";
-            this.t27.Size = new System.Drawing.Size(27, 50);
-            this.t27.TabIndex = 0;
-            this.t27.UseCompatibleTextRendering = true;
-            this.t27.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t28
-            // 
-            this.t28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t28.BackColor = System.Drawing.Color.Transparent;
-            this.t28.Location = new System.Drawing.Point(212, 75);
-            this.t28.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t28.Name = "t28";
-            this.t28.Size = new System.Drawing.Size(27, 50);
-            this.t28.TabIndex = 0;
-            this.t28.UseCompatibleTextRendering = true;
-            this.t28.Click += new System.EventHandler(this.LabelSelect);
-            // 
-            // t30
-            // 
-            this.t30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.t30.BackColor = System.Drawing.Color.Transparent;
-            this.t30.Location = new System.Drawing.Point(118, 75);
-            this.t30.MaximumSize = new System.Drawing.Size(50, 50);
-            this.t30.Name = "t30";
-            this.t30.Size = new System.Drawing.Size(44, 45);
-            this.t30.TabIndex = 0;
-            this.t30.UseCompatibleTextRendering = true;
-            this.t30.Click += new System.EventHandler(this.LabelSelect);
-            // 
             // b_clearCalculations
             // 
             this.b_clearCalculations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.b_clearCalculations.BackgroundImage = global::OrthoAid_3DSimulator.Properties.Resources.bottomControl;
             this.b_clearCalculations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
-            this.b_clearCalculations.Location = new System.Drawing.Point(815, 164);
+            this.b_clearCalculations.Location = new System.Drawing.Point(815, 208);
             this.b_clearCalculations.Name = "b_clearCalculations";
             this.b_clearCalculations.Size = new System.Drawing.Size(63, 25);
             this.b_clearCalculations.TabIndex = 88;
@@ -2060,28 +1621,64 @@ namespace OrthoAid_3DSimulator
             this.b_clearCalculations.UseVisualStyleBackColor = true;
             this.b_clearCalculations.Click += new System.EventHandler(this.b_clearCalculations_Click);
             // 
-            // lb_occlusalPlane
+            // tab_Maintab
             // 
-            this.lb_occlusalPlane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.lb_occlusalPlane.BackColor = System.Drawing.Color.AliceBlue;
-            this.lb_occlusalPlane.Location = new System.Drawing.Point(815, 30);
-            this.lb_occlusalPlane.MaximumSize = new System.Drawing.Size(50, 100);
-            this.lb_occlusalPlane.Name = "lb_occlusalPlane";
-            this.lb_occlusalPlane.Size = new System.Drawing.Size(50, 42);
-            this.lb_occlusalPlane.TabIndex = 60;
-            this.lb_occlusalPlane.Tag = "33";
-            this.lb_occlusalPlane.Text = "Occlusal Plane";
-            this.lb_occlusalPlane.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lb_occlusalPlane.UseCompatibleTextRendering = true;
-            this.lb_occlusalPlane.Click += new System.EventHandler(this.LabelSelect);
+            this.tab_Maintab.Controls.Add(this.tab_Planes);
+            this.tab_Maintab.Controls.Add(this.tab_Inclination);
+            this.tab_Maintab.Controls.Add(this.tab_Dislocation);
+            this.tab_Maintab.Controls.Add(this.tab_Distance2Plane);
+            this.tab_Maintab.Controls.Add(this.tab_SuperInclin);
+            this.tab_Maintab.Controls.Add(this.tab_CurveFit);
+            this.tab_Maintab.Location = new System.Drawing.Point(0, 3);
+            this.tab_Maintab.Name = "tab_Maintab";
+            this.tab_Maintab.SelectedIndex = 0;
+            this.tab_Maintab.Size = new System.Drawing.Size(796, 237);
+            this.tab_Maintab.TabIndex = 89;
+            this.tab_Maintab.SelectedIndexChanged += new System.EventHandler(this.tab_Maintab_SelectedIndexChanged);
+            // 
+            // tab_Planes
+            // 
+            this.tab_Planes.Controls.Add(this.label13);
+            this.tab_Planes.Controls.Add(this.lb_occlusalPlanesAngle);
+            this.tab_Planes.Controls.Add(this.lb_saggitalPlane);
+            this.tab_Planes.Controls.Add(this.label12);
+            this.tab_Planes.Controls.Add(this.cb_saggitalPlane1);
+            this.tab_Planes.Controls.Add(this.cb_occlusalPlane2);
+            this.tab_Planes.Controls.Add(this.cb_saggitalPlane2);
+            this.tab_Planes.Controls.Add(this.cb_occlusalPlane1);
+            this.tab_Planes.Controls.Add(this.lb_occlusalPlane);
+            this.tab_Planes.Location = new System.Drawing.Point(4, 22);
+            this.tab_Planes.Name = "tab_Planes";
+            this.tab_Planes.Size = new System.Drawing.Size(788, 211);
+            this.tab_Planes.TabIndex = 5;
+            this.tab_Planes.Text = "Planes";
+            this.tab_Planes.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(59, 13);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(34, 13);
+            this.label13.TabIndex = 96;
+            this.label13.Text = "Show";
+            // 
+            // lb_occlusalPlanesAngle
+            // 
+            this.lb_occlusalPlanesAngle.AutoSize = true;
+            this.lb_occlusalPlanesAngle.Location = new System.Drawing.Point(274, 41);
+            this.lb_occlusalPlanesAngle.Name = "lb_occlusalPlanesAngle";
+            this.lb_occlusalPlanesAngle.Size = new System.Drawing.Size(13, 13);
+            this.lb_occlusalPlanesAngle.TabIndex = 95;
+            this.lb_occlusalPlanesAngle.Text = "0";
+            this.lb_occlusalPlanesAngle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lb_saggitalPlane
             // 
             this.lb_saggitalPlane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lb_saggitalPlane.BackColor = System.Drawing.Color.AliceBlue;
-            this.lb_saggitalPlane.Location = new System.Drawing.Point(815, 85);
+            this.lb_saggitalPlane.Location = new System.Drawing.Point(5, 81);
             this.lb_saggitalPlane.MaximumSize = new System.Drawing.Size(50, 100);
             this.lb_saggitalPlane.Name = "lb_saggitalPlane";
             this.lb_saggitalPlane.Size = new System.Drawing.Size(50, 42);
@@ -2092,52 +1689,74 @@ namespace OrthoAid_3DSimulator
             this.lb_saggitalPlane.UseCompatibleTextRendering = true;
             this.lb_saggitalPlane.Click += new System.EventHandler(this.LabelSelect);
             // 
-            // cb_occlusalPlane1
+            // label12
             // 
-            this.cb_occlusalPlane1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cb_occlusalPlane1.AutoSize = true;
-            this.cb_occlusalPlane1.Enabled = false;
-            this.cb_occlusalPlane1.Location = new System.Drawing.Point(869, 34);
-            this.cb_occlusalPlane1.Name = "cb_occlusalPlane1";
-            this.cb_occlusalPlane1.Size = new System.Drawing.Size(15, 14);
-            this.cb_occlusalPlane1.TabIndex = 18;
-            this.cb_occlusalPlane1.UseVisualStyleBackColor = true;
-            // 
-            // cb_saggitalPlane2
-            // 
-            this.cb_saggitalPlane2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cb_saggitalPlane2.AutoSize = true;
-            this.cb_saggitalPlane2.Enabled = false;
-            this.cb_saggitalPlane2.Location = new System.Drawing.Point(868, 111);
-            this.cb_saggitalPlane2.Name = "cb_saggitalPlane2";
-            this.cb_saggitalPlane2.Size = new System.Drawing.Size(15, 14);
-            this.cb_saggitalPlane2.TabIndex = 20;
-            this.cb_saggitalPlane2.UseVisualStyleBackColor = true;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(108, 41);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(163, 13);
+            this.label12.TabIndex = 94;
+            this.label12.Text = "Angle between Occlusal Planes: ";
             // 
             // cb_saggitalPlane1
             // 
             this.cb_saggitalPlane1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_saggitalPlane1.AutoSize = true;
             this.cb_saggitalPlane1.Enabled = false;
-            this.cb_saggitalPlane1.Location = new System.Drawing.Point(868, 88);
+            this.cb_saggitalPlane1.Location = new System.Drawing.Point(65, 84);
             this.cb_saggitalPlane1.Name = "cb_saggitalPlane1";
             this.cb_saggitalPlane1.Size = new System.Drawing.Size(15, 14);
             this.cb_saggitalPlane1.TabIndex = 20;
             this.cb_saggitalPlane1.UseVisualStyleBackColor = true;
             // 
-            // tab_Maintab
+            // cb_occlusalPlane2
             // 
-            this.tab_Maintab.Controls.Add(this.tab_Inclination);
-            this.tab_Maintab.Controls.Add(this.tab_Dislocation);
-            this.tab_Maintab.Controls.Add(this.tab_Distance2Plane);
-            this.tab_Maintab.Controls.Add(this.tab_SuperInclin);
-            this.tab_Maintab.Controls.Add(this.tabPage1);
-            this.tab_Maintab.Location = new System.Drawing.Point(0, 3);
-            this.tab_Maintab.Name = "tab_Maintab";
-            this.tab_Maintab.SelectedIndex = 0;
-            this.tab_Maintab.Size = new System.Drawing.Size(796, 237);
-            this.tab_Maintab.TabIndex = 89;
-            this.tab_Maintab.SelectedIndexChanged += new System.EventHandler(this.tab_Maintab_SelectedIndexChanged);
+            this.cb_occlusalPlane2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cb_occlusalPlane2.AutoSize = true;
+            this.cb_occlusalPlane2.Enabled = false;
+            this.cb_occlusalPlane2.Location = new System.Drawing.Point(66, 51);
+            this.cb_occlusalPlane2.Name = "cb_occlusalPlane2";
+            this.cb_occlusalPlane2.Size = new System.Drawing.Size(15, 14);
+            this.cb_occlusalPlane2.TabIndex = 93;
+            this.cb_occlusalPlane2.UseVisualStyleBackColor = true;
+            // 
+            // cb_saggitalPlane2
+            // 
+            this.cb_saggitalPlane2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cb_saggitalPlane2.AutoSize = true;
+            this.cb_saggitalPlane2.Enabled = false;
+            this.cb_saggitalPlane2.Location = new System.Drawing.Point(65, 107);
+            this.cb_saggitalPlane2.Name = "cb_saggitalPlane2";
+            this.cb_saggitalPlane2.Size = new System.Drawing.Size(15, 14);
+            this.cb_saggitalPlane2.TabIndex = 20;
+            this.cb_saggitalPlane2.UseVisualStyleBackColor = true;
+            // 
+            // cb_occlusalPlane1
+            // 
+            this.cb_occlusalPlane1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cb_occlusalPlane1.AutoSize = true;
+            this.cb_occlusalPlane1.Enabled = false;
+            this.cb_occlusalPlane1.Location = new System.Drawing.Point(66, 30);
+            this.cb_occlusalPlane1.Name = "cb_occlusalPlane1";
+            this.cb_occlusalPlane1.Size = new System.Drawing.Size(15, 14);
+            this.cb_occlusalPlane1.TabIndex = 18;
+            this.cb_occlusalPlane1.UseVisualStyleBackColor = true;
+            // 
+            // lb_occlusalPlane
+            // 
+            this.lb_occlusalPlane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lb_occlusalPlane.BackColor = System.Drawing.Color.AliceBlue;
+            this.lb_occlusalPlane.Location = new System.Drawing.Point(5, 26);
+            this.lb_occlusalPlane.MaximumSize = new System.Drawing.Size(50, 100);
+            this.lb_occlusalPlane.Name = "lb_occlusalPlane";
+            this.lb_occlusalPlane.Size = new System.Drawing.Size(50, 42);
+            this.lb_occlusalPlane.TabIndex = 60;
+            this.lb_occlusalPlane.Tag = "33";
+            this.lb_occlusalPlane.Text = "Occlusal Plane";
+            this.lb_occlusalPlane.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_occlusalPlane.UseCompatibleTextRendering = true;
+            this.lb_occlusalPlane.Click += new System.EventHandler(this.LabelSelect);
             // 
             // tab_Inclination
             // 
@@ -5211,17 +4830,137 @@ namespace OrthoAid_3DSimulator
             this.label44.TabIndex = 0;
             this.label44.Text = "Cast1";
             // 
-            // tabPage1
+            // tab_CurveFit
             // 
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Controls.Add(this.pl_curveFit);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(788, 211);
-            this.tabPage1.TabIndex = 4;
-            this.tabPage1.Text = "Curve Fit";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tab_CurveFit.Controls.Add(this.lv_wires);
+            this.tab_CurveFit.Controls.Add(this.lb_curve2occlusalPlane);
+            this.tab_CurveFit.Controls.Add(this.pl_wireMatch);
+            this.tab_CurveFit.Controls.Add(this.cb_curvePlane2);
+            this.tab_CurveFit.Controls.Add(this.groupBox8);
+            this.tab_CurveFit.Controls.Add(this.lb_curvefit_rmse_z);
+            this.tab_CurveFit.Controls.Add(this.lb_curvefit_rmse_xy);
+            this.tab_CurveFit.Controls.Add(this.cb_curvePlane1);
+            this.tab_CurveFit.Controls.Add(this.panel1);
+            this.tab_CurveFit.Controls.Add(this.pl_curveFit);
+            this.tab_CurveFit.Location = new System.Drawing.Point(4, 22);
+            this.tab_CurveFit.Name = "tab_CurveFit";
+            this.tab_CurveFit.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_CurveFit.Size = new System.Drawing.Size(788, 211);
+            this.tab_CurveFit.TabIndex = 4;
+            this.tab_CurveFit.Text = "Curve Fit";
+            this.tab_CurveFit.UseVisualStyleBackColor = true;
+            // 
+            // lb_curve2occlusalPlane
+            // 
+            this.lb_curve2occlusalPlane.AutoSize = true;
+            this.lb_curve2occlusalPlane.Location = new System.Drawing.Point(189, 48);
+            this.lb_curve2occlusalPlane.Name = "lb_curve2occlusalPlane";
+            this.lb_curve2occlusalPlane.Size = new System.Drawing.Size(10, 13);
+            this.lb_curve2occlusalPlane.TabIndex = 98;
+            this.lb_curve2occlusalPlane.Text = "-";
+            // 
+            // pl_wireMatch
+            // 
+            this.pl_wireMatch.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pl_wireMatch.Location = new System.Drawing.Point(565, 9);
+            this.pl_wireMatch.Name = "pl_wireMatch";
+            this.pl_wireMatch.Size = new System.Drawing.Size(218, 195);
+            this.pl_wireMatch.TabIndex = 1;
+            // 
+            // cb_curvePlane2
+            // 
+            this.cb_curvePlane2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cb_curvePlane2.AutoSize = true;
+            this.cb_curvePlane2.Enabled = false;
+            this.cb_curvePlane2.Location = new System.Drawing.Point(5, 192);
+            this.cb_curvePlane2.Name = "cb_curvePlane2";
+            this.cb_curvePlane2.Size = new System.Drawing.Size(92, 17);
+            this.cb_curvePlane2.TabIndex = 96;
+            this.cb_curvePlane2.Text = "Show Plane 2";
+            this.cb_curvePlane2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.b_matchingWire);
+            this.groupBox8.Controls.Add(this.rb_maxilla);
+            this.groupBox8.Controls.Add(this.rb_mandible);
+            this.groupBox8.Location = new System.Drawing.Point(6, 62);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(177, 111);
+            this.groupBox8.TabIndex = 97;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Matching Wire";
+            // 
+            // lv_wires
+            // 
+            this.lv_wires.Location = new System.Drawing.Point(189, 68);
+            this.lv_wires.Name = "lv_wires";
+            this.lv_wires.Size = new System.Drawing.Size(119, 124);
+            this.lv_wires.TabIndex = 3;
+            this.lv_wires.UseCompatibleStateImageBehavior = false;
+            this.lv_wires.View = System.Windows.Forms.View.Details;
+            this.lv_wires.SelectedIndexChanged += new System.EventHandler(this.lv_wires_SelectedIndexChanged);
+            // 
+            // b_matchingWire
+            // 
+            this.b_matchingWire.Location = new System.Drawing.Point(2, 70);
+            this.b_matchingWire.Name = "b_matchingWire";
+            this.b_matchingWire.Size = new System.Drawing.Size(67, 35);
+            this.b_matchingWire.TabIndex = 2;
+            this.b_matchingWire.Text = "Find Best Wire";
+            this.b_matchingWire.UseVisualStyleBackColor = true;
+            this.b_matchingWire.Click += new System.EventHandler(this.b_matchingWire_Click);
+            // 
+            // rb_maxilla
+            // 
+            this.rb_maxilla.AutoSize = true;
+            this.rb_maxilla.Location = new System.Drawing.Point(7, 39);
+            this.rb_maxilla.Name = "rb_maxilla";
+            this.rb_maxilla.Size = new System.Drawing.Size(57, 17);
+            this.rb_maxilla.TabIndex = 1;
+            this.rb_maxilla.Text = "Maxilla";
+            this.rb_maxilla.UseVisualStyleBackColor = true;
+            // 
+            // rb_mandible
+            // 
+            this.rb_mandible.Checked = true;
+            this.rb_mandible.Location = new System.Drawing.Point(7, 19);
+            this.rb_mandible.Name = "rb_mandible";
+            this.rb_mandible.Size = new System.Drawing.Size(82, 24);
+            this.rb_mandible.TabIndex = 0;
+            this.rb_mandible.TabStop = true;
+            this.rb_mandible.Text = "Mandible";
+            this.rb_mandible.UseVisualStyleBackColor = true;
+            // 
+            // lb_curvefit_rmse_z
+            // 
+            this.lb_curvefit_rmse_z.AutoSize = true;
+            this.lb_curvefit_rmse_z.Location = new System.Drawing.Point(189, 30);
+            this.lb_curvefit_rmse_z.Name = "lb_curvefit_rmse_z";
+            this.lb_curvefit_rmse_z.Size = new System.Drawing.Size(10, 13);
+            this.lb_curvefit_rmse_z.TabIndex = 8;
+            this.lb_curvefit_rmse_z.Text = "-";
+            // 
+            // lb_curvefit_rmse_xy
+            // 
+            this.lb_curvefit_rmse_xy.AutoSize = true;
+            this.lb_curvefit_rmse_xy.Location = new System.Drawing.Point(189, 11);
+            this.lb_curvefit_rmse_xy.Name = "lb_curvefit_rmse_xy";
+            this.lb_curvefit_rmse_xy.Size = new System.Drawing.Size(10, 13);
+            this.lb_curvefit_rmse_xy.TabIndex = 7;
+            this.lb_curvefit_rmse_xy.Text = "-";
+            // 
+            // cb_curvePlane1
+            // 
+            this.cb_curvePlane1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cb_curvePlane1.AutoSize = true;
+            this.cb_curvePlane1.Enabled = false;
+            this.cb_curvePlane1.Location = new System.Drawing.Point(5, 175);
+            this.cb_curvePlane1.Name = "cb_curvePlane1";
+            this.cb_curvePlane1.Size = new System.Drawing.Size(92, 17);
+            this.cb_curvePlane1.TabIndex = 96;
+            this.cb_curvePlane1.Text = "Show Plane 1";
+            this.cb_curvePlane1.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -5230,7 +4969,7 @@ namespace OrthoAid_3DSimulator
             this.panel1.Controls.Add(this.nUpDown_order);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 51);
+            this.panel1.Size = new System.Drawing.Size(177, 51);
             this.panel1.TabIndex = 6;
             // 
             // rb_fitPoly
@@ -5266,7 +5005,7 @@ namespace OrthoAid_3DSimulator
             0,
             0});
             this.nUpDown_order.Minimum = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -5283,10 +5022,426 @@ namespace OrthoAid_3DSimulator
             // pl_curveFit
             // 
             this.pl_curveFit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pl_curveFit.Location = new System.Drawing.Point(356, 9);
+            this.pl_curveFit.Location = new System.Drawing.Point(341, 9);
             this.pl_curveFit.Name = "pl_curveFit";
-            this.pl_curveFit.Size = new System.Drawing.Size(425, 195);
+            this.pl_curveFit.Size = new System.Drawing.Size(218, 195);
             this.pl_curveFit.TabIndex = 0;
+            // 
+            // gb_teeh
+            // 
+            this.gb_teeh.BackgroundImage = global::OrthoAid_3DSimulator.Properties.Resources.teeth_tabled;
+            this.gb_teeh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.gb_teeh.Controls.Add(this.t32);
+            this.gb_teeh.Controls.Add(this.t31);
+            this.gb_teeh.Controls.Add(this.t29);
+            this.gb_teeh.Controls.Add(this.t9);
+            this.gb_teeh.Controls.Add(this.t8);
+            this.gb_teeh.Controls.Add(this.t10);
+            this.gb_teeh.Controls.Add(this.t7);
+            this.gb_teeh.Controls.Add(this.t11);
+            this.gb_teeh.Controls.Add(this.t6);
+            this.gb_teeh.Controls.Add(this.t21);
+            this.gb_teeh.Controls.Add(this.t12);
+            this.gb_teeh.Controls.Add(this.t5);
+            this.gb_teeh.Controls.Add(this.t20);
+            this.gb_teeh.Controls.Add(this.t13);
+            this.gb_teeh.Controls.Add(this.t4);
+            this.gb_teeh.Controls.Add(this.t19);
+            this.gb_teeh.Controls.Add(this.t14);
+            this.gb_teeh.Controls.Add(this.t3);
+            this.gb_teeh.Controls.Add(this.t18);
+            this.gb_teeh.Controls.Add(this.t15);
+            this.gb_teeh.Controls.Add(this.t2);
+            this.gb_teeh.Controls.Add(this.t17);
+            this.gb_teeh.Controls.Add(this.t16);
+            this.gb_teeh.Controls.Add(this.t1);
+            this.gb_teeh.Controls.Add(this.t24);
+            this.gb_teeh.Controls.Add(this.t25);
+            this.gb_teeh.Controls.Add(this.t23);
+            this.gb_teeh.Controls.Add(this.t26);
+            this.gb_teeh.Controls.Add(this.t22);
+            this.gb_teeh.Controls.Add(this.t27);
+            this.gb_teeh.Controls.Add(this.t28);
+            this.gb_teeh.Controls.Add(this.t30);
+            this.gb_teeh.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.gb_teeh.Location = new System.Drawing.Point(82, 460);
+            this.gb_teeh.Margin = new System.Windows.Forms.Padding(0);
+            this.gb_teeh.Name = "gb_teeh";
+            this.gb_teeh.Size = new System.Drawing.Size(711, 135);
+            this.gb_teeh.TabIndex = 92;
+            this.gb_teeh.TabStop = false;
+            this.gb_teeh.Visible = false;
+            // 
+            // t32
+            // 
+            this.t32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t32.BackColor = System.Drawing.Color.Transparent;
+            this.t32.Location = new System.Drawing.Point(8, 74);
+            this.t32.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t32.Name = "t32";
+            this.t32.Size = new System.Drawing.Size(40, 46);
+            this.t32.TabIndex = 0;
+            this.t32.UseCompatibleTextRendering = true;
+            this.t32.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t31
+            // 
+            this.t31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t31.BackColor = System.Drawing.Color.Transparent;
+            this.t31.Location = new System.Drawing.Point(62, 74);
+            this.t31.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t31.Name = "t31";
+            this.t31.Size = new System.Drawing.Size(42, 50);
+            this.t31.TabIndex = 0;
+            this.t31.UseCompatibleTextRendering = true;
+            this.t31.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t29
+            // 
+            this.t29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t29.BackColor = System.Drawing.Color.Transparent;
+            this.t29.Location = new System.Drawing.Point(166, 75);
+            this.t29.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t29.Name = "t29";
+            this.t29.Size = new System.Drawing.Size(35, 50);
+            this.t29.TabIndex = 0;
+            this.t29.UseCompatibleTextRendering = true;
+            this.t29.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t9
+            // 
+            this.t9.BackColor = System.Drawing.Color.Transparent;
+            this.t9.Location = new System.Drawing.Point(361, 16);
+            this.t9.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t9.Name = "t9";
+            this.t9.Size = new System.Drawing.Size(27, 50);
+            this.t9.TabIndex = 0;
+            this.t9.UseCompatibleTextRendering = true;
+            this.t9.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t8
+            // 
+            this.t8.BackColor = System.Drawing.Color.Transparent;
+            this.t8.Location = new System.Drawing.Point(323, 17);
+            this.t8.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t8.Name = "t8";
+            this.t8.Size = new System.Drawing.Size(27, 50);
+            this.t8.TabIndex = 0;
+            this.t8.UseCompatibleTextRendering = true;
+            this.t8.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t10
+            // 
+            this.t10.BackColor = System.Drawing.Color.Transparent;
+            this.t10.Location = new System.Drawing.Point(399, 17);
+            this.t10.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t10.Name = "t10";
+            this.t10.Size = new System.Drawing.Size(27, 50);
+            this.t10.TabIndex = 0;
+            this.t10.UseCompatibleTextRendering = true;
+            this.t10.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t7
+            // 
+            this.t7.BackColor = System.Drawing.Color.Transparent;
+            this.t7.Location = new System.Drawing.Point(286, 20);
+            this.t7.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t7.Name = "t7";
+            this.t7.Size = new System.Drawing.Size(27, 45);
+            this.t7.TabIndex = 0;
+            this.t7.UseCompatibleTextRendering = true;
+            this.t7.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t11
+            // 
+            this.t11.BackColor = System.Drawing.Color.Transparent;
+            this.t11.Location = new System.Drawing.Point(436, 13);
+            this.t11.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t11.Name = "t11";
+            this.t11.Size = new System.Drawing.Size(27, 50);
+            this.t11.TabIndex = 0;
+            this.t11.UseCompatibleTextRendering = true;
+            this.t11.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t6
+            // 
+            this.t6.BackColor = System.Drawing.Color.Transparent;
+            this.t6.Location = new System.Drawing.Point(248, 14);
+            this.t6.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t6.Name = "t6";
+            this.t6.Size = new System.Drawing.Size(27, 50);
+            this.t6.TabIndex = 0;
+            this.t6.UseCompatibleTextRendering = true;
+            this.t6.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t21
+            // 
+            this.t21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t21.BackColor = System.Drawing.Color.Transparent;
+            this.t21.Location = new System.Drawing.Point(472, 76);
+            this.t21.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t21.Name = "t21";
+            this.t21.Size = new System.Drawing.Size(27, 50);
+            this.t21.TabIndex = 0;
+            this.t21.UseCompatibleTextRendering = true;
+            this.t21.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t12
+            // 
+            this.t12.BackColor = System.Drawing.Color.Transparent;
+            this.t12.Location = new System.Drawing.Point(475, 15);
+            this.t12.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t12.Name = "t12";
+            this.t12.Size = new System.Drawing.Size(27, 50);
+            this.t12.TabIndex = 0;
+            this.t12.UseCompatibleTextRendering = true;
+            this.t12.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t5
+            // 
+            this.t5.BackColor = System.Drawing.Color.Transparent;
+            this.t5.Location = new System.Drawing.Point(210, 14);
+            this.t5.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t5.Name = "t5";
+            this.t5.Size = new System.Drawing.Size(27, 50);
+            this.t5.TabIndex = 0;
+            this.t5.UseCompatibleTextRendering = true;
+            this.t5.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t20
+            // 
+            this.t20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t20.BackColor = System.Drawing.Color.Transparent;
+            this.t20.Location = new System.Drawing.Point(510, 76);
+            this.t20.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t20.Name = "t20";
+            this.t20.Size = new System.Drawing.Size(35, 50);
+            this.t20.TabIndex = 0;
+            this.t20.UseCompatibleTextRendering = true;
+            this.t20.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t13
+            // 
+            this.t13.BackColor = System.Drawing.Color.Transparent;
+            this.t13.Location = new System.Drawing.Point(515, 15);
+            this.t13.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t13.Name = "t13";
+            this.t13.Size = new System.Drawing.Size(28, 50);
+            this.t13.TabIndex = 0;
+            this.t13.UseCompatibleTextRendering = true;
+            this.t13.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t4
+            // 
+            this.t4.BackColor = System.Drawing.Color.Transparent;
+            this.t4.Location = new System.Drawing.Point(166, 15);
+            this.t4.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t4.Name = "t4";
+            this.t4.Size = new System.Drawing.Size(35, 50);
+            this.t4.TabIndex = 0;
+            this.t4.UseCompatibleTextRendering = true;
+            this.t4.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t19
+            // 
+            this.t19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t19.BackColor = System.Drawing.Color.Transparent;
+            this.t19.Location = new System.Drawing.Point(549, 73);
+            this.t19.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t19.Name = "t19";
+            this.t19.Size = new System.Drawing.Size(44, 47);
+            this.t19.TabIndex = 0;
+            this.t19.UseCompatibleTextRendering = true;
+            this.t19.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t14
+            // 
+            this.t14.BackColor = System.Drawing.Color.Transparent;
+            this.t14.Location = new System.Drawing.Point(549, 15);
+            this.t14.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t14.Name = "t14";
+            this.t14.Size = new System.Drawing.Size(44, 50);
+            this.t14.TabIndex = 0;
+            this.t14.UseCompatibleTextRendering = true;
+            this.t14.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t3
+            // 
+            this.t3.BackColor = System.Drawing.Color.Transparent;
+            this.t3.Location = new System.Drawing.Point(119, 13);
+            this.t3.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t3.Name = "t3";
+            this.t3.Size = new System.Drawing.Size(44, 50);
+            this.t3.TabIndex = 0;
+            this.t3.Tag = "3";
+            this.t3.UseCompatibleTextRendering = true;
+            this.t3.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t18
+            // 
+            this.t18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t18.BackColor = System.Drawing.Color.Transparent;
+            this.t18.Location = new System.Drawing.Point(607, 73);
+            this.t18.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t18.Name = "t18";
+            this.t18.Size = new System.Drawing.Size(42, 47);
+            this.t18.TabIndex = 0;
+            this.t18.UseCompatibleTextRendering = true;
+            this.t18.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t15
+            // 
+            this.t15.BackColor = System.Drawing.Color.Transparent;
+            this.t15.Location = new System.Drawing.Point(599, 14);
+            this.t15.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t15.Name = "t15";
+            this.t15.Size = new System.Drawing.Size(50, 48);
+            this.t15.TabIndex = 0;
+            this.t15.UseCompatibleTextRendering = true;
+            this.t15.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t2
+            // 
+            this.t2.BackColor = System.Drawing.Color.Transparent;
+            this.t2.Location = new System.Drawing.Point(63, 11);
+            this.t2.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t2.Name = "t2";
+            this.t2.Size = new System.Drawing.Size(50, 50);
+            this.t2.TabIndex = 0;
+            this.t2.Tag = "2";
+            this.t2.UseCompatibleTextRendering = true;
+            this.t2.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t17
+            // 
+            this.t17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t17.BackColor = System.Drawing.Color.Transparent;
+            this.t17.Location = new System.Drawing.Point(663, 74);
+            this.t17.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t17.Name = "t17";
+            this.t17.Size = new System.Drawing.Size(41, 43);
+            this.t17.TabIndex = 0;
+            this.t17.UseCompatibleTextRendering = true;
+            this.t17.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t16
+            // 
+            this.t16.BackColor = System.Drawing.Color.Transparent;
+            this.t16.Location = new System.Drawing.Point(658, 11);
+            this.t16.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t16.Name = "t16";
+            this.t16.Size = new System.Drawing.Size(50, 50);
+            this.t16.TabIndex = 0;
+            this.t16.UseCompatibleTextRendering = true;
+            this.t16.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t1
+            // 
+            this.t1.BackColor = System.Drawing.Color.Transparent;
+            this.t1.Location = new System.Drawing.Point(4, 11);
+            this.t1.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t1.Name = "t1";
+            this.t1.Size = new System.Drawing.Size(50, 50);
+            this.t1.TabIndex = 0;
+            this.t1.Tag = "1";
+            this.t1.UseCompatibleTextRendering = true;
+            this.t1.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t24
+            // 
+            this.t24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t24.BackColor = System.Drawing.Color.Transparent;
+            this.t24.Location = new System.Drawing.Point(362, 76);
+            this.t24.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t24.Name = "t24";
+            this.t24.Size = new System.Drawing.Size(27, 50);
+            this.t24.TabIndex = 0;
+            this.t24.UseCompatibleTextRendering = true;
+            this.t24.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t25
+            // 
+            this.t25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t25.BackColor = System.Drawing.Color.Transparent;
+            this.t25.Location = new System.Drawing.Point(322, 76);
+            this.t25.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t25.Name = "t25";
+            this.t25.Size = new System.Drawing.Size(27, 50);
+            this.t25.TabIndex = 0;
+            this.t25.UseCompatibleTextRendering = true;
+            this.t25.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t23
+            // 
+            this.t23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t23.BackColor = System.Drawing.Color.Transparent;
+            this.t23.Location = new System.Drawing.Point(399, 76);
+            this.t23.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t23.Name = "t23";
+            this.t23.Size = new System.Drawing.Size(27, 50);
+            this.t23.TabIndex = 0;
+            this.t23.UseCompatibleTextRendering = true;
+            this.t23.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t26
+            // 
+            this.t26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t26.BackColor = System.Drawing.Color.Transparent;
+            this.t26.Location = new System.Drawing.Point(286, 76);
+            this.t26.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t26.Name = "t26";
+            this.t26.Size = new System.Drawing.Size(27, 50);
+            this.t26.TabIndex = 0;
+            this.t26.UseCompatibleTextRendering = true;
+            this.t26.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t22
+            // 
+            this.t22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t22.BackColor = System.Drawing.Color.Transparent;
+            this.t22.Location = new System.Drawing.Point(436, 77);
+            this.t22.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t22.Name = "t22";
+            this.t22.Size = new System.Drawing.Size(27, 50);
+            this.t22.TabIndex = 0;
+            this.t22.UseCompatibleTextRendering = true;
+            this.t22.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t27
+            // 
+            this.t27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t27.BackColor = System.Drawing.Color.Transparent;
+            this.t27.Location = new System.Drawing.Point(251, 74);
+            this.t27.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t27.Name = "t27";
+            this.t27.Size = new System.Drawing.Size(27, 50);
+            this.t27.TabIndex = 0;
+            this.t27.UseCompatibleTextRendering = true;
+            this.t27.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t28
+            // 
+            this.t28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t28.BackColor = System.Drawing.Color.Transparent;
+            this.t28.Location = new System.Drawing.Point(212, 75);
+            this.t28.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t28.Name = "t28";
+            this.t28.Size = new System.Drawing.Size(27, 50);
+            this.t28.TabIndex = 0;
+            this.t28.UseCompatibleTextRendering = true;
+            this.t28.Click += new System.EventHandler(this.LabelSelect);
+            // 
+            // t30
+            // 
+            this.t30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.t30.BackColor = System.Drawing.Color.Transparent;
+            this.t30.Location = new System.Drawing.Point(118, 75);
+            this.t30.MaximumSize = new System.Drawing.Size(50, 50);
+            this.t30.Name = "t30";
+            this.t30.Size = new System.Drawing.Size(44, 45);
+            this.t30.TabIndex = 0;
+            this.t30.UseCompatibleTextRendering = true;
+            this.t30.Click += new System.EventHandler(this.LabelSelect);
             // 
             // lb_numVerticesReduced
             // 
@@ -5518,6 +5673,7 @@ namespace OrthoAid_3DSimulator
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1139, 662);
+            this.Controls.Add(this.gb_teeh);
             this.Controls.Add(this.toolboxPanel_p);
             this.Controls.Add(this.gb_weight);
             this.Controls.Add(this.lb_selectedPoints2);
@@ -5574,9 +5730,9 @@ namespace OrthoAid_3DSimulator
             this.toolStripMenu.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.gb_teeh.ResumeLayout(false);
             this.tab_Maintab.ResumeLayout(false);
+            this.tab_Planes.ResumeLayout(false);
+            this.tab_Planes.PerformLayout();
             this.tab_Inclination.ResumeLayout(false);
             this.tab_Inclination.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -5587,10 +5743,14 @@ namespace OrthoAid_3DSimulator
             this.tab_Distance2Plane.PerformLayout();
             this.tab_SuperInclin.ResumeLayout(false);
             this.tab_SuperInclin.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
+            this.tab_CurveFit.ResumeLayout(false);
+            this.tab_CurveFit.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDown_order)).EndInit();
+            this.gb_teeh.ResumeLayout(false);
             this.gb_weight.ResumeLayout(false);
             this.gb_weight.PerformLayout();
             this.toolboxPanel_p.ResumeLayout(false);
@@ -6043,12 +6203,25 @@ namespace OrthoAid_3DSimulator
         private System.Windows.Forms.Button collapse_b;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button expand_b;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tab_CurveFit;
         private System.Windows.Forms.Panel pl_curveFit;
         private System.Windows.Forms.NumericUpDown nUpDown_order;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton rb_fitPoly;
         private System.Windows.Forms.RadioButton rb_fitNoroozi;
+        private System.Windows.Forms.Label lb_curvefit_rmse_z;
+        private System.Windows.Forms.Label lb_curvefit_rmse_xy;
+        private System.Windows.Forms.CheckBox cb_curvePlane2;
+        private System.Windows.Forms.CheckBox cb_curvePlane1;
+        private System.Windows.Forms.Button b_matchingWire;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.RadioButton rb_maxilla;
+        private System.Windows.Forms.RadioButton rb_mandible;
+        private System.Windows.Forms.Panel pl_wireMatch;
+        private System.Windows.Forms.Label lb_curve2occlusalPlane;
+        private System.Windows.Forms.TabPage tab_Planes;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ListView lv_wires;
     }
 }
 
