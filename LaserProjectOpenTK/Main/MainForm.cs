@@ -1663,5 +1663,9 @@ All Rights Preserved.", "OrthoAid V2.0");
                 config.fitFunction = Common.FitFunction.noroozi;
         }
 
+        private void label77_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

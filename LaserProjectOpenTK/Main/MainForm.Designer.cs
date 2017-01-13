@@ -422,11 +422,11 @@ namespace OrthoAid_3DSimulator
             this.label45 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.tab_CurveFit = new System.Windows.Forms.TabPage();
+            this.lv_wires = new System.Windows.Forms.ListView();
             this.lb_curve2occlusalPlane = new System.Windows.Forms.Label();
             this.pl_wireMatch = new System.Windows.Forms.Panel();
             this.cb_curvePlane2 = new System.Windows.Forms.CheckBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.lv_wires = new System.Windows.Forms.ListView();
             this.b_matchingWire = new System.Windows.Forms.Button();
             this.rb_maxilla = new System.Windows.Forms.RadioButton();
             this.rb_mandible = new System.Windows.Forms.RadioButton();
@@ -1378,6 +1378,7 @@ namespace OrthoAid_3DSimulator
             // toolStripMenu
             // 
             this.toolStripMenu.AutoSize = false;
+            this.toolStripMenu.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.toolStripMenu.GripMargin = new System.Windows.Forms.Padding(4);
             this.toolStripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tstrip_Hand,
@@ -1638,6 +1639,7 @@ namespace OrthoAid_3DSimulator
             // 
             // tab_Planes
             // 
+            this.tab_Planes.BackColor = System.Drawing.Color.LightSteelBlue;
             this.tab_Planes.Controls.Add(this.label13);
             this.tab_Planes.Controls.Add(this.lb_occlusalPlanesAngle);
             this.tab_Planes.Controls.Add(this.lb_saggitalPlane);
@@ -1652,7 +1654,6 @@ namespace OrthoAid_3DSimulator
             this.tab_Planes.Size = new System.Drawing.Size(788, 211);
             this.tab_Planes.TabIndex = 5;
             this.tab_Planes.Text = "Planes";
-            this.tab_Planes.UseVisualStyleBackColor = true;
             // 
             // label13
             // 
@@ -2922,6 +2923,7 @@ namespace OrthoAid_3DSimulator
             // 
             // tab_Distance2Plane
             // 
+            this.tab_Distance2Plane.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tab_Distance2Plane.Controls.Add(this.label8);
             this.tab_Distance2Plane.Controls.Add(this.label11);
             this.tab_Distance2Plane.Controls.Add(this.label77);
@@ -2994,17 +2996,16 @@ namespace OrthoAid_3DSimulator
             this.tab_Distance2Plane.Name = "tab_Distance2Plane";
             this.tab_Distance2Plane.Size = new System.Drawing.Size(788, 211);
             this.tab_Distance2Plane.TabIndex = 2;
-            this.tab_Distance2Plane.Text = "Distance To Plane";
-            this.tab_Distance2Plane.UseVisualStyleBackColor = true;
+            this.tab_Distance2Plane.Text = "Distance to Plane";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(1, 193);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(69, 13);
+            this.label8.Size = new System.Drawing.Size(72, 13);
             this.label8.TabIndex = 160;
-            this.label8.Text = "Sagital Plane";
+            this.label8.Text = "Sagittal Plane";
             // 
             // label11
             // 
@@ -3020,9 +3021,10 @@ namespace OrthoAid_3DSimulator
             this.label77.AutoSize = true;
             this.label77.Location = new System.Drawing.Point(1, 26);
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(69, 13);
+            this.label77.Size = new System.Drawing.Size(72, 13);
             this.label77.TabIndex = 158;
-            this.label77.Text = "Sagital Plane";
+            this.label77.Text = "Sagittal Plane";
+            this.label77.Click += new System.EventHandler(this.label77_Click);
             // 
             // label74
             // 
@@ -4850,6 +4852,16 @@ namespace OrthoAid_3DSimulator
             this.tab_CurveFit.Text = "Curve Fit";
             this.tab_CurveFit.UseVisualStyleBackColor = true;
             // 
+            // lv_wires
+            // 
+            this.lv_wires.Location = new System.Drawing.Point(189, 68);
+            this.lv_wires.Name = "lv_wires";
+            this.lv_wires.Size = new System.Drawing.Size(119, 124);
+            this.lv_wires.TabIndex = 3;
+            this.lv_wires.UseCompatibleStateImageBehavior = false;
+            this.lv_wires.View = System.Windows.Forms.View.Details;
+            this.lv_wires.SelectedIndexChanged += new System.EventHandler(this.lv_wires_SelectedIndexChanged);
+            // 
             // lb_curve2occlusalPlane
             // 
             this.lb_curve2occlusalPlane.AutoSize = true;
@@ -4890,16 +4902,6 @@ namespace OrthoAid_3DSimulator
             this.groupBox8.TabIndex = 97;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Matching Wire";
-            // 
-            // lv_wires
-            // 
-            this.lv_wires.Location = new System.Drawing.Point(189, 68);
-            this.lv_wires.Name = "lv_wires";
-            this.lv_wires.Size = new System.Drawing.Size(119, 124);
-            this.lv_wires.TabIndex = 3;
-            this.lv_wires.UseCompatibleStateImageBehavior = false;
-            this.lv_wires.View = System.Windows.Forms.View.Details;
-            this.lv_wires.SelectedIndexChanged += new System.EventHandler(this.lv_wires_SelectedIndexChanged);
             // 
             // b_matchingWire
             // 
@@ -5029,6 +5031,7 @@ namespace OrthoAid_3DSimulator
             // 
             // gb_teeh
             // 
+            this.gb_teeh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.gb_teeh.BackgroundImage = global::OrthoAid_3DSimulator.Properties.Resources.teeth_tabled;
             this.gb_teeh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.gb_teeh.Controls.Add(this.t32);

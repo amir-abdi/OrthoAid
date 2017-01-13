@@ -12,7 +12,7 @@ using OpenTK.Input;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
-
+using OrthoAid_3DSimulator.Common;
 
 namespace OrthoAid_3DSimulator
 {
@@ -251,20 +251,7 @@ namespace OrthoAid_3DSimulator
                 else
                     GL.GenBuffers(1, out handle.VboNormals);
 
-
-                //Color
-                //Add a random RGB color to discriminate casts
-                float rOffset = 80.0f/255f;//(float)randColor.NextDouble();
-                float gOffset = 100.0f/255f;//(float)randColor.NextDouble();
-                float bOffset = 150.0f/255f;//(float)randColor.NextDouble();                
-                if (handle.vboName == "vbo2")
-                {
-                    rOffset = 255f/255f;
-                    gOffset = 200f/255f;
-                    bOffset = 74f/255f;
-                }
-                handle.color = new Vector3(rOffset, gOffset, bOffset);
-
+                SetColor(ref handle);
                 
                 if (flags.RandomColorEnable)
                 {
@@ -291,6 +278,30 @@ namespace OrthoAid_3DSimulator
             }
             config.viewMode = Common.ViewMode.Points;
             UpdateUI();
+        }
+
+        private void SetColor(ref Vbo handle)
+        {
+            //Color            
+            float rcolor = 0;
+            float gcolor = 0;
+            float bcolor = 0;
+            if (handle.vboName == "vbo1")
+            {
+                rcolor = 80.0f / 255f;
+                gcolor = 100.0f / 255f;
+                bcolor = 150.0f / 255f;
+            }
+            else if (handle.vboName == "vbo2")
+            {
+                rcolor = 255f / 255f;
+                gcolor = 200f / 255f;
+                bcolor = 74f / 255f;
+            }
+            //handle.color = new Vector3(rcolor, gcolor, bcolor);
+            Color c = Color.Bisque;
+            handle.color = new Vector3((float) c.R/255f, (float) c.G / 255f, (float) c.B / 255f);
+            ;
         }
 
         void LoadIndices(ref Common.Vbo handle, UInt32[] indices)
