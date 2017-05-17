@@ -26,32 +26,34 @@ namespace OrthoAid_3DSimulator
         bool openGLInitiated = false;
         const float SPUR_DISTANCE_THREASHOLD = 40;
 
-        private void glControlCast_Load(object sender, EventArgs e)
+        private void GLControlCast_Load(object sender, EventArgs e)
         {
 
-            initVBO(ref vbo1, "vbo1");
-            initVBO(ref vbo2, "vbo2");
-            initVBO(ref reduceDensityVbo, "reduceDensityVbo");
+            InitVBO(ref vbo1, "vbo1");
+            InitVBO(ref vbo2, "vbo2");
+            InitVBO(ref reduceDensityVbo, "reduceDensityVbo");
 
             randColor = new Random();
 
-            initOpenGL();
+            InitOpenGL();
         }
 
-        private void initVBO(ref Common.Vbo handle, string name)
+        private void InitVBO(ref Common.Vbo handle, string name)
         {
-            handle = new Common.Vbo();
-            handle.vboName = name;        
+            handle = new Vbo()
+            {
+                vboName = name
+            };
         }
 
-        private void initOpenGL()
+        private void InitOpenGL()
         {
             flags.LightingEnable = true;
             flags.RandomColorEnable = true;
             flags.TextureEnable = false;
             flags.showPoints_MeshMode = false;
 
-            setViewPort();
+            SetViewPort();
 
             OpenTK.Graphics.GraphicsContext.CurrentContext.VSync = true;
             //string version = GL.GetString(StringName.Version);
@@ -84,8 +86,10 @@ namespace OrthoAid_3DSimulator
             InitLighting();
 
             eyeOffset = new Vector3(0, 0, 150);
-            targetOffset = new Vector3();
-            targetOffset.Z = 0;
+            targetOffset = new Vector3()
+            {
+                Z = 0
+            };            
 
             //CreateShaders(ResourceShader.VertexShader, ResourceShader.FragmentShader);
 
@@ -102,7 +106,7 @@ namespace OrthoAid_3DSimulator
 
 
             openGLInitiated = true;
-            Common.Logger.Log_GLError("MainForm", "OpenGL", "glControlCast_Load");
+            Common.Logger.Log_GLError("MainForm", "OpenGL", "GLControlCast_Load");
         }
 
         private void InitVerticesStats(ref Common.Vbo handle)
@@ -348,7 +352,7 @@ namespace OrthoAid_3DSimulator
             UpdateUI();
         }
 
-        private void unBindOpenGL()
+        private void UnBindOpenGL()
         {                        
             GL.Disable(EnableCap.DepthTest);
             GL.Disable(EnableCap.CullFace);
@@ -356,7 +360,7 @@ namespace OrthoAid_3DSimulator
             GL.Disable(EnableCap.PointSmooth);            
         }
 
-        private void unBindLighting()
+        private void UnBindLighting()
         {
             GL.Disable(EnableCap.Lighting);
             GL.Disable(EnableCap.Light0);
@@ -451,12 +455,12 @@ namespace OrthoAid_3DSimulator
             Application.Idle -= Application_Idle;
 
             Thread.Sleep(100);
-            //unBindOpenGL();
+            //UnBindOpenGL();
             DeleteVBO(ref handle);
             ClearArrays(ref handle.verticesData);
             handle.selectedVertices.Clear();
             if (!vbo1.validVertices && !vbo2.validVertices)
-                initOpenGL();
+                InitOpenGL();
             Application.Idle += Application_Idle;
 
             InitVerticesStats(ref handle);

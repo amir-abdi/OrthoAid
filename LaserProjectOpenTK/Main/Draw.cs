@@ -49,7 +49,7 @@ namespace OrthoAid_3DSimulator
 
             if (vbo != null && vbo.validMesh && vbo.show)
                 if (config.editMode == Common.EditMode.Select || config.editMode == Common.EditMode.Ruler)
-                    select(ref vbo);
+                    Select(ref vbo);
 
             if (vbo1.validVertices && vbo1.show)
             {

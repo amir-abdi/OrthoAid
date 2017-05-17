@@ -216,7 +216,7 @@ namespace OrthoAid_3DSimulator.Common
         public Vector3 centerForDraw;        
         public Vector3[] tangentPoints; 
         public Vector3[] projectedPointsOnAxisPlane; //not used
-        public float inclination { get; set; }
+        public float Inclination { get; set; }
 
         public Plane(Vector3 point1, Vector3 point2, Vector3 point3, string _name, float _radius)
         {
@@ -381,10 +381,10 @@ namespace OrthoAid_3DSimulator.Common
 
         private void GeneratePointsForDraw()
         {            
-            Vector3 c,v1;
-            ProjectVectorOnPlane(centerForDraw, new Vector3(1,1,0), out c, out v1);
+            Vector3 vector3, v1;
+            ProjectVectorOnPlane(centerForDraw, new Vector3(1,1,0), out vector3, out v1);
             if (v1.Length == 0)
-                ProjectVectorOnPlane(centerForDraw, new Vector3(0,1,1), out c, out v1);
+                ProjectVectorOnPlane(centerForDraw, new Vector3(0,1,1), out vector3, out v1);
             
             Vector3 v2 = Vector3.Cross(v1, GetNormal());
 

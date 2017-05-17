@@ -45,7 +45,7 @@ namespace OrthoAid_3DSimulator
             GL.Rotate(angleZ, 0, 0, 1.0f);
         }
 
-        private void setViewPort()
+        private void SetViewPort()
         {
             viewport[0] = 0;// this.glControlCast.Location.X;
             viewport[1] = 0;//this.glControlCast.Location.Y;

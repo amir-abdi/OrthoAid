@@ -59,7 +59,7 @@ namespace OrthoAid_3DSimulator
             if (vbo1.selectedVertices.Count != 1 ||
                 vbo2.selectedVertices.Count != 1)
             {
-                MessageBox.Show("To calculate Tooth Dislocation, after performing superimposition, you need to select one point on each cast as reference.", "Wrong number of points");
+                MessageBox.Show("To calculate Tooth Dislocation, after performing superimposition, you need to Select one point on each cast as reference.", "Wrong number of points");
                 return;
             }
 
@@ -91,7 +91,7 @@ namespace OrthoAid_3DSimulator
                 
                 if (Planes[OCCLUSALPLANE_INDEX]==null || !Planes[OCCLUSALPLANE_INDEX].valid)
                 {
-                    MessageBox.Show("Occlusal Plane should be defined prior to calculatin tooth inclination.", "No Occlusal Plane");
+                    MessageBox.Show("Occlusal Plane should be defined prior to calculatin tooth Inclination.", "No Occlusal Plane");
                     return false;
                 }
 
@@ -102,7 +102,7 @@ namespace OrthoAid_3DSimulator
                 //making sure points are in correct order--> lowest:point1, middle: point2, top: point3            
                 //cause occulsal plane sometimes goes lower than the upper and even middle point, 
                 //couldn't find a solution at the moment and decided to go with this:
-                //the operator should select the points in the correct order: lowest=first, highest=last
+                //the operator should Select the points in the correct order: lowest=first, highest=last
                 //Sort3PointsBasedOnDistanceToOcclusalPlane(ref point1, ref point2, ref point3, Planes[OCCLUSALPLANE_INDEX]);
 
                 toothAxisPlane = DefineAxisPlane(point1, point2, point3, Planes[OCCLUSALPLANE_INDEX]);
@@ -116,9 +116,9 @@ namespace OrthoAid_3DSimulator
                 toothAxisPlane.tangentPoints = CalculateTangentLine(projectedPointsOnBuccal, toothAxisPlane, projectedBBPUser);
 
                 Vector3 tangentVector = toothAxisPlane.tangentPoints[1] - toothAxisPlane.tangentPoints[0];
-                toothAxisPlane.inclination = Planes[OCCLUSALPLANE_INDEX].Angle2Vector(tangentVector); //radian
-                toothAxisPlane.inclination = (toothAxisPlane.inclination / (float)Math.PI) * 180;
-                toothAxisPlane.inclination = CorrectInclination_BiggerORSmallerThan90(toothAxisPlane, point1, Planes[OCCLUSALPLANE_INDEX]);
+                toothAxisPlane.Inclination = Planes[OCCLUSALPLANE_INDEX].Angle2Vector(tangentVector); //radian
+                toothAxisPlane.Inclination = (toothAxisPlane.Inclination / (float)Math.PI) * 180;
+                toothAxisPlane.Inclination = CorrectInclination_BiggerORSmallerThan90(toothAxisPlane, point1, Planes[OCCLUSALPLANE_INDEX]);
                 toothAxisPlane.validInclination = true;
 
                 return true;
@@ -163,9 +163,9 @@ namespace OrthoAid_3DSimulator
             float distLowerPProj2Center = (lowerPProj - occlusalPlane.centerForDraw).LengthSquared;
 
             if (distUpperPProj2Center < distLowerPProj2Center)
-                return toothAxisPlane.inclination - 90;
+                return toothAxisPlane.Inclination - 90;
             else
-                return (90 - toothAxisPlane.inclination);
+                return (90 - toothAxisPlane.Inclination);
 
         }
 
@@ -754,7 +754,7 @@ namespace OrthoAid_3DSimulator
                 {
                     if (Planes[1][i] != null && Planes[1][i].validInclination)
                     {
-                        tvalues1[i].Text = Planes[1][i].inclination.ToString("f2");
+                        tvalues1[i].Text = Planes[1][i].Inclination.ToString("f2");
                     }
                     else
                         tvalues1[i].Text = "0";
@@ -766,7 +766,7 @@ namespace OrthoAid_3DSimulator
                 {
                     if (Planes[0][i] != null && Planes[0][i].validInclination)
                     {
-                        tvalues1[i].Text = Planes[0][i].inclination.ToString("f2");
+                        tvalues1[i].Text = Planes[0][i].Inclination.ToString("f2");
                     }
                     else
                         tvalues1[i].Text = "0";
@@ -824,18 +824,18 @@ namespace OrthoAid_3DSimulator
             for (int i = 1; i <= 32; ++i)
             {
                 if (Planes[0][i] != null && Planes[0][i].validInclination)                
-                    tvalues5[i].Text = Planes[0][i].inclination.ToString("f2");                
+                    tvalues5[i].Text = Planes[0][i].Inclination.ToString("f2");                
                 else
                     tvalues5[i].Text = "0";
                 if (Planes[1][i] != null && Planes[1][i].validInclination)
-                    tvalues6[i].Text = Planes[1][i].inclination.ToString("f2");
+                    tvalues6[i].Text = Planes[1][i].Inclination.ToString("f2");
                 else
                     tvalues6[i].Text = "0";
 
                 if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[0][OCCLUSALPLANE_INDEX].valid &&
                     Planes[1][i] != null && Planes[1][i].validInclination &&
                     Planes[2][i] != null && Planes[2][i].validInclination)
-                    tvalues7[i].Text = Planes[2][i].inclination.ToString("f2");
+                    tvalues7[i].Text = Planes[2][i].Inclination.ToString("f2");
                 else
                     tvalues7[i].Text = "0";
             }
@@ -858,7 +858,7 @@ namespace OrthoAid_3DSimulator
 
             if (sel.Count != 2)
             {
-                MessageBox.Show("To define a Sagital Plane, first define the Occlusal Plane, then select 2 points on the midline.", "Wrong number of selected points");
+                MessageBox.Show("To define a Sagital Plane, first define the Occlusal Plane, then Select 2 points on the midline.", "Wrong number of selected points");
                 return false;
             }
             plane = new Common.Plane(verts[sel[0]], verts[sel[1]], occlusalPlane.GetNormal());
@@ -873,7 +873,7 @@ namespace OrthoAid_3DSimulator
                 if ((selectedIndex == 1 && (Planes[0][OCCLUSALPLANE_INDEX] == null || Planes[0][SAGITALPLANE_INDEX] == null)) ||
                     (selectedIndex == 2 && (Planes[1][OCCLUSALPLANE_INDEX] == null || Planes[1][SAGITALPLANE_INDEX] == null)))
                 {
-                    MessageBox.Show("After defining the Occlusal/Sagital Plane, select a tooth and a cusp tip to calculate the distance from the cusp tip to the defined plane.", "Wrong number of points");
+                    MessageBox.Show("After defining the Occlusal/Sagital Plane, Select a tooth and a cusp tip to calculate the distance from the cusp tip to the defined plane.", "Wrong number of points");
                     return;
                 }
             }

@@ -73,24 +73,24 @@ namespace OrthoAid_3DSimulator
                     generalFarSelectIndex = i;
             }
 
-            //Common.Line3D[] lines3D = new Common.Line3D[select.Length];
-            //float[] distLine2meanP = new float[select.Length];
-            //for (int i = 0; i < select.Length-1; i++)
+            //Common.Line3D[] lines3D = new Common.Line3D[Select.Length];
+            //float[] distLine2meanP = new float[Select.Length];
+            //for (int i = 0; i < Select.Length-1; i++)
             //{
-            //    lines3D[i] = new Common.Line3D(select[i], select[i + 1]);
+            //    lines3D[i] = new Common.Line3D(Select[i], Select[i + 1]);
             //    distLine2meanP[i] = lines3D[i].Distance2PointSquared(meanP);
             //}
-            //lines3D[select.Length - 1] = new Common.Line3D(select[select.Length - 1], select[0]);
-            //distLine2meanP[select.Length - 1] = lines3D[select.Length - 1].Distance2PointSquared(meanP);
+            //lines3D[Select.Length - 1] = new Common.Line3D(Select[Select.Length - 1], Select[0]);
+            //distLine2meanP[Select.Length - 1] = lines3D[Select.Length - 1].Distance2PointSquared(meanP);
             
             for (uint i = 0; i < handle.verticesData.vertices.Length; i++)
             {
                 //int nearSelectIndex = 0;
-                //float dnear = (select[0] - handle.verticesData.vertices[i]).LengthSquared;
+                //float dnear = (Select[0] - handle.verticesData.vertices[i]).LengthSquared;
                 ////float dnear = lines[0].Distance2PointSquared(handle.verticesData.vertices[i]);
-                //for (int s = 1; s < select.Length; s++)
+                //for (int s = 1; s < Select.Length; s++)
                 //{
-                //    float d = (select[s] - handle.verticesData.vertices[i]).LengthSquared;
+                //    float d = (Select[s] - handle.verticesData.vertices[i]).LengthSquared;
                 //    //float d = lines[s].Distance2PointSquared(handle.verticesData.vertices[i]);
                 //    if (d < dnear)
                 //    {
@@ -102,7 +102,7 @@ namespace OrthoAid_3DSimulator
                 if ((meanP - handle.verticesData.vertices[i]).LengthSquared < distSelect2meanP[generalFarSelectIndex] + 100)
                 //if ((meanP - handle.verticesData.vertices[i]).LengthSquared < distLine2meanP[nearSelectIndex])
                 //if (Vector3.CalculateAngle(meanP - handle.verticesData.vertices[i],
-                //    select[nearSelectIndex] - handle.verticesData.vertices[i]) > (float)Math.PI / 2)
+                //    Select[nearSelectIndex] - handle.verticesData.vertices[i]) > (float)Math.PI / 2)
                     pointsOnSurface_approx_index.Add(i);
             }
 
@@ -167,7 +167,7 @@ namespace OrthoAid_3DSimulator
             }
         }
 
-        private void select(ref Common.Vbo handle)
+        private void Select(ref Common.Vbo handle)
         {
             
             //GL.GetInteger(GetPName.Viewport, viewport);
@@ -323,15 +323,7 @@ namespace OrthoAid_3DSimulator
             
             if (!VertexColorChange(ref handle, vertexNumber, DISCRIMINATECOLOR))
                 return;
-        }
-
-        Predicate<uint> indexFinder2(int index)
-        {
-            return delegate(uint i)
-            {
-                return i == index;
-            };
-        }
+        }        
 
         void IndiscriminateSelectedVertex(Common.Vbo handle, uint vertexNumber)
         {
@@ -357,209 +349,14 @@ namespace OrthoAid_3DSimulator
                 return;
         }
 
-        private void rb_reconstructedVertices_CheckedChanged(object sender, EventArgs e)
+        private void Rb_ReconstructedVertices_CheckedChanged(object sender, EventArgs e)
         {
             flags.verticesSelectionType = Common.VerticesSelectionType.vertices;
         }
 
-        private void rb_realVertices_CheckedChanged(object sender, EventArgs e)
+        private void Rb_RealVertices_CheckedChanged(object sender, EventArgs e)
         {
             flags.verticesSelectionType = Common.VerticesSelectionType.trueVertices;
-        }
-
-        #region selectObject
-        uint[] selectBuffer;
-        int selectBufferSize = 512;
-        void startPicking()
-        {
-
-
-            //Selecting Mode
-            GL.SelectBuffer(selectBufferSize, selectBuffer);
-            GL.RenderMode(RenderingMode.Select);
-
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.PushMatrix();
-            GL.LoadIdentity();
-
-            OpenTK.Graphics.Glu.PickMatrix(MouseX, viewport[3] - MouseY, 5, 5, viewport);
-            OpenTK.Graphics.Glu.Perspective(45, 1, 0.1, 1000);
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.InitNames();
-        } //not used
-
-        void stopPicking()
-        {
-
-            int hits;
-
-            // restoring the original projection matrix
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.PopMatrix();
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.Flush(); //WHY?
-
-            // returning to normal rendering mode
-            hits = GL.RenderMode(RenderingMode.Render);
-
-            // if there are hits process them
-            if (hits != 0)
-            {
-                processHits(hits, selectBuffer);
-
-            }
-        } //not used
-
-        private void processHits(int hits, uint[] selectBuffer)
-        {
-            for (int i = 0; i < hits; ++i)
-            {
-
-            }
-        } //not used
-        #endregion
-
-        #region select vertex by color
-        //uint backFrameBufferID, colorRenderBufferID, depthRenderBufferID, textureBufferID;        
-        //struct Byte4
-        //{
-        //    public byte R, G, B, A;
-
-        //    public Byte4(byte[] input)
-        //    {
-        //        R = input[0];
-        //        G = input[1];
-        //        B = input[2];
-        //        A = input[3];
-        //    }
-
-        //    public uint ToUInt32()
-        //    {
-        //        byte[] temp = new byte[] { this.R, this.G, this.B, this.A };
-        //        return BitConverter.ToUInt32(temp, 0);
-        //    }
-
-        //    public override string ToString()
-        //    {
-        //        return this.R + ", " + this.G + ", " + this.B + ", " + this.A;
-        //    }
-        //}
-
-        //void initBackFrameBuffer()
-        //{
-        //    GL.GenFramebuffers(1, out backFrameBufferID);
-        //    GL.GenRenderbuffers(1, out colorRenderBufferID);
-        //    GL.GenRenderbuffers(1, out depthRenderBufferID);
-        //    GL.GenTextures(1, out textureBufferID);
-
-        //    GL.BindFramebuffer(FramebufferTarget.Framebuffer, backFrameBufferID);
-
-        //    GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, colorRenderBufferID);
-        //    //GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0,
-        //    //    RenderbufferTarget.Renderbuffer, colorRenderBufferID);
-        //    GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.Rgba8, viewport[2], viewport[3]);
-
-        //    //GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, depthRenderBufferID);
-        //    ////GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment,
-        //    ////    RenderbufferTarget.Renderbuffer, depthRenderBufferID);
-        //    //GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.DepthComponent16, viewport[2], viewport[3]);
-
-        //    //Bitmap bmp = new Bitmap(viewport[2], viewport[3]);
-        //    //BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly,
-        //    //    System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-        //    //GL.BindTexture(TextureTarget.Texture2D, textureBufferID);
-        //    //GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, viewport[2], viewport[3], 0,
-        //    //    OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.UnsignedByte, bmp_data.Scan0);
-        //    //GL.FramebufferTexture(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, textureBufferID, 0);
-        //    //GL.BindTexture(TextureTarget.Texture2D, 0);
-
-        //    GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
-        //}
-
-        //struct Vertex
-        //{
-        //    public Byte4 Color; // 4 bytes
-        //    public Vector3 Position; // 12 bytes
-
-        //    public const byte SizeInBytes = 16;
-        //}
-        //Vertex[] VBO_Array;
-        //uint VBO_Handle;
-
-        //void selectVertex(Common.Vbo handle)
-        //{
-        //    //GL.BindFramebuffer(FramebufferTarget.Framebuffer, backFrameBufferID);
-
-        //    //SetCamera();
-
-        //    //GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0,
-        //    //    RenderbufferTarget.Renderbuffer, colorRenderBufferID);
-        //    ////GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment,
-        //    ////    RenderbufferTarget.Renderbuffer, depthRenderBufferID);
-        //    ////GL.FramebufferTexture(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, textureBufferID, 0);
-
-        //    ////DrawBuffersEnum[] bufs = new DrawBuffersEnum[] { DrawBuffersEnum.ColorAttachment0, DrawBuffersEnum.ColorAttachment1 };
-        //    ////GL.DrawBuffers(2, bufs);
-
-        //    //DrawBuffersEnum buf = DrawBuffersEnum.ColorAttachment0;
-        //    //GL.DrawBuffers(1, ref buf);
-
-        //    //GL.BindBuffer(BufferTarget.ArrayBuffer, handle.VboID);
-        //    //GL.VertexPointer(3, VertexPointerType.Float, 0, new IntPtr(0));//BlittableValueType.StrideOf(vertices)
-
-        //    //GL.EnableClientState(ArrayCap.ColorArray);
-        //    //GL.Enable(EnableCap.ColorArray);
-        //    //GL.BindBuffer(BufferTarget.ArrayBuffer, handle.VboColorSelectionID);
-        //    //GL.ColorPointer(4, ColorPointerType.UnsignedByte, 0, new IntPtr(0));
-
-        //    //GL.DrawArrays(BeginMode.Points, 0, vertices.Length);
-
-        //    GL.Color3(Color.White);
-        //    GL.Enable(EnableCap.ColorArray);
-        //    GL.ClearColor(1f, 1f, 1f, 1f); // clears to uint.MaxValue
-        //    GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-        //    SetCamera();
-
-        //    GL.BindBuffer(BufferTarget.ArrayBuffer, VBO_Handle);
-        //    GL.InterleavedArrays(InterleavedArrayFormat.C4ubV3f, 0, IntPtr.Zero);
-        //    GL.DrawArrays(BeginMode.Points, 0, VBO_Array.Length);
-
-        //    byte[] readData = new byte[16];
-        //    GL.GetBufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, (IntPtr)16, readData);
-
-        //    int selectW_H = 3;
-        //    Byte4[] Pixels = new Byte4[selectW_H * selectW_H];
-        //    //byte[] Pixels = new byte[selectW_H * selectW_H * 3];
-        //    GL.ReadPixels(MouseX, viewport[3] - MouseY
-        //        , selectW_H, selectW_H, OpenTK.Graphics.OpenGL.PixelFormat.Rgba,
-        //        PixelType.UnsignedByte, Pixels);
-
-        //    this.Text = MouseX.ToString() + ":" + (viewport[3] - MouseY).ToString();
-
-        //    uint selectedVertex = NO_VERTEX;
-        //    for (int i = 0; i < Pixels.Length; ++i)
-        //    {
-        //        if (Pixels[i].A != 255)
-        //        {
-        //            Byte4 t = Pixels[i];
-        //            //t.A = 0;
-        //            selectedVertex = t.ToUInt32();
-        //            break;
-        //        }
-        //    }
-
-        //    if (selectedVertex != NO_VERTEX)
-        //    {
-        //        //markSelectedVertex(selectedVertex);
-        //    }
-
-        //    //GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-        //    //FramebufferErrorCode e = GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer);
-        //    //GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
-
-        //}
-
-        #endregion
-
+        }        
     }
 }

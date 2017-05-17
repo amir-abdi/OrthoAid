@@ -569,38 +569,38 @@ namespace OrthoAid_3DSimulator
                 //Inclinations of Cast1
                 tw.Write("\n");
                 tw.WriteLine("Inclinations of Cast1");
-                tw.Write("ToothNo,inclination\n");                                
+                tw.Write("ToothNo,Inclination\n");                                
                 P = Planes[0];
                 for (int i = 1; i <= 32; i++)
                 {
                     if (P[i] != null && P[i].validInclination)
                     {
-                        tw.Write(i.ToString() + "," + P[i].inclination.ToString() + "\n");
+                        tw.Write(i.ToString() + "," + P[i].Inclination.ToString() + "\n");
                     }
                 }
 
                 //Inclinations of Cast2
                 tw.Write("\n");
                 tw.WriteLine("Inclinations of Cast2");
-                tw.Write("ToothNo,inclination\n");
+                tw.Write("ToothNo,Inclination\n");
                 P = Planes[1];
                 for (int i = 1; i <= 32; i++)
                 {
                     if (P[i] != null && P[i].validInclination)
                     {
-                        tw.Write(i.ToString() + "," + P[i].inclination.ToString() + "\n");
+                        tw.Write(i.ToString() + "," + P[i].Inclination.ToString() + "\n");
                     }
                 }
                 
                 //Superimpsoed Inclination
                 tw.Write("\n");
                 tw.WriteLine("Superimposed Inclination");
-                tw.Write("ToothNo,inclination\n");
+                tw.Write("ToothNo,Inclination\n");
                 for (int i = 1; i <= 32; i++)
                 {
                     if (Planes[2][i] != null && Planes[2][i].validInclination)
                     {
-                        tw.Write(i.ToString() + "," + Planes[2][i].inclination.ToString() + "\n");
+                        tw.Write(i.ToString() + "," + Planes[2][i].Inclination.ToString() + "\n");
                     }
                 }
 
@@ -737,7 +737,7 @@ namespace OrthoAid_3DSimulator
                 }
 
                 string header2 = sr.ReadLine();
-                if (header2 != "ToothNo,inclination")
+                if (header2 != "ToothNo,Inclination")
                     throw new Exception("txt calculation file was not in the correct format");
 
                 
@@ -750,13 +750,16 @@ namespace OrthoAid_3DSimulator
                         break;
                     int toothNo = int.Parse(tokens[0]);
                     float inclination = float.Parse(tokens[1]);
-                    P[toothNo] = new Common.Plane();                    
-                    P[toothNo].inclination = inclination;
-                    P[toothNo].validInclination = true;
+                    P[toothNo] = new Common.Plane()
+                    {
+                        Inclination = inclination,
+                        validInclination = true
+                };
+
                 }
                 
                 string header3 = sr.ReadLine();
-                if (header3 != "ToothNo,inclination")
+                if (header3 != "ToothNo,Inclination")
                     throw new Exception("txt calculation file was not in the correct format");                
                 while (true)
                 {
@@ -765,9 +768,12 @@ namespace OrthoAid_3DSimulator
                         break;
                     int toothNo = int.Parse(tokens[0]);
                     float inclination = float.Parse(tokens[1]);
-                    Planes[2][toothNo] = new Common.Plane();
-                    Planes[2][toothNo].inclination = inclination;
-                    Planes[2][toothNo].validInclination = true;
+                    Planes[2][toothNo] = new Common.Plane()
+                    {
+                        Inclination = inclination,
+                        validInclination = true
+                    };
+
                 }
 
                 string header4 = sr.ReadLine();

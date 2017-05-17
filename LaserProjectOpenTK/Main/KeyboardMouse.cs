@@ -235,7 +235,7 @@ namespace OrthoAid_3DSimulator
             }
             else if (e.KeyCode == Keys.I)
             {
-                b_Calculate_Click(this, new EventArgs());
+                B_Calculate_Click(this, new EventArgs());
                 UpdateUI();
             }
             else if (e.KeyCode == Keys.L && e.Modifiers == Keys.Control)

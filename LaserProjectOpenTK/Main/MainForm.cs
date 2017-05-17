@@ -106,14 +106,14 @@ namespace OrthoAid_3DSimulator
             {
                 foreach (Control control in cc)
                 {
-                    control.PreviewKeyDown += new PreviewKeyDownEventHandler(control_PreviewKeyDown);
+                    control.PreviewKeyDown += new PreviewKeyDownEventHandler(Control_PreviewKeyDown);
                     SetFeatureToAllControls(control.Controls);
 
                 }
             }
         }
 
-        void control_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        void Control_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
             {                
@@ -122,7 +122,7 @@ namespace OrthoAid_3DSimulator
             }
         }
 
-        private void glControlCast_Paint(object sender, PaintEventArgs e)
+        private void GlControlCast_OnPaint(object sender, PaintEventArgs e)
         {
             DrawAll();
         }
@@ -133,17 +133,17 @@ namespace OrthoAid_3DSimulator
                 DrawAll();
         }
 
-        private void rb_points_CheckedChanged(object sender, EventArgs e)
+        private void Rb_Points_CheckedChanged(object sender, EventArgs e)
         {
             UpdateViewMode();
         }
 
-        private void rb_wireFrame_CheckedChanged(object sender, EventArgs e)
+        private void Rb_WireFrame_CheckedChanged(object sender, EventArgs e)
         {
             UpdateViewMode();
         }
 
-        private void rb_mesh_CheckedChanged(object sender, EventArgs e)
+        private void Rb_Mesh_CheckedChanged(object sender, EventArgs e)
         {
             UpdateViewMode();
         }
@@ -417,35 +417,35 @@ namespace OrthoAid_3DSimulator
             }
         }
 
-        private void b_UpdateRotation_Click(object sender, EventArgs e)
+        private void B_UpdateRotation_Click(object sender, EventArgs e)
         {
             UpdateViewByValueInput();
             //glControlCast.Invalidate();
         }
 
-        private void tx_CameraAngleXYZ_KeyDown(object sender, KeyEventArgs e)
+        private void Tx_CameraAngleXYZ_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //    b_UpdateRotation_Click(sender, e);
+                //    B_UpdateRotation_Click(sender, e);
                 UpdateViewByValueInput();
                 b_UpdateCameraRotation.Focus();
                 e.Handled = true;
             }
         }
         
-        private void tx_RotateTranslate_KeyDown(object sender, KeyEventArgs e)
+        private void Tx_RotateTranslate_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //    b_UpdateRotation_Click(sender, e);
-                b_RotateTranslate_Click(sender, e);
+                //    B_UpdateRotation_Click(sender, e);
+                B_RotateTranslate_Click(sender, e);
                 b_RotateTranslate.Focus();
                 e.Handled = true;
             }
         }                
 
-        private void cb_autoRotate_CheckedChanged(object sender, EventArgs e)
+        private void Cb_AutoRotate_CheckedChanged(object sender, EventArgs e)
         {
             if (cb_autoRotate.Checked)
                 autoRotateFlag = true;
@@ -454,7 +454,7 @@ namespace OrthoAid_3DSimulator
             UpdateUI();
         }
 
-        private void timer_10mill_Tick(object sender, EventArgs e)
+        private void Timer_10mill_Tick(object sender, EventArgs e)
         {
             if (autoRotateFlag)
             {
@@ -464,7 +464,7 @@ namespace OrthoAid_3DSimulator
             //UpdateUI();
         }
 
-        private void cb_showPoints_CheckedChanged(object sender, EventArgs e)
+        private void Cb_ShowPoints_CheckedChanged(object sender, EventArgs e)
         {
             if (cb_showPoints.Checked && rb_viewMesh.Checked)
             {
@@ -484,18 +484,18 @@ namespace OrthoAid_3DSimulator
             timer_10mill.Start();
         }
         
-        private void tx_AngleXYZ_Enter(object sender, EventArgs e)
+        private void Tx_AngleXYZ_Enter(object sender, EventArgs e)
         {
             StopUpdatingUI();
         }
 
-        private void tx_AngleXYZ_Leave(object sender, EventArgs e)
+        private void Tx_AngleXYZ_Leave(object sender, EventArgs e)
         {
             UpdateViewByValueInput();
             StartUpdatingUI();
         }
 
-        private void triangulatePointCloudToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_TriangulatePointCloud_Click(object sender, EventArgs e)
         {
             if (GetSelectedVBO().validMesh)
             {
@@ -557,13 +557,13 @@ namespace OrthoAid_3DSimulator
                 MessageBox.Show("There is no Point Cloud to triangulate. Load a Point Cloud first", "No Point Cloud");
         }
 
-        private void vScroll_lightIntensity_Scroll(object sender, ScrollEventArgs e)
+        private void VScroll_LightIntensity_OnScroll(object sender, ScrollEventArgs e)
         {
             config.lightIntensity = (float)(100 - vScroll_lightIntensity.Value) / 100;
             UpdateLighting();
         }
 
-        private void b_Calculate_Click(object sender, EventArgs e)
+        private void B_Calculate_Click(object sender, EventArgs e)
         {
 
             switch (tab_Maintab.SelectedIndex)
@@ -597,10 +597,10 @@ namespace OrthoAid_3DSimulator
                     }
                     CalculateCurveFit(GetSelectedVBO());
                     break;
-                case 1: //inclination
+                case 1: //Inclination
                 case 2: //dislocation
                 case 3: //distance to plane
-                case 4: //superimposed inclination                   
+                case 4: //superimposed Inclination                   
                     if (selectedIndex < 1 || selectedIndex > 34)
                     {
                         MessageBox.Show("No Tooth or Plane Selected. Select a tooth or plane first.", "Error in Calculation");
@@ -668,10 +668,13 @@ namespace OrthoAid_3DSimulator
 
             try
             {
-                OpenFileDialog lfd = new OpenFileDialog();
-                lfd.InitialDirectory = Directory.GetCurrentDirectory() + "\\XYZ";
-                lfd.AddExtension = true;
-                lfd.DefaultExt = ".xyz";
+                OpenFileDialog lfd = new OpenFileDialog()
+                {
+                    InitialDirectory = Directory.GetCurrentDirectory() + "\\XYZ",
+                    AddExtension = true,
+                    DefaultExt = ".xyz"
+            };
+                
 
                 DialogResult result = lfd.ShowDialog();
 
@@ -697,10 +700,13 @@ namespace OrthoAid_3DSimulator
 
             try
             {
-                OpenFileDialog lfd = new OpenFileDialog();
-                lfd.InitialDirectory = Directory.GetCurrentDirectory() + "\\Mesh";
-                //lfd.FileName = inputTriFileName;
-                lfd.AddExtension = true;                
+                OpenFileDialog lfd = new OpenFileDialog()
+                {
+                    InitialDirectory = Directory.GetCurrentDirectory() + "\\Mesh",
+                    //FileName = inputTriFileName,
+                    AddExtension = true
+            };
+                
 
                 DialogResult result = lfd.ShowDialog();
 
@@ -718,7 +724,7 @@ namespace OrthoAid_3DSimulator
             }                     
         }
 
-        private void saveMeshToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_SaveMesh_Click(object sender, EventArgs e)
         {
             if (!GetSelectedVBO().validVertices)
                 return;
@@ -757,14 +763,15 @@ namespace OrthoAid_3DSimulator
 
                 DirectoryCheck(directory);
 
-                SaveFileDialog sfd = new SaveFileDialog();
-
-                sfd.InitialDirectory = directory;
-                sfd.FileName = saveFileName;
-                sfd.AddExtension = true;
-                sfd.DefaultExt = "ply";
-                sfd.Filter = "PLY 3D File|*.ply";
-
+                SaveFileDialog sfd = new SaveFileDialog()
+                {
+                    InitialDirectory = directory,
+                    FileName = saveFileName,
+                    AddExtension = true,
+                    DefaultExt = "ply",
+                    Filter = "PLY 3D File|*.ply"
+                };
+                
                 DialogResult result = sfd.ShowDialog();
 
                 if (result == System.Windows.Forms.DialogResult.OK)
@@ -775,12 +782,12 @@ namespace OrthoAid_3DSimulator
                     else if (vbo.validVertices)
                         UpdateFileRelatedConfiguration(ref vbo, sfd.FileName, "point cloud");
                 }
-                Common.Logger.Log("MainForm", "MainForm", "saveMeshToolStripMenuItem_Click", "Mesh file saved", false);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_SaveMesh_Click", "Mesh file saved", false);
                 status.Text = "Mesh file saved: " + Path.GetFileName(sfd.FileName);
             }
             catch (Exception err)
             {
-                Common.Logger.Log("MainForm", "MainForm", "saveMeshToolStripMenuItem_Click", err.Message, true);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_SaveMesh_Click", err.Message, true);
                 MessageBox.Show("Mesh file was not saved successfully.", "Error saving the Mesh file");
             }
 
@@ -793,7 +800,7 @@ namespace OrthoAid_3DSimulator
             Reset(ref reduceDensityVbo);
         }
 
-        private void saveCalculations_ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_SaveCalculations_Click(object sender, EventArgs e)
         {
             //DirectoryCheck("Calculations");
 
@@ -882,17 +889,17 @@ namespace OrthoAid_3DSimulator
                         WriteCalculationResults_txt(sfd.FileName.Replace(".caltxt", ".txt"));
                 }*/
 
-                Common.Logger.Log("MainForm", "MainForm", "saveCalculations_ToolStripMenuItem_Click", "Calculation file saved", false);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_SaveCalculations_Click", "Calculation file saved", false);
                 status.Text = "Calculation file saved: " + Path.GetFileName(sfd.FileName);
             }
             catch (Exception err)
             {
-                Common.Logger.Log("MainForm", "MainForm", "saveCalculations_ToolStripMenuItem_Click", err.Message, true);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_SaveCalculations_Click", err.Message, true);
                 MessageBox.Show("Calculation file was not saved successfully.", "Error saving the calculation file");
             }
         }
 
-        private void loadCalculations_ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_LoadCalculations_Click(object sender, EventArgs e)
         {
             //DirectoryCheck("Calculations");
 
@@ -932,17 +939,17 @@ namespace OrthoAid_3DSimulator
 
 
 
-                Common.Logger.Log("MainForm", "MainForm", "loadCalculations_ToolStripMenuItem_Click", "Calculation file loaded", false);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_LoadCalculations_Click", "Calculation file loaded", false);
                 status.Text = "Calculation file loaded: " + Path.GetFileName(lfd.FileName);
             }
             catch (Exception err)
             {
-                Common.Logger.Log("MainForm", "MainForm", "loadCalculations_ToolStripMenuItem_Click", err.Message, true);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_LoadCalculations_Click", err.Message, true);
                 MessageBox.Show("Calculation file not loaded successfully.", "Error loading the calculation file");
             }
         }
 
-        private void saveSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_SaveSelection_Click(object sender, EventArgs e)
         {
             //DirectoryCheck("Selection");
 
@@ -1005,7 +1012,7 @@ namespace OrthoAid_3DSimulator
                     }
                 }
 
-                Common.Logger.Log("MainForm", "MainForm", "saveSelectionToolStripMenuItem_Click", "Selection file saved", false);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_SaveSelection_Click", "Selection file saved", false);
                 status.Text = "Selection file saved: " + Path.GetFileName(sfd.FileName);
 
                 
@@ -1027,12 +1034,12 @@ namespace OrthoAid_3DSimulator
             }
             catch (Exception err)
             {
-                Common.Logger.Log("MainForm", "MainForm", "saveSelectionToolStripMenuItem_Click", err.Message, true);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_SaveSelection_Click", err.Message, true);
                 MessageBox.Show("Selection file was not saved successfully.", "Error saving the selection file");
             }
         }
         
-        private void loadSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_LoadSelection_Click(object sender, EventArgs e)
         {
             //DirectoryCheck("Selection");
 
@@ -1083,25 +1090,25 @@ namespace OrthoAid_3DSimulator
                     ReadSelectionFile(lfd.FileName, GetSelectedVBO());
                 }
 
-                Common.Logger.Log("MainForm", "MainForm", "loadSelectionToolStripMenuItem_Click", "Selection file loaded", false);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_LoadSelection_Click", "Selection file loaded", false);
                 status.Text = "Selection file loaded: " + Path.GetFileName(lfd.FileName);
             }
             catch (Exception err)
             {
-                Common.Logger.Log("MainForm", "MainForm", "loadSelectionToolStripMenuItem_Click", err.Message, true);
+                Common.Logger.Log("MainForm", "MainForm", "ToolStripMI_LoadSelection_Click", err.Message, true);
                 MessageBox.Show("Selection file not loaded successfully.", "Error loading the selection file");
             }
         }
         //End of LoadSave
         #endregion
 
-        private void numUD_densityReduceThreshold_ValueChanged(object sender, EventArgs e)
+        private void NumUD_DensityReduceThreshold_ValueChanged(object sender, EventArgs e)
         {
             config.reduceDensityThreshold = (float)numUD_densityReduceThreshold.Value;
             rb_viewPoints.Checked = true;
         }
 
-        private void b_previewReduceDensity_Click(object sender, EventArgs e)
+        private void B_PreviewReduceDensity_Click(object sender, EventArgs e)
         {
             status.Text = "Reducing Point Cloud density to " + config.reduceDensityThreshold.ToString() + "...";
 
@@ -1130,15 +1137,18 @@ namespace OrthoAid_3DSimulator
             status.Text = "Reduced Point Cloud preview is ready.";
         }
 
-        private void b_applyReduceDensity_Click(object sender, EventArgs e)
+        private void B_ApplyReduceDensity_Click(object sender, EventArgs e)
         {
             DirectoryCheck("XYZ");
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialDirectory = Directory.GetCurrentDirectory() + "\\XYZ";
-            sfd.FileName = config.lastLoadedMeshName1 + "_DensityReduced" + config.reduceDensityThreshold.ToString("f2");
-            sfd.AddExtension = true;
-            sfd.DefaultExt = "xyz";
-
+            SaveFileDialog sfd = new SaveFileDialog()
+            {
+                InitialDirectory = Directory.GetCurrentDirectory() + "\\XYZ",
+                FileName =
+                    config.lastLoadedMeshName1 + "_DensityReduced" + config.reduceDensityThreshold.ToString("f2"),
+                AddExtension = true,
+                DefaultExt = "xyz"
+            };
+            
             DialogResult result = sfd.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
@@ -1161,7 +1171,7 @@ namespace OrthoAid_3DSimulator
             UpdateUI();
         }
 
-        private void b_cancelReduceDensity_Click(object sender, EventArgs e)
+        private void B_CancelReduceDensity_Click(object sender, EventArgs e)
         {
             reduceDensityVbo.show = false;
             Reset(ref reduceDensityVbo);
@@ -1193,22 +1203,22 @@ namespace OrthoAid_3DSimulator
             }
         }
 
-        private void meshInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MeshInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 MeshInfoForm form = new MeshInfoForm(vbo1.verticesStats, vbo2.verticesStats);
                 form.ShowDialog();
-                Common.Logger.Log("MainForm", "MainForm", "meshInfoToolStripMenuItem_Click", "meshinfo viewed", false);
+                Common.Logger.Log("MainForm", "MainForm", "MeshInfoToolStripMenuItem_Click", "meshinfo viewed", false);
             }
             catch (Exception err)
             {
-                Common.Logger.Log("MainForm", "MainForm", "meshInfoToolStripMenuItem_Click", err.Message, true);
+                Common.Logger.Log("MainForm", "MainForm", "MeshInfoToolStripMenuItem_Click", err.Message, true);
             }
 
         }
 
-        private void deleteNoisyPointsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_DeleteNoisyPoints_Click(object sender, EventArgs e)
         {
             status.Text = "Deleting Noisy Points";
             int numDels;
@@ -1221,13 +1231,13 @@ namespace OrthoAid_3DSimulator
             status.Text = numDels.ToString() + " points were considered noisy and deleted.";
         }
 
-        private void glControlCast_SizeChanged(object sender, EventArgs e)
+        private void GlControlCast_SizeChanged(object sender, EventArgs e)
         {
-            setViewPort();
+            SetViewPort();
             SetCamera();
         }
 
-        private void computeNormalsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_ComputeNormals_Click(object sender, EventArgs e)
         {
             if (GetSelectedVBO().validMesh)
             {
@@ -1260,13 +1270,13 @@ namespace OrthoAid_3DSimulator
 
         }
 
-        private void rb_BBPuser_CheckedChanged(object sender, EventArgs e)
+        private void Rb_BBPuser_CheckedChanged(object sender, EventArgs e)
         {
             if (rb_BBPuser.Checked)
                 config.bbpChoice = Common.BBPChoice.User;
         }
 
-        private void rb_BBCmiddle_CheckedChanged(object sender, EventArgs e)
+        private void Rb_BBCmiddle_CheckedChanged(object sender, EventArgs e)
         {
             if (rb_BBCmiddle.Checked)
                 config.bbpChoice = Common.BBPChoice.AutoMiddle;
@@ -1287,7 +1297,7 @@ namespace OrthoAid_3DSimulator
 
         #region RotateTranslateCast
         //Rotate and Translate Cast
-        private void b_RotateTranslate_Click(object sender, EventArgs e)
+        private void B_RotateTranslate_Click(object sender, EventArgs e)
         {
             float rx, ry, rz, tx, ty, tz;
             try
@@ -1348,7 +1358,7 @@ namespace OrthoAid_3DSimulator
             //}
             //catch (Exception err)
             //{
-            //    Common.Logger.Log("MainForm", "MainForm", "b_RotateTranslate_Click", err.Message, true);
+            //    Common.Logger.Log("MainForm", "MainForm", "B_RotateTranslate_Click", err.Message, true);
             //    return;
             //}
 
@@ -1370,29 +1380,29 @@ namespace OrthoAid_3DSimulator
         //
         #endregion
 
-        private void tx_Enter(object sender, EventArgs e)
+        private void Tx_Enter(object sender, EventArgs e)
         {
             //this.KeyDown -= MainForm_KeyDown;
         }
 
-        private void tx_Leave(object sender, EventArgs e)
+        private void Tx_LeaveFocus(object sender, EventArgs e)
         {
             //this.KeyDown += MainForm_KeyDown;
         }
 
-        private void cb_showCast1_CheckedChanged(object sender, EventArgs e)
+        private void Cb_ShowCast1_CheckedChanged(object sender, EventArgs e)
         {
             vbo1.show = cb_showCast1.Checked;
             UpdateUI();
         }
 
-        private void cb_showCast2_CheckedChanged(object sender, EventArgs e)
+        private void Cb_ShowCast2_CheckedChanged(object sender, EventArgs e)
         {
             vbo2.show = cb_showCast2.Checked;
             UpdateUI();
         }
 
-        private void tstrip_Ruler_Click(object sender, EventArgs e)
+        private void TStrip_Ruler_Click(object sender, EventArgs e)
         {
             Ruler_PointAIndex = NO_VERTEX_INDEX;
             Ruler_PointBIndex = NO_VERTEX_INDEX;
@@ -1401,19 +1411,19 @@ namespace OrthoAid_3DSimulator
             UpdateUI();
         }
 
-        private void tstrip_Hand_Click(object sender, EventArgs e)
+        private void TStrip_Hand_Click(object sender, EventArgs e)
         {
             config.editMode = Common.EditMode.Hand;
             UpdateUI();
         }
 
-        private void tstrip_Select_Click(object sender, EventArgs e)
+        private void Tstrip_Select_Click(object sender, EventArgs e)
         {
             config.editMode = Common.EditMode.Select;
             UpdateUI();
         }
 
-        private void b_superImpose_Click(object sender, EventArgs e)
+        private void B_SuperImpose_Click(object sender, EventArgs e)
         {
             if (vbo1.selectedVertices.Count != vbo2.selectedVertices.Count)
             {
@@ -1429,12 +1439,12 @@ namespace OrthoAid_3DSimulator
             Superimpose();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_Exit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void tstrip_lockSelection_Click(object sender, EventArgs e)
+        private void TStrip_LockSelection_Click(object sender, EventArgs e)
         {
             //tstrip_lockSelection.Checked = !tstrip_lockSelection.Checked;
             if (tstrip_lockSelection.Checked)
@@ -1445,19 +1455,19 @@ namespace OrthoAid_3DSimulator
                 lockSelection = false;
         }
 
-        private void showCast1ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_ShowCast1_Click(object sender, EventArgs e)
         {
             vbo1.show = showCast1ToolStripMenuItem.Checked;
             UpdateUI();
         }
 
-        private void showCast2ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_ShowCast_Click(object sender, EventArgs e)
         {
             vbo2.show = showCast2ToolStripMenuItem.Checked;
             UpdateUI();
         }
 
-        private void inverseCastShowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_InverseCastShow_Click(object sender, EventArgs e)
         {
             vbo1.show = !vbo1.show;
             vbo2.show = !vbo2.show;
@@ -1474,13 +1484,13 @@ namespace OrthoAid_3DSimulator
             UpdateUI();            
         }
 
-        private void b_clearSelection_Click(object sender, EventArgs e)
+        private void B_ClearSelection_Click(object sender, EventArgs e)
         {
             ClearSelection(vbo1);
             ClearSelection(vbo2);
         }
 
-        private void b_clearCalculations_Click(object sender, EventArgs e)
+        private void B_ClearCalculations_Click(object sender, EventArgs e)
         {
 
             for (int i = 1; i <= 34; i++)
@@ -1502,7 +1512,7 @@ namespace OrthoAid_3DSimulator
             }
         }
 
-        private void lbox_selectCast_SelectedIndexChanged(object sender, EventArgs e)
+        private void LBox_SelectCast_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedCast = lbox_selectCast.SelectedIndex;
             UpdateTeethAndPlanesUI();
@@ -1519,7 +1529,7 @@ namespace OrthoAid_3DSimulator
             }
         }
 
-        private void lview_selectedPoints_KeyDown(object sender, KeyEventArgs e)
+        private void LView_SelectedPoints_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
             {
@@ -1538,7 +1548,7 @@ namespace OrthoAid_3DSimulator
             }            
         }
         
-        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ToolStripMI_Help_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
 @"To superimpose two casts follow the 3 steps:
@@ -1550,7 +1560,7 @@ namespace OrthoAid_3DSimulator
 3) Click on Superimpose button.
 
 
-To calculate the inclination of teeth follow the steps:
+To calculate the Inclination of teeth follow the steps:
 1) Define the occlusal plane (A.Select three points on occlusal plane, B.Click on OcclusalPlane button, C.Click on Calculate button)
 2) Select three points on the buccal side of the tooth on this order:
         First point  --> Most gingivally (on mid CEJ)
@@ -1559,7 +1569,7 @@ To calculate the inclination of teeth follow the steps:
 3) Click on Calculate button", "Help on OrthoAid");
         }
 
-        private void aboutOrthoAidToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMI_AboutOrthoAid_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
 @"The application is designed and implemented by Amir H. Abdi under supervision of Prof. Mahtab Nouri.
@@ -1596,7 +1606,7 @@ All Rights Preserved.", "OrthoAid V2.0");
             
         }
 
-        private void weight_TextChanged(object sender, EventArgs e)
+        private void Tx_Weight_TextChanged(object sender, EventArgs e)
         {
 
             try
@@ -1610,17 +1620,17 @@ All Rights Preserved.", "OrthoAid V2.0");
 
         }
 
-        private void expand_b_Click(object sender, EventArgs e)
+        private void B_Expand_Click(object sender, EventArgs e)
         {
             toolboxPanel_p.Visible = true;
         }
 
-        private void collapse_b_Click(object sender, EventArgs e)
+        private void B_Collapse_Click(object sender, EventArgs e)
         {
             toolboxPanel_p.Visible = false;
         }
 
-        private void tab_Maintab_SelectedIndexChanged(object sender, EventArgs e)
+        private void Tab_Maintab_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tab_Maintab.SelectedIndex)
             {
@@ -1637,7 +1647,7 @@ All Rights Preserved.", "OrthoAid V2.0");
             }            
         }
 
-        private void b_cleftProj_Click(object sender, EventArgs e)
+        private void B_CleftProj_Click(object sender, EventArgs e)
         {
             Vector3 TL = vbo1.verticesData.vertices[vbo1.selectedVertices[0]];
             Vector3 TR = vbo1.verticesData.vertices[vbo1.selectedVertices[1]];            
@@ -1650,22 +1660,17 @@ All Rights Preserved.", "OrthoAid V2.0");
             float PTP = sagPlane.Angle2Vector(P - T);            
         }
 
-        private void nUpDown_order_ValueChanged(object sender, EventArgs e)
+        private void NumUD_Order_ValueChanged(object sender, EventArgs e)
         {
             config.polynomialFitOrder = nUpDown_order.Value;
         }
 
-        private void rb_fitFunction_CheckedChanged(object sender, EventArgs e)
+        private void Rb_FitFunction_CheckedChanged(object sender, EventArgs e)
         {
             if (rb_fitPoly.Checked)
                 config.fitFunction = Common.FitFunction.polynomial;
             else if (rb_fitNoroozi.Checked)
                 config.fitFunction = Common.FitFunction.noroozi;
-        }
-
-        private void label77_Click(object sender, EventArgs e)
-        {
-
-        }
+        }        
     }
 }

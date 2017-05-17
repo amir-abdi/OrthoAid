@@ -210,7 +210,7 @@ namespace OrthoAid_3DSimulator
                 {
                     if (newSelect2Index[i] == newSelect2Index[j])
                     {
-                        MessageBox.Show("Couldn't pair up the selected points. Make sure you have pre-adjusted the casts appropriately and then select again."
+                        MessageBox.Show("Couldn't pair up the selected points. Make sure you have pre-adjusted the casts appropriately and then Select again."
                             , "Superimposistion Error");
                         return null;                        
                     }

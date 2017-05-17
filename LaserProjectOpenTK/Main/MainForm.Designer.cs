@@ -533,11 +533,11 @@ namespace OrthoAid_3DSimulator
             this.glControlCast.Size = new System.Drawing.Size(906, 337);
             this.glControlCast.TabIndex = 0;
             this.glControlCast.VSync = false;
-            this.glControlCast.Load += new System.EventHandler(this.glControlCast_Load);
-            this.glControlCast.SizeChanged += new System.EventHandler(this.glControlCast_SizeChanged);
+            this.glControlCast.Load += new System.EventHandler(this.GLControlCast_Load);
+            this.glControlCast.SizeChanged += new System.EventHandler(this.GlControlCast_SizeChanged);
             this.glControlCast.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.glControlCast.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
-            this.glControlCast.Paint += new System.Windows.Forms.PaintEventHandler(this.glControlCast_Paint);
+            this.glControlCast.Paint += new System.Windows.Forms.PaintEventHandler(this.GlControlCast_OnPaint);
             this.glControlCast.DoubleClick += new System.EventHandler(this.glControlCast_DoubleClick);
             this.glControlCast.MouseClick += new System.Windows.Forms.MouseEventHandler(this.glControlCast_MouseClick);
             this.glControlCast.MouseDown += new System.Windows.Forms.MouseEventHandler(this.glControlCast_MouseDown);
@@ -566,7 +566,7 @@ namespace OrthoAid_3DSimulator
             this.cb_showPoints.TabIndex = 3;
             this.cb_showPoints.Text = "Show Points";
             this.cb_showPoints.UseVisualStyleBackColor = true;
-            this.cb_showPoints.CheckedChanged += new System.EventHandler(this.cb_showPoints_CheckedChanged);
+            this.cb_showPoints.CheckedChanged += new System.EventHandler(this.Cb_ShowPoints_CheckedChanged);
             // 
             // rb_viewMesh
             // 
@@ -579,7 +579,7 @@ namespace OrthoAid_3DSimulator
             this.rb_viewMesh.TabStop = true;
             this.rb_viewMesh.Text = "Mesh";
             this.rb_viewMesh.UseVisualStyleBackColor = true;
-            this.rb_viewMesh.CheckedChanged += new System.EventHandler(this.rb_mesh_CheckedChanged);
+            this.rb_viewMesh.CheckedChanged += new System.EventHandler(this.Rb_Mesh_CheckedChanged);
             // 
             // rb_viewWireFrame
             // 
@@ -590,7 +590,7 @@ namespace OrthoAid_3DSimulator
             this.rb_viewWireFrame.TabIndex = 1;
             this.rb_viewWireFrame.Text = "WireFrame";
             this.rb_viewWireFrame.UseVisualStyleBackColor = true;
-            this.rb_viewWireFrame.CheckedChanged += new System.EventHandler(this.rb_wireFrame_CheckedChanged);
+            this.rb_viewWireFrame.CheckedChanged += new System.EventHandler(this.Rb_WireFrame_CheckedChanged);
             // 
             // rb_viewPoints
             // 
@@ -601,7 +601,7 @@ namespace OrthoAid_3DSimulator
             this.rb_viewPoints.TabIndex = 0;
             this.rb_viewPoints.Text = "Points";
             this.rb_viewPoints.UseVisualStyleBackColor = true;
-            this.rb_viewPoints.CheckedChanged += new System.EventHandler(this.rb_points_CheckedChanged);
+            this.rb_viewPoints.CheckedChanged += new System.EventHandler(this.Rb_Points_CheckedChanged);
             // 
             // tx_cameraAngleX
             // 
@@ -609,10 +609,10 @@ namespace OrthoAid_3DSimulator
             this.tx_cameraAngleX.Name = "tx_cameraAngleX";
             this.tx_cameraAngleX.Size = new System.Drawing.Size(39, 20);
             this.tx_cameraAngleX.TabIndex = 3;
-            this.tx_cameraAngleX.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_cameraAngleX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_CameraAngleXYZ_KeyDown);
+            this.tx_cameraAngleX.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_cameraAngleX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_CameraAngleXYZ_KeyDown);
             this.tx_cameraAngleX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DigitTextBox_KeyPress);
-            this.tx_cameraAngleX.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_cameraAngleX.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // tx_cameraAngleY
             // 
@@ -620,10 +620,10 @@ namespace OrthoAid_3DSimulator
             this.tx_cameraAngleY.Name = "tx_cameraAngleY";
             this.tx_cameraAngleY.Size = new System.Drawing.Size(39, 20);
             this.tx_cameraAngleY.TabIndex = 4;
-            this.tx_cameraAngleY.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_cameraAngleY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_CameraAngleXYZ_KeyDown);
+            this.tx_cameraAngleY.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_cameraAngleY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_CameraAngleXYZ_KeyDown);
             this.tx_cameraAngleY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DigitTextBox_KeyPress);
-            this.tx_cameraAngleY.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_cameraAngleY.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // tx_cameraAngleZ
             // 
@@ -631,10 +631,10 @@ namespace OrthoAid_3DSimulator
             this.tx_cameraAngleZ.Name = "tx_cameraAngleZ";
             this.tx_cameraAngleZ.Size = new System.Drawing.Size(39, 20);
             this.tx_cameraAngleZ.TabIndex = 5;
-            this.tx_cameraAngleZ.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_cameraAngleZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_CameraAngleXYZ_KeyDown);
+            this.tx_cameraAngleZ.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_cameraAngleZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_CameraAngleXYZ_KeyDown);
             this.tx_cameraAngleZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DigitTextBox_KeyPress);
-            this.tx_cameraAngleZ.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_cameraAngleZ.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // lb_ViewAngleX
             // 
@@ -687,7 +687,7 @@ namespace OrthoAid_3DSimulator
             this.b_UpdateCameraRotation.TabIndex = 6;
             this.b_UpdateCameraRotation.Text = "Go";
             this.b_UpdateCameraRotation.UseVisualStyleBackColor = true;
-            this.b_UpdateCameraRotation.Click += new System.EventHandler(this.b_UpdateRotation_Click);
+            this.b_UpdateCameraRotation.Click += new System.EventHandler(this.B_UpdateRotation_Click);
             // 
             // cb_autoRotate
             // 
@@ -698,13 +698,13 @@ namespace OrthoAid_3DSimulator
             this.cb_autoRotate.TabIndex = 12;
             this.cb_autoRotate.Text = "Auto Rotate";
             this.cb_autoRotate.UseVisualStyleBackColor = true;
-            this.cb_autoRotate.CheckedChanged += new System.EventHandler(this.cb_autoRotate_CheckedChanged);
+            this.cb_autoRotate.CheckedChanged += new System.EventHandler(this.Cb_AutoRotate_CheckedChanged);
             // 
             // timer_10mill
             // 
             this.timer_10mill.Enabled = true;
             this.timer_10mill.Interval = 10;
-            this.timer_10mill.Tick += new System.EventHandler(this.timer_10mill_Tick);
+            this.timer_10mill.Tick += new System.EventHandler(this.Timer_10mill_Tick);
             // 
             // lb_selectedPoints1
             // 
@@ -803,7 +803,7 @@ namespace OrthoAid_3DSimulator
             this.saveMeshToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveMeshToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.saveMeshToolStripMenuItem.Text = "Save Mesh";
-            this.saveMeshToolStripMenuItem.Click += new System.EventHandler(this.saveMeshToolStripMenuItem_Click);
+            this.saveMeshToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_SaveMesh_Click);
             // 
             // toolStripSeparator2
             // 
@@ -817,7 +817,7 @@ namespace OrthoAid_3DSimulator
             | System.Windows.Forms.Keys.O)));
             this.loadCalculationFileToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.loadCalculationFileToolStripMenuItem.Text = "Load Calculation File";
-            this.loadCalculationFileToolStripMenuItem.Click += new System.EventHandler(this.loadCalculations_ToolStripMenuItem_Click);
+            this.loadCalculationFileToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_LoadCalculations_Click);
             // 
             // saveCalculationFileToolStripMenuItem
             // 
@@ -826,7 +826,7 @@ namespace OrthoAid_3DSimulator
             | System.Windows.Forms.Keys.S)));
             this.saveCalculationFileToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.saveCalculationFileToolStripMenuItem.Text = "Save Calculation File";
-            this.saveCalculationFileToolStripMenuItem.Click += new System.EventHandler(this.saveCalculations_ToolStripMenuItem_Click);
+            this.saveCalculationFileToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_SaveCalculations_Click);
             // 
             // toolStripSeparator3
             // 
@@ -839,7 +839,7 @@ namespace OrthoAid_3DSimulator
             this.loadSelectionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.O)));
             this.loadSelectionToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.loadSelectionToolStripMenuItem.Text = "Load Selection";
-            this.loadSelectionToolStripMenuItem.Click += new System.EventHandler(this.loadSelectionToolStripMenuItem_Click);
+            this.loadSelectionToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_LoadSelection_Click);
             // 
             // saveSelectionToolStripMenuItem
             // 
@@ -847,7 +847,7 @@ namespace OrthoAid_3DSimulator
             this.saveSelectionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
             this.saveSelectionToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.saveSelectionToolStripMenuItem.Text = "Save Selection";
-            this.saveSelectionToolStripMenuItem.Click += new System.EventHandler(this.saveSelectionToolStripMenuItem_Click);
+            this.saveSelectionToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_SaveSelection_Click);
             // 
             // toolStripSeparator4
             // 
@@ -860,7 +860,7 @@ namespace OrthoAid_3DSimulator
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_Exit_Click);
             // 
             // meshToolStripMenuItem
             // 
@@ -879,28 +879,28 @@ namespace OrthoAid_3DSimulator
             this.triangulatePointCloudToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
             this.triangulatePointCloudToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.triangulatePointCloudToolStripMenuItem.Text = "Triangulate Point Cloud";
-            this.triangulatePointCloudToolStripMenuItem.Click += new System.EventHandler(this.triangulatePointCloudToolStripMenuItem_Click);
+            this.triangulatePointCloudToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_TriangulatePointCloud_Click);
             // 
             // meshInfoToolStripMenuItem
             // 
             this.meshInfoToolStripMenuItem.Name = "meshInfoToolStripMenuItem";
             this.meshInfoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.meshInfoToolStripMenuItem.Text = "Mesh info";
-            this.meshInfoToolStripMenuItem.Click += new System.EventHandler(this.meshInfoToolStripMenuItem_Click);
+            this.meshInfoToolStripMenuItem.Click += new System.EventHandler(this.MeshInfoToolStripMenuItem_Click);
             // 
             // deleteNoisyPointsToolStripMenuItem
             // 
             this.deleteNoisyPointsToolStripMenuItem.Name = "deleteNoisyPointsToolStripMenuItem";
             this.deleteNoisyPointsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.deleteNoisyPointsToolStripMenuItem.Text = "Delete Noisy Points";
-            this.deleteNoisyPointsToolStripMenuItem.Click += new System.EventHandler(this.deleteNoisyPointsToolStripMenuItem_Click);
+            this.deleteNoisyPointsToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_DeleteNoisyPoints_Click);
             // 
             // computeNormalsToolStripMenuItem
             // 
             this.computeNormalsToolStripMenuItem.Name = "computeNormalsToolStripMenuItem";
             this.computeNormalsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.computeNormalsToolStripMenuItem.Text = "Compute Normals";
-            this.computeNormalsToolStripMenuItem.Click += new System.EventHandler(this.computeNormalsToolStripMenuItem_Click);
+            this.computeNormalsToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_ComputeNormals_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -926,7 +926,7 @@ namespace OrthoAid_3DSimulator
             | System.Windows.Forms.Keys.D1)));
             this.showCast1ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.showCast1ToolStripMenuItem.Text = "Show Cast1";
-            this.showCast1ToolStripMenuItem.Click += new System.EventHandler(this.showCast1ToolStripMenuItem_Click);
+            this.showCast1ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_ShowCast1_Click);
             // 
             // showCast2ToolStripMenuItem
             // 
@@ -936,7 +936,7 @@ namespace OrthoAid_3DSimulator
             | System.Windows.Forms.Keys.D2)));
             this.showCast2ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.showCast2ToolStripMenuItem.Text = "Show Cast2";
-            this.showCast2ToolStripMenuItem.Click += new System.EventHandler(this.showCast2ToolStripMenuItem_Click);
+            this.showCast2ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_ShowCast_Click);
             // 
             // inverseCastShowToolStripMenuItem
             // 
@@ -944,7 +944,7 @@ namespace OrthoAid_3DSimulator
             this.inverseCastShowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.inverseCastShowToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.inverseCastShowToolStripMenuItem.Text = "Inverse Cast Show";
-            this.inverseCastShowToolStripMenuItem.Click += new System.EventHandler(this.inverseCastShowToolStripMenuItem_Click);
+            this.inverseCastShowToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_InverseCastShow_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -960,14 +960,14 @@ namespace OrthoAid_3DSimulator
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.helpToolStripMenuItem1.Text = "Help";
-            this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
+            this.helpToolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMI_Help_Click);
             // 
             // aboutOrthoAidToolStripMenuItem
             // 
             this.aboutOrthoAidToolStripMenuItem.Name = "aboutOrthoAidToolStripMenuItem";
             this.aboutOrthoAidToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.aboutOrthoAidToolStripMenuItem.Text = "About OrthoAid";
-            this.aboutOrthoAidToolStripMenuItem.Click += new System.EventHandler(this.aboutOrthoAidToolStripMenuItem_Click);
+            this.aboutOrthoAidToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMI_AboutOrthoAid_Click);
             // 
             // lb_numVertices1
             // 
@@ -1011,7 +1011,7 @@ namespace OrthoAid_3DSimulator
             0,
             0,
             0});
-            this.numUD_densityReduceThreshold.ValueChanged += new System.EventHandler(this.numUD_densityReduceThreshold_ValueChanged);
+            this.numUD_densityReduceThreshold.ValueChanged += new System.EventHandler(this.NumUD_DensityReduceThreshold_ValueChanged);
             // 
             // groupBox3
             // 
@@ -1037,7 +1037,7 @@ namespace OrthoAid_3DSimulator
             this.b_cancelReduceDensity.TabIndex = 79;
             this.b_cancelReduceDensity.Text = "Cancel";
             this.b_cancelReduceDensity.UseVisualStyleBackColor = true;
-            this.b_cancelReduceDensity.Click += new System.EventHandler(this.b_cancelReduceDensity_Click);
+            this.b_cancelReduceDensity.Click += new System.EventHandler(this.B_CancelReduceDensity_Click);
             // 
             // b_previewReduceDensity
             // 
@@ -1047,7 +1047,7 @@ namespace OrthoAid_3DSimulator
             this.b_previewReduceDensity.TabIndex = 78;
             this.b_previewReduceDensity.Text = "Preview";
             this.b_previewReduceDensity.UseVisualStyleBackColor = true;
-            this.b_previewReduceDensity.Click += new System.EventHandler(this.b_previewReduceDensity_Click);
+            this.b_previewReduceDensity.Click += new System.EventHandler(this.B_PreviewReduceDensity_Click);
             // 
             // label1
             // 
@@ -1066,7 +1066,7 @@ namespace OrthoAid_3DSimulator
             this.b_applyReduceDensity.TabIndex = 76;
             this.b_applyReduceDensity.Text = "Apply";
             this.b_applyReduceDensity.UseVisualStyleBackColor = true;
-            this.b_applyReduceDensity.Click += new System.EventHandler(this.b_applyReduceDensity_Click);
+            this.b_applyReduceDensity.Click += new System.EventHandler(this.B_ApplyReduceDensity_Click);
             // 
             // lb_meshName2
             // 
@@ -1122,7 +1122,7 @@ namespace OrthoAid_3DSimulator
             this.lbox_selectCast.Name = "lbox_selectCast";
             this.lbox_selectCast.Size = new System.Drawing.Size(47, 36);
             this.lbox_selectCast.TabIndex = 2;
-            this.lbox_selectCast.SelectedIndexChanged += new System.EventHandler(this.lbox_selectCast_SelectedIndexChanged);
+            this.lbox_selectCast.SelectedIndexChanged += new System.EventHandler(this.LBox_SelectCast_SelectedIndexChanged);
             // 
             // cb_showCast2
             // 
@@ -1134,7 +1134,7 @@ namespace OrthoAid_3DSimulator
             this.cb_showCast2.Text = " ";
             this.toolTip1.SetToolTip(this.cb_showCast2, "( Ctrl + Shift + 2 )");
             this.cb_showCast2.UseVisualStyleBackColor = true;
-            this.cb_showCast2.CheckedChanged += new System.EventHandler(this.cb_showCast2_CheckedChanged);
+            this.cb_showCast2.CheckedChanged += new System.EventHandler(this.Cb_ShowCast2_CheckedChanged);
             // 
             // cb_showCast1
             // 
@@ -1146,7 +1146,7 @@ namespace OrthoAid_3DSimulator
             this.cb_showCast1.Text = " ";
             this.toolTip1.SetToolTip(this.cb_showCast1, "( Ctrl + Shift + 1 )");
             this.cb_showCast1.UseVisualStyleBackColor = true;
-            this.cb_showCast1.CheckedChanged += new System.EventHandler(this.cb_showCast1_CheckedChanged);
+            this.cb_showCast1.CheckedChanged += new System.EventHandler(this.Cb_ShowCast1_CheckedChanged);
             // 
             // gb_cast1
             // 
@@ -1209,7 +1209,7 @@ namespace OrthoAid_3DSimulator
             this.b_RotateTranslate.TabIndex = 22;
             this.b_RotateTranslate.Text = "Go";
             this.b_RotateTranslate.UseVisualStyleBackColor = true;
-            this.b_RotateTranslate.Click += new System.EventHandler(this.b_RotateTranslate_Click);
+            this.b_RotateTranslate.Click += new System.EventHandler(this.B_RotateTranslate_Click);
             // 
             // label10
             // 
@@ -1237,9 +1237,9 @@ namespace OrthoAid_3DSimulator
             this.tx_translateX.Size = new System.Drawing.Size(39, 20);
             this.tx_translateX.TabIndex = 19;
             this.tx_translateX.Text = "0";
-            this.tx_translateX.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_translateX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_RotateTranslate_KeyDown);
-            this.tx_translateX.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_translateX.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_translateX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_RotateTranslate_KeyDown);
+            this.tx_translateX.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // label5
             // 
@@ -1269,9 +1269,9 @@ namespace OrthoAid_3DSimulator
             this.tx_translateY.Size = new System.Drawing.Size(39, 20);
             this.tx_translateY.TabIndex = 20;
             this.tx_translateY.Text = "0";
-            this.tx_translateY.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_translateY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_RotateTranslate_KeyDown);
-            this.tx_translateY.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_translateY.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_translateY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_RotateTranslate_KeyDown);
+            this.tx_translateY.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // tx_translateZ
             // 
@@ -1281,9 +1281,9 @@ namespace OrthoAid_3DSimulator
             this.tx_translateZ.Size = new System.Drawing.Size(39, 20);
             this.tx_translateZ.TabIndex = 21;
             this.tx_translateZ.Text = "0";
-            this.tx_translateZ.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_translateZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_RotateTranslate_KeyDown);
-            this.tx_translateZ.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_translateZ.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_translateZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_RotateTranslate_KeyDown);
+            this.tx_translateZ.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // label7
             // 
@@ -1303,9 +1303,9 @@ namespace OrthoAid_3DSimulator
             this.tx_rotateAngleX.Size = new System.Drawing.Size(39, 20);
             this.tx_rotateAngleX.TabIndex = 13;
             this.tx_rotateAngleX.Text = "0";
-            this.tx_rotateAngleX.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_rotateAngleX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_RotateTranslate_KeyDown);
-            this.tx_rotateAngleX.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_rotateAngleX.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_rotateAngleX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_RotateTranslate_KeyDown);
+            this.tx_rotateAngleX.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // label2
             // 
@@ -1335,9 +1335,9 @@ namespace OrthoAid_3DSimulator
             this.tx_rotateAngleY.Size = new System.Drawing.Size(39, 20);
             this.tx_rotateAngleY.TabIndex = 14;
             this.tx_rotateAngleY.Text = "0";
-            this.tx_rotateAngleY.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_rotateAngleY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_RotateTranslate_KeyDown);
-            this.tx_rotateAngleY.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_rotateAngleY.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_rotateAngleY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_RotateTranslate_KeyDown);
+            this.tx_rotateAngleY.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // tx_rotateAngleZ
             // 
@@ -1347,9 +1347,9 @@ namespace OrthoAid_3DSimulator
             this.tx_rotateAngleZ.Size = new System.Drawing.Size(39, 20);
             this.tx_rotateAngleZ.TabIndex = 15;
             this.tx_rotateAngleZ.Text = "0";
-            this.tx_rotateAngleZ.Enter += new System.EventHandler(this.tx_Enter);
-            this.tx_rotateAngleZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tx_RotateTranslate_KeyDown);
-            this.tx_rotateAngleZ.Leave += new System.EventHandler(this.tx_Leave);
+            this.tx_rotateAngleZ.Enter += new System.EventHandler(this.Tx_Enter);
+            this.tx_rotateAngleZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tx_RotateTranslate_KeyDown);
+            this.tx_rotateAngleZ.Leave += new System.EventHandler(this.Tx_LeaveFocus);
             // 
             // label3
             // 
@@ -1406,7 +1406,7 @@ namespace OrthoAid_3DSimulator
             this.tstrip_Hand.Name = "tstrip_Hand";
             this.tstrip_Hand.Size = new System.Drawing.Size(35, 33);
             this.tstrip_Hand.Text = "Rotate View";
-            this.tstrip_Hand.Click += new System.EventHandler(this.tstrip_Hand_Click);
+            this.tstrip_Hand.Click += new System.EventHandler(this.TStrip_Hand_Click);
             // 
             // tstrip_Select
             // 
@@ -1419,7 +1419,7 @@ namespace OrthoAid_3DSimulator
             this.tstrip_Select.Name = "tstrip_Select";
             this.tstrip_Select.Size = new System.Drawing.Size(35, 33);
             this.tstrip_Select.Text = "Select Vertex";
-            this.tstrip_Select.Click += new System.EventHandler(this.tstrip_Select_Click);
+            this.tstrip_Select.Click += new System.EventHandler(this.Tstrip_Select_Click);
             // 
             // tstrip_Ruler
             // 
@@ -1432,7 +1432,7 @@ namespace OrthoAid_3DSimulator
             this.tstrip_Ruler.Name = "tstrip_Ruler";
             this.tstrip_Ruler.Size = new System.Drawing.Size(35, 33);
             this.tstrip_Ruler.Text = "Ruler";
-            this.tstrip_Ruler.Click += new System.EventHandler(this.tstrip_Ruler_Click);
+            this.tstrip_Ruler.Click += new System.EventHandler(this.TStrip_Ruler_Click);
             // 
             // toolStripSeparator5
             // 
@@ -1449,7 +1449,7 @@ namespace OrthoAid_3DSimulator
             this.tstrip_lockSelection.Name = "tstrip_lockSelection";
             this.tstrip_lockSelection.Size = new System.Drawing.Size(87, 33);
             this.tstrip_lockSelection.Text = "Lock Selection";
-            this.tstrip_lockSelection.Click += new System.EventHandler(this.tstrip_lockSelection_Click);
+            this.tstrip_lockSelection.Click += new System.EventHandler(this.TStrip_LockSelection_Click);
             // 
             // toolStripSeparator7
             // 
@@ -1506,7 +1506,7 @@ namespace OrthoAid_3DSimulator
             this.lview_selectedPoints1.TabIndex = 93;
             this.lview_selectedPoints1.UseCompatibleStateImageBehavior = false;
             this.lview_selectedPoints1.View = System.Windows.Forms.View.Details;
-            this.lview_selectedPoints1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lview_selectedPoints_KeyDown);
+            this.lview_selectedPoints1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LView_SelectedPoints_KeyDown);
             // 
             // Selected_Points1
             // 
@@ -1526,7 +1526,7 @@ namespace OrthoAid_3DSimulator
             this.lview_selectedPoints2.TabIndex = 94;
             this.lview_selectedPoints2.UseCompatibleStateImageBehavior = false;
             this.lview_selectedPoints2.View = System.Windows.Forms.View.Details;
-            this.lview_selectedPoints2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lview_selectedPoints_KeyDown);
+            this.lview_selectedPoints2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LView_SelectedPoints_KeyDown);
             // 
             // Selected_Points2
             // 
@@ -1546,7 +1546,7 @@ namespace OrthoAid_3DSimulator
             this.b_Calculate.Text = "Calculate";
             this.toolTip1.SetToolTip(this.b_Calculate, "( I )");
             this.b_Calculate.UseVisualStyleBackColor = true;
-            this.b_Calculate.Click += new System.EventHandler(this.b_Calculate_Click);
+            this.b_Calculate.Click += new System.EventHandler(this.B_Calculate_Click);
             // 
             // b_clearSelection
             // 
@@ -1558,7 +1558,7 @@ namespace OrthoAid_3DSimulator
             this.b_clearSelection.TabIndex = 95;
             this.b_clearSelection.Text = "Clear Selection";
             this.b_clearSelection.UseVisualStyleBackColor = true;
-            this.b_clearSelection.Click += new System.EventHandler(this.b_clearSelection_Click);
+            this.b_clearSelection.Click += new System.EventHandler(this.B_ClearSelection_Click);
             // 
             // b_superImpose
             // 
@@ -1570,7 +1570,7 @@ namespace OrthoAid_3DSimulator
             this.b_superImpose.TabIndex = 88;
             this.b_superImpose.Text = "Super Impose";
             this.b_superImpose.UseVisualStyleBackColor = true;
-            this.b_superImpose.Click += new System.EventHandler(this.b_superImpose_Click);
+            this.b_superImpose.Click += new System.EventHandler(this.B_SuperImpose_Click);
             // 
             // groupBox2
             // 
@@ -1590,7 +1590,7 @@ namespace OrthoAid_3DSimulator
             this.vScroll_lightIntensity.Name = "vScroll_lightIntensity";
             this.vScroll_lightIntensity.Size = new System.Drawing.Size(16, 138);
             this.vScroll_lightIntensity.TabIndex = 72;
-            this.vScroll_lightIntensity.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScroll_lightIntensity_Scroll);
+            this.vScroll_lightIntensity.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScroll_LightIntensity_OnScroll);
             // 
             // groupBox6
             // 
@@ -1620,7 +1620,7 @@ namespace OrthoAid_3DSimulator
             this.b_clearCalculations.TabIndex = 88;
             this.b_clearCalculations.Text = "Clear All";
             this.b_clearCalculations.UseVisualStyleBackColor = true;
-            this.b_clearCalculations.Click += new System.EventHandler(this.b_clearCalculations_Click);
+            this.b_clearCalculations.Click += new System.EventHandler(this.B_ClearCalculations_Click);
             // 
             // tab_Maintab
             // 
@@ -1635,7 +1635,7 @@ namespace OrthoAid_3DSimulator
             this.tab_Maintab.SelectedIndex = 0;
             this.tab_Maintab.Size = new System.Drawing.Size(796, 237);
             this.tab_Maintab.TabIndex = 89;
-            this.tab_Maintab.SelectedIndexChanged += new System.EventHandler(this.tab_Maintab_SelectedIndexChanged);
+            this.tab_Maintab.SelectedIndexChanged += new System.EventHandler(this.Tab_Maintab_SelectedIndexChanged);
             // 
             // tab_Planes
             // 
@@ -2192,7 +2192,7 @@ namespace OrthoAid_3DSimulator
             this.rb_BBCmiddle.TabStop = true;
             this.rb_BBCmiddle.Text = "Auto";
             this.rb_BBCmiddle.UseVisualStyleBackColor = true;
-            this.rb_BBCmiddle.CheckedChanged += new System.EventHandler(this.rb_BBCmiddle_CheckedChanged);
+            this.rb_BBCmiddle.CheckedChanged += new System.EventHandler(this.Rb_BBCmiddle_CheckedChanged);
             // 
             // rb_BBPuser
             // 
@@ -2204,7 +2204,7 @@ namespace OrthoAid_3DSimulator
             this.rb_BBPuser.TabStop = true;
             this.rb_BBPuser.Text = "Manual";
             this.rb_BBPuser.UseVisualStyleBackColor = true;
-            this.rb_BBPuser.CheckedChanged += new System.EventHandler(this.rb_BBPuser_CheckedChanged);
+            this.rb_BBPuser.CheckedChanged += new System.EventHandler(this.Rb_BBPuser_CheckedChanged);
             // 
             // v1t17
             // 
@@ -3023,8 +3023,7 @@ namespace OrthoAid_3DSimulator
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(72, 13);
             this.label77.TabIndex = 158;
-            this.label77.Text = "Sagittal Plane";
-            this.label77.Click += new System.EventHandler(this.label77_Click);
+            this.label77.Text = "Sagittal Plane";            
             // 
             // label74
             // 
@@ -4860,7 +4859,7 @@ namespace OrthoAid_3DSimulator
             this.lv_wires.TabIndex = 3;
             this.lv_wires.UseCompatibleStateImageBehavior = false;
             this.lv_wires.View = System.Windows.Forms.View.Details;
-            this.lv_wires.SelectedIndexChanged += new System.EventHandler(this.lv_wires_SelectedIndexChanged);
+            this.lv_wires.SelectedIndexChanged += new System.EventHandler(this.LV_Wires_SelectedIndexChanged);
             // 
             // lb_curve2occlusalPlane
             // 
@@ -4911,7 +4910,7 @@ namespace OrthoAid_3DSimulator
             this.b_matchingWire.TabIndex = 2;
             this.b_matchingWire.Text = "Find Best Wire";
             this.b_matchingWire.UseVisualStyleBackColor = true;
-            this.b_matchingWire.Click += new System.EventHandler(this.b_matchingWire_Click);
+            this.b_matchingWire.Click += new System.EventHandler(this.B_MatchingWire_Clicked);
             // 
             // rb_maxilla
             // 
@@ -4985,7 +4984,7 @@ namespace OrthoAid_3DSimulator
             this.rb_fitPoly.TabStop = true;
             this.rb_fitPoly.Text = "Polynomial Order";
             this.rb_fitPoly.UseVisualStyleBackColor = true;
-            this.rb_fitPoly.CheckedChanged += new System.EventHandler(this.rb_fitFunction_CheckedChanged);
+            this.rb_fitPoly.CheckedChanged += new System.EventHandler(this.Rb_FitFunction_CheckedChanged);
             // 
             // rb_fitNoroozi
             // 
@@ -4996,7 +4995,7 @@ namespace OrthoAid_3DSimulator
             this.rb_fitNoroozi.TabIndex = 5;
             this.rb_fitNoroozi.Text = "Noroozi B-Function";
             this.rb_fitNoroozi.UseVisualStyleBackColor = true;
-            this.rb_fitNoroozi.CheckedChanged += new System.EventHandler(this.rb_fitFunction_CheckedChanged);
+            this.rb_fitNoroozi.CheckedChanged += new System.EventHandler(this.Rb_FitFunction_CheckedChanged);
             // 
             // nUpDown_order
             // 
@@ -5019,7 +5018,7 @@ namespace OrthoAid_3DSimulator
             0,
             0,
             0});
-            this.nUpDown_order.ValueChanged += new System.EventHandler(this.nUpDown_order_ValueChanged);
+            this.nUpDown_order.ValueChanged += new System.EventHandler(this.NumUD_Order_ValueChanged);
             // 
             // pl_curveFit
             // 
@@ -5477,7 +5476,7 @@ namespace OrthoAid_3DSimulator
             this.w1_tb.Tag = "0";
             this.w1_tb.Text = "1.0";
             this.w1_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w1_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w1_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w2_tb
             // 
@@ -5488,7 +5487,7 @@ namespace OrthoAid_3DSimulator
             this.w2_tb.Tag = "1";
             this.w2_tb.Text = "1.0";
             this.w2_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w2_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w2_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w3_tb
             // 
@@ -5499,7 +5498,7 @@ namespace OrthoAid_3DSimulator
             this.w3_tb.Tag = "2";
             this.w3_tb.Text = "1.0";
             this.w3_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w3_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w3_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w4_tb
             // 
@@ -5510,7 +5509,7 @@ namespace OrthoAid_3DSimulator
             this.w4_tb.Tag = "3";
             this.w4_tb.Text = "1.0";
             this.w4_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w4_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w4_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w5_tb
             // 
@@ -5521,7 +5520,7 @@ namespace OrthoAid_3DSimulator
             this.w5_tb.Tag = "4";
             this.w5_tb.Text = "1.0";
             this.w5_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w5_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w5_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w6_tb
             // 
@@ -5532,7 +5531,7 @@ namespace OrthoAid_3DSimulator
             this.w6_tb.Tag = "5";
             this.w6_tb.Text = "1.0";
             this.w6_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w6_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w6_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w7_tb
             // 
@@ -5543,7 +5542,7 @@ namespace OrthoAid_3DSimulator
             this.w7_tb.Tag = "6";
             this.w7_tb.Text = "1.0";
             this.w7_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w7_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w7_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w8_tb
             // 
@@ -5554,7 +5553,7 @@ namespace OrthoAid_3DSimulator
             this.w8_tb.Tag = "7";
             this.w8_tb.Text = "1.0";
             this.w8_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w8_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w8_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w9_tb
             // 
@@ -5565,7 +5564,7 @@ namespace OrthoAid_3DSimulator
             this.w9_tb.Tag = "8";
             this.w9_tb.Text = "1.0";
             this.w9_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w9_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w9_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w10_tb
             // 
@@ -5576,7 +5575,7 @@ namespace OrthoAid_3DSimulator
             this.w10_tb.Tag = "9";
             this.w10_tb.Text = "1.0";
             this.w10_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w10_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w10_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w11_tb
             // 
@@ -5587,7 +5586,7 @@ namespace OrthoAid_3DSimulator
             this.w11_tb.Tag = "10";
             this.w11_tb.Text = "1.0";
             this.w11_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w11_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w11_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // w12_tb
             // 
@@ -5598,7 +5597,7 @@ namespace OrthoAid_3DSimulator
             this.w12_tb.Tag = "11";
             this.w12_tb.Text = "1.0";
             this.w12_tb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.w12_tb.TextChanged += new System.EventHandler(this.weight_TextChanged);
+            this.w12_tb.TextChanged += new System.EventHandler(this.Tx_Weight_TextChanged);
             // 
             // gb_weight
             // 
@@ -5647,7 +5646,7 @@ namespace OrthoAid_3DSimulator
             this.collapse_b.TabIndex = 90;
             this.collapse_b.Text = "---------->";
             this.collapse_b.UseVisualStyleBackColor = true;
-            this.collapse_b.Click += new System.EventHandler(this.collapse_b_Click);
+            this.collapse_b.Click += new System.EventHandler(this.B_Collapse_Click);
             // 
             // panel2
             // 
@@ -5668,7 +5667,7 @@ namespace OrthoAid_3DSimulator
             this.expand_b.TabIndex = 91;
             this.expand_b.Text = "<---";
             this.expand_b.UseVisualStyleBackColor = true;
-            this.expand_b.Click += new System.EventHandler(this.expand_b_Click);
+            this.expand_b.Click += new System.EventHandler(this.B_Expand_Click);
             // 
             // MainForm
             // 

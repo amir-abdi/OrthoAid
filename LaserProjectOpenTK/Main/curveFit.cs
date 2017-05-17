@@ -105,9 +105,9 @@ namespace OrthoAid_3DSimulator
             graphics.Clear(Color.White);
             for (int i = 0; i < num; ++i)
             {
-                drawPoint2DOnControl(graphics, new PointF((float)xdata[i], (float)ydata[i]), Color.Black, 4);
+                DrawPoint2DOnControl(graphics, new PointF((float)xdata[i], (float)ydata[i]), Color.Black, 4);
             }
-            //drawPoint2DOnControl(graphics, new PointF((float)10, (float)20), Color.Red, 10);
+            //DrawPoint2DOnControl(graphics, new PointF((float)10, (float)20), Color.Red, 10);
 
             //change of parameter
             var diffx = Diff(xdata);
@@ -133,8 +133,8 @@ namespace OrthoAid_3DSimulator
             try
             {
                 //f = Fit.Polynomial(xdata, ydata, order);
-                Wx = fitLeastSquaresBasis(t, xdata, fitFunction, deg);
-                Wy = fitLeastSquaresBasis(t, ydata, fitFunction, deg);
+                Wx = FitLeastSquaresBasis(t, xdata, fitFunction, deg);
+                Wy = FitLeastSquaresBasis(t, ydata, fitFunction, deg);
             }
             catch (Exception e)
             {
@@ -161,7 +161,7 @@ namespace OrthoAid_3DSimulator
             //    tt[i] = mint + stepSize * i;
             //}
 
-            //var TT = makeBasis(tt, fitFunction, deg);
+            //var TT = MakeBasis(tt, fitFunction, deg);
             //var XX = TT * Wx;
             //var YY = TT * Wy;
             
@@ -169,7 +169,7 @@ namespace OrthoAid_3DSimulator
             DenseVector XX = tempTuple.Item1;
             DenseVector YY = tempTuple.Item2;
 
-            drawCurve(graphics, XX, YY, Color.Blue);
+            DrawCurve(graphics, XX, YY, Color.Blue);
 
             //least squares
 
@@ -177,7 +177,7 @@ namespace OrthoAid_3DSimulator
             //try
             //{
             //    //f = Fit.Polynomial(xdata, ydata, order);
-            //    W = fitLeastSquaresBasis(xdata, ydata, fitFunction, deg);
+            //    W = FitLeastSquaresBasis(xdata, ydata, fitFunction, deg);
             //}
             //catch (Exception e)
             //{
@@ -187,11 +187,11 @@ namespace OrthoAid_3DSimulator
 
 
             //draw the blue curve
-            //drawCurve(graphics, W, xdata.Min()-4, xdata.Max()+4, fitFunction, deg);
+            //DrawCurve(graphics, W, xdata.Min()-4, xdata.Max()+4, fitFunction, deg);
 
             //calculate Error
-            //var rmse_xy = calculatePerpendicularDistancePointToCurve(xdata, ydata, W, fitFunction, deg, graphics);
-            var rmse_xy = calculatePerpendicularDistancePointToCurve(xdata, ydata, XX, YY, graphics);
+            //var rmse_xy = CalculatePerpendicularDistancePointToCurve(xdata, ydata, W, fitFunction, deg, graphics);
+            var rmse_xy = CalculatePerpendicularDistancePointToCurve(xdata, ydata, XX, YY, graphics);
 
 
             status.Text = "Polynomial order " + deg.ToString() +
@@ -237,7 +237,7 @@ namespace OrthoAid_3DSimulator
             return p;
         }
 
-        double calculatePerpendicularDistancePointToCurve(double[] xdata, double[] ydata, DenseVector W, 
+        double CalculatePerpendicularDistancePointToCurve(double[] xdata, double[] ydata, DenseVector W, 
             FitFunction basis, int deg, Graphics g)
         {
             const double stepSize = 0.01;
@@ -250,7 +250,7 @@ namespace OrthoAid_3DSimulator
             {
                 plotX[i] = minX + i * stepSize;
             }
-            var PlotX = makeBasis(plotX, basis, deg);
+            var PlotX = MakeBasis(plotX, basis, deg);
             var PlotY = PlotX * W;
 
             double s = 0;
@@ -282,7 +282,7 @@ namespace OrthoAid_3DSimulator
             return error;
         }
 
-        double calculatePerpendicularDistancePointToCurve(double[] xdata, double[] ydata, 
+        double CalculatePerpendicularDistancePointToCurve(double[] xdata, double[] ydata, 
             DenseVector PlotX, DenseVector PlotY, Graphics g)
         {            
             int numCurve = PlotX.Count;            
@@ -317,7 +317,7 @@ namespace OrthoAid_3DSimulator
             return error;
         }
 
-        void drawCurve(Graphics g, DenseVector W, double minX, double maxX, FitFunction basis, int deg=0)
+        void DrawCurve(Graphics g, DenseVector W, double minX, double maxX, FitFunction basis, int deg=0)
         {
             const double stepSize = 0.1;
             int n = (int)((maxX - minX) / stepSize);
@@ -326,25 +326,25 @@ namespace OrthoAid_3DSimulator
             {
                 xdata[i] = minX + stepSize * i;
             }
-            var X = makeBasis(xdata, basis, deg);
+            var X = MakeBasis(xdata, basis, deg);
             var Y = X * W;
 
             for (int i = 0; i < n; i++)
             {
-                drawPoint2DOnControl(g, new PointF((float)xdata[i], (float)Y[i]), Color.Blue, 1);
+                DrawPoint2DOnControl(g, new PointF((float)xdata[i], (float)Y[i]), Color.Blue, 1);
             }
         }
 
-        void drawCurve(Graphics g, DenseVector xdata, DenseVector ydata,  Color color)
+        void DrawCurve(Graphics g, DenseVector xdata, DenseVector ydata,  Color color)
         {
             int num = xdata.Count;
             for (int i = 0; i < num; i++)
             {
-                drawPoint2DOnControl(g, new PointF((float)xdata[i], (float)ydata[i]), color, 1);
+                DrawPoint2DOnControl(g, new PointF((float)xdata[i], (float)ydata[i]), color, 1);
             }
         }
 
-        void drawPoint2DOnControl(Graphics g, PointF point, Color color, int size)
+        void DrawPoint2DOnControl(Graphics g, PointF point, Color color, int size)
         {
             //point.Y = -point.Y;            
             //point.X += 30;
@@ -356,9 +356,9 @@ namespace OrthoAid_3DSimulator
 
         }
         
-        DenseVector fitLeastSquaresBasis(double[] xdata, double[] ydata, FitFunction basis, int deg=1)
+        DenseVector FitLeastSquaresBasis(double[] xdata, double[] ydata, FitFunction basis, int deg=1)
         {   
-            var X = makeBasis(xdata, basis, deg);
+            var X = MakeBasis(xdata, basis, deg);
             var Y = new DenseVector(ydata);
             var A = (DenseMatrix)X.Transpose() * X;
             var B = (DenseVector)(X.Transpose() * Y);
@@ -368,7 +368,7 @@ namespace OrthoAid_3DSimulator
         }
 
 
-        DenseMatrix makeBasis(double[] xdata, FitFunction basis, int deg)
+        DenseMatrix MakeBasis(double[] xdata, FitFunction basis, int deg)
         {
             int n = xdata.Length;
             int columns = 0;
@@ -409,12 +409,12 @@ namespace OrthoAid_3DSimulator
         }
 
 
-        private void b_matchingWire_Click(object sender, EventArgs e)
+        private void B_MatchingWire_Clicked(object sender, EventArgs e)
         {
             if ((GetSelectedVbOIndex() == 1 && (Planes[0][CURVEPLANE_INDEX] == null || !Planes[0][CURVEPLANE_INDEX].valid)) ||
                 (GetSelectedVbOIndex() == 2 && (Planes[1][CURVEPLANE_INDEX] == null || !Planes[1][CURVEPLANE_INDEX].valid)))
             {
-                MessageBox.Show("To find the matching arch wire, first select some bracket points and fit a curve onto the selected points.", "No curve fitted");
+                MessageBox.Show("To find the matching arch wire, first Select some bracket points and fit a curve onto the selected points.", "No curve fitted");
                 return;
             }
 
@@ -425,7 +425,7 @@ namespace OrthoAid_3DSimulator
                 index_mandible_maxilla = 1;
             else
             {
-                MessageBox.Show("Either select mandible or maxilla.");
+                MessageBox.Show("Either Select mandible or maxilla.");
                 return;
             }
             
@@ -478,14 +478,14 @@ namespace OrthoAid_3DSimulator
 
             //    var graphics = pl_wireMatch.CreateGraphics();
             //    graphics.Clear(Color.White);
-            //    drawCurve(graphics, curvePoints.Item1, curvePoints.Item2, Color.Blue);
-            //    drawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
+            //    DrawCurve(graphics, curvePoints.Item1, curvePoints.Item2, Color.Blue);
+            //    DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
 
             //}
         }
 
 
-        private void lv_wires_SelectedIndexChanged(object sender, EventArgs e)
+        private void LV_Wires_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lv_wires.SelectedIndices.Count > 0)
             {
@@ -495,8 +495,8 @@ namespace OrthoAid_3DSimulator
 
                 var graphics = pl_wireMatch.CreateGraphics();
                 graphics.Clear(Color.White);
-                drawCurve(graphics, curvePoints.Item1, curvePoints.Item2, Color.Blue);
-                drawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
+                DrawCurve(graphics, curvePoints.Item1, curvePoints.Item2, Color.Blue);
+                DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
             }
         }
 
@@ -537,13 +537,13 @@ namespace OrthoAid_3DSimulator
             //wirePoints.Item2.Subtract(translation[1]);
 
             // test draw
-            //drawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
+            //DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
 
             // HOW TO SHIFT THE CURVE USING ITS PARAMETRIC EQUATION?!
             //wire.CoeffsX[0] += translation[0];
             //wire.CoeffsY[0] += translation[1];
             //wirePoints = ParametricPolynomial_to_2DPoints_matlab(wire);
-            //drawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
+            //DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
 
             //Calculate error point-based
 
@@ -573,8 +573,8 @@ namespace OrthoAid_3DSimulator
                                                                       (DenseVector)wirePointsRight.Item2.SubVector(0, closestRight.Item1));
 
             //test draw
-            //drawCurve(graphics, wirePointsLeft.Item1, wirePointsLeft.Item2, Color.Purple);
-            //drawCurve(graphics, wirePointsRight.Item1, wirePointsRight.Item2, Color.Purple);
+            //DrawCurve(graphics, wirePointsLeft.Item1, wirePointsLeft.Item2, Color.Purple);
+            //DrawCurve(graphics, wirePointsRight.Item1, wirePointsRight.Item2, Color.Purple);
 
             //RMSE
             double sumOfSquares = 0;
@@ -623,7 +623,7 @@ namespace OrthoAid_3DSimulator
                 tt[i] = mint + stepSize * i;
             }
             
-            var TT = makeBasis(tt, curve.fitFunction, curve.degree);
+            var TT = MakeBasis(tt, curve.fitFunction, curve.degree);
             var XX = TT * curve.CoeffsX;
             var YY = TT * curve.CoeffsY;
             
