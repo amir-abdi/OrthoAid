@@ -138,7 +138,12 @@ namespace OrthoAid_3DSimulator
             }
             catch (Exception e)
             {
-                MessageBox.Show("The order of polynomial is too high and results are unstable. Please use a lower degree polynomial.", "Error in Curve Fitting");
+                Common.Logger.Log("MainForm", "curveFit.cs", "CalculateCurveFit",
+                    e.Message);
+                MessageBox.Show("The order of polynomial is too high and " +
+                                "results are unstable. Please use a lower " +
+                                "degree polynomial.", 
+                    "Error in Curve Fitting");
                 return;
             }
 
@@ -597,7 +602,7 @@ namespace OrthoAid_3DSimulator
             return new Tuple<Tuple<DenseVector, DenseVector>, double>(finalWire, rmse);
         }
 
-        private new Tuple<int, double> FindClosestToPoint(Tuple<DenseVector, DenseVector> line, double[] point)
+        private Tuple<int, double> FindClosestToPoint(Tuple<DenseVector, DenseVector> line, double[] point)
         {
             //maybe make this better with binary search (or break if distance started to increase)
             double minDist = double.MaxValue;

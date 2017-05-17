@@ -169,13 +169,14 @@ namespace OrthoAid_3DSimulator
 
         }
 
-        int selectedToothIndex_BackStore = -1;
-        public int selectedIndex
+        int _selectedToothIndexBackStore = -1;
+
+        public int SelectedIndex
         {
-            get { return selectedToothIndex_BackStore; }
+            get { return _selectedToothIndexBackStore; }
             set
             {
-                selectedToothIndex_BackStore = value;
+                _selectedToothIndexBackStore = value;
             }            
             
         }
@@ -445,14 +446,20 @@ namespace OrthoAid_3DSimulator
             float mu = (float)PolynomialRegressionAndDerivativeAtMidPoint_MathNet(points, ref midpoint);            
 
             Vector3[] tangentLinePoints = new Vector3[2];
-            tangentLinePoints[0] = new Vector3();            
-            tangentLinePoints[0].X = midpoint.X + TANGENT_VECTOR_LENGTH / 2;
-            tangentLinePoints[0].Y = TANGENT_VECTOR_LENGTH / 2 * mu + midpoint.Y;
-            tangentLinePoints[0].Z = points[0].Z;
-            tangentLinePoints[1] = new Vector3();
-            tangentLinePoints[1].X = midpoint.X - TANGENT_VECTOR_LENGTH / 2;
-            tangentLinePoints[1].Y = midpoint.Y - TANGENT_VECTOR_LENGTH / 2 * mu;
-            tangentLinePoints[1].Z = points[0].Z;
+            tangentLinePoints[0] = new Vector3()
+            {
+                X = midpoint.X + TANGENT_VECTOR_LENGTH / 2,
+                Y = TANGENT_VECTOR_LENGTH / 2 * mu + midpoint.Y,
+                Z = points[0].Z
+            };
+
+            tangentLinePoints[1] = new Vector3()
+            {
+                X = midpoint.X - TANGENT_VECTOR_LENGTH / 2,
+                Y = midpoint.Y - TANGENT_VECTOR_LENGTH / 2 * mu,
+                Z = points[0].Z,
+            };
+            
 
             Vector3[] tangentLinePoints3D = Common.Plane.RotatePointsAroundAxis(tangentLinePoints, rotationAxis_Horizontal, -rotationDegree);
             
@@ -562,7 +569,7 @@ namespace OrthoAid_3DSimulator
 
             //projectedPoints.sor
             tempOcclusalPlaneForPointCompareSort = OcclusalPlane;
-            System.Comparison<Vector3> comp = new Comparison<Vector3>(pointCompareOnDistanceToOcclusalPlane);
+            System.Comparison<Vector3> comp = new Comparison<Vector3>(PointCompareOnDistanceToOcclusalPlane);
             Array.Sort<Vector3>(projectedPoints, comp);            
 
             //plane which cut the tooth in half in vertical (medio-lateral)
@@ -593,7 +600,7 @@ namespace OrthoAid_3DSimulator
         }
 
         Common.Plane tempOcclusalPlaneForPointCompareSort;
-        public int pointCompareOnDistanceToOcclusalPlane(Vector3 a, Vector3 b)
+        public int PointCompareOnDistanceToOcclusalPlane(Vector3 a, Vector3 b)
         {
             double da = tempOcclusalPlaneForPointCompareSort.Distance2Point(a);
             double db = tempOcclusalPlaneForPointCompareSort.Distance2Point(b);
@@ -636,10 +643,10 @@ namespace OrthoAid_3DSimulator
            
             Vector3 toothAxis = point1 - point3;
             //Common.Plane axisPlane = new Common.Plane(point1, point2, point3, toothAxis, normalToOcclucal, 
-            //    "Axial "+selectedIndex.ToString(), PLANE_DRAW_RADIUS_TOOTH);
+            //    "Axial "+SelectedIndex.ToString(), PLANE_DRAW_RADIUS_TOOTH);
 
             Common.Plane axisPlane2 = new Common.Plane(point1, point2, point3,
-                "Axial " + selectedIndex.ToString(), PLANE_DRAW_RADIUS_TOOTH);
+                "Axial " + SelectedIndex.ToString(), PLANE_DRAW_RADIUS_TOOTH);
 
             return axisPlane2;
         }
@@ -658,8 +665,11 @@ namespace OrthoAid_3DSimulator
                 return false;
             }
 
-            plane = new Common.Plane(verts[sel[0]], verts[sel[1]], verts[sel[2]], "occlusal " + planeNumber.ToString(), PLANE_DRAW_RADIUS_OTHER);
-            plane.valid = true;
+            plane = new Common.Plane(verts[sel[0]], verts[sel[1]], verts[sel[2]], "occlusal " + planeNumber.ToString(),
+                PLANE_DRAW_RADIUS_OTHER)
+            {
+                valid = true
+            };            
             return true;
         }
 
@@ -667,27 +677,7 @@ namespace OrthoAid_3DSimulator
         {
             b.BackColor = Color.Silver;
         }
-
-        private void lb_saggitalPlane_Click(object sender, EventArgs e)
-        {
-            //if (DefinePlane(ref saggitalPlane))
-            //{
-            //    cb_saggitalPlane.Checked = true;
-            //    cb_saggitalPlane.Enabled = true;
-            //}
-            //b_saggitalPlane.BackColor = Color.Silver;
-        }
-
-        private void lb_occlusalPlane_Click(object sender, EventArgs e)
-        {
-            //if (DefinePlane(ref occlusalPlane))
-            //{
-            //    cb_occlusalPlane.Checked = true;
-            //    cb_occlusalPlane.Enabled = true;
-
-            //}
-        }
-
+        
         private void DisableAllCheckBoxes()
         {
             for (int i = 1; i < NUM_CHECKBOXES; ++i)
@@ -861,8 +851,10 @@ namespace OrthoAid_3DSimulator
                 MessageBox.Show("To define a Sagital Plane, first define the Occlusal Plane, then Select 2 points on the midline.", "Wrong number of selected points");
                 return false;
             }
-            plane = new Common.Plane(verts[sel[0]], verts[sel[1]], occlusalPlane.GetNormal());
-            plane.valid = true;
+            plane = new Common.Plane(verts[sel[0]], verts[sel[1]], occlusalPlane.GetNormal())
+            {
+                valid = true
+            };            
             return true;
         }
         

@@ -13,33 +13,12 @@ namespace OrthoAid_3DSimulator
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        //static void eh(object sender, ThreadExceptionEventArgs e)
-        //{
-        //}
-
-        //static void eh2(object sender, UnhandledExceptionEventArgs e)
-        //{
-        //}
-
         static void Main()
-        {
-            
-            MainForm.config = Common.Configuration.LoadConfig();            
-            
-
-            bool debug = false;            
-            
+        {            
+            MainForm.config = Common.Configuration.LoadConfig();                                    
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             Application.Run(new MainForm());
-
-            //commented for debug        
-            
         }
-
-        
-
-        
     }
 }

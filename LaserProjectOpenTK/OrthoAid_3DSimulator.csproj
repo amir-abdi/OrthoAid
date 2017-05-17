@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OrthoAid_3DSimulator</RootNamespace>
     <AssemblyName>AHA_OrthoAid_3DSimulator</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\Configuration.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Main\curveFit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +163,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Configs\app.config" />
     <None Include="Configs\packages.config" />
     <None Include="packages.config" />

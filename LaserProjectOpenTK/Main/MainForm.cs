@@ -82,7 +82,7 @@ namespace OrthoAid_3DSimulator
             vScroll_lightIntensity.Value = 100 - (int)(config.lightIntensity * 100);
 
             Common.ViewMode tempViewModeToSaveTheCorrectState = config.viewMode;
-            numUD_densityReduceThreshold.Value = (decimal)config.reduceDensityThreshold;
+            numUD_densityReduceThreshold.Value = (decimal)config.ReduceDensityThreshold;
             config.viewMode = tempViewModeToSaveTheCorrectState;
 
             //FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -411,6 +411,8 @@ namespace OrthoAid_3DSimulator
             }
             catch (FormatException e)
             {
+                Common.Logger.Log("MainForm", "MainForm.cs", "UpdateViewByValueInput",
+                    e.Message);
                 tx_cameraAngleX.Text = angleX.ToString();
                 tx_cameraAngleY.Text = angleY.ToString();
                 tx_cameraAngleZ.Text = angleZ.ToString();
@@ -570,17 +572,17 @@ namespace OrthoAid_3DSimulator
             {
                 case 0: // planes
                     int vboind = GetSelectedVbOIndex();
-                    if (selectedIndex == OCCLUSALPLANE_INDEX)
+                    if (SelectedIndex == OCCLUSALPLANE_INDEX)
                     {
-                        if (DefineOcclusalPlane(GetSelectedVBO(), ref Planes[vboind-1][selectedIndex], selectedIndex))
+                        if (DefineOcclusalPlane(GetSelectedVBO(), ref Planes[vboind-1][SelectedIndex], SelectedIndex))
                         {
                             UpdateTeethAndPlanesUI();
                             tcb[Plane_CB[vboind-1][OCCLUSALPLANE_INDEX]].Checked = true;
                         }
                     }
-                    else if (selectedIndex == SAGITALPLANE_INDEX)
+                    else if (SelectedIndex == SAGITALPLANE_INDEX)
                     {
-                        if (DefineSagitalPlane(GetSelectedVBO(), ref Planes[vboind-1][selectedIndex], selectedIndex, Planes[vboind-1][OCCLUSALPLANE_INDEX]))
+                        if (DefineSagitalPlane(GetSelectedVBO(), ref Planes[vboind-1][SelectedIndex], SelectedIndex, Planes[vboind-1][OCCLUSALPLANE_INDEX]))
                         {
                             UpdateTeethAndPlanesUI();
                             tcb[Plane_CB[vboind-1][SAGITALPLANE_INDEX]].Checked = true;
@@ -601,13 +603,13 @@ namespace OrthoAid_3DSimulator
                 case 2: //dislocation
                 case 3: //distance to plane
                 case 4: //superimposed Inclination                   
-                    if (selectedIndex < 1 || selectedIndex > 34)
+                    if (SelectedIndex < 1 || SelectedIndex > 34)
                     {
                         MessageBox.Show("No Tooth or Plane Selected. Select a tooth or plane first.", "Error in Calculation");
                         return;
                     }
 
-                    if (selectedIndex >= 1 && selectedIndex <= 32)
+                    if (SelectedIndex >= 1 && SelectedIndex <= 32)
                     {
                         switch (tab_Maintab.SelectedIndex)
                         {
@@ -616,40 +618,40 @@ namespace OrthoAid_3DSimulator
                                 //Inclination
                                 if (GetSelectedVbOIndex() == 1)
                                 {
-                                    if (DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[0][selectedIndex], selectedIndex, Planes[0]))
-                                        tcb[selectedIndex].Checked = true;
+                                    if (DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[0][SelectedIndex], SelectedIndex, Planes[0]))
+                                        tcb[SelectedIndex].Checked = true;
                                 }
                                 else if (GetSelectedVbOIndex() == 2)
                                 {
-                                    if (DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[1][selectedIndex], selectedIndex,  Planes[1]))
-                                        tcb[selectedIndex].Checked = true;
+                                    if (DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[1][SelectedIndex], SelectedIndex,  Planes[1]))
+                                        tcb[SelectedIndex].Checked = true;
 
                                     if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[0][OCCLUSALPLANE_INDEX].valid)
-                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[2][selectedIndex], selectedIndex, Planes[0]);
+                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[2][SelectedIndex], SelectedIndex, Planes[0]);
                                 }
 
                                 break;
                             case 2:
                                 //Dislocation
-                                CalculateDisLocation(this.selectedIndex);
+                                CalculateDisLocation(this.SelectedIndex);
                                 break;
                             case 3:
                                 //Distance to Plane
-                                CalculateDistanceToPlane(GetSelectedVBO(), this.selectedIndex);
+                                CalculateDistanceToPlane(GetSelectedVBO(), this.SelectedIndex);
                                 break;
                                 /*case 3:
                                     //Superimposed Inclination
                                     if (GetSelectedVbOIndex() == 1)
                                     {
-                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[0][selectedIndex], selectedIndex, ref Planes[0]);
+                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[0][SelectedIndex], SelectedIndex, ref Planes[0]);
 
                                     }
                                     else if (GetSelectedVbOIndex() == 2)
                                     {
-                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[1][selectedIndex], selectedIndex, ref Planes[1]);
+                                        DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[1][SelectedIndex], SelectedIndex, ref Planes[1]);
 
                                         if (Planes[0][OCCLUSALPLANE_INDEX] != null && Planes[0][OCCLUSALPLANE_INDEX].valid)
-                                            DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[2][selectedIndex], selectedIndex, ref Planes[0]);                            
+                                            DefineTeethPlaneAndTangentLine(GetSelectedVBO(), ref Planes[2][SelectedIndex], SelectedIndex, ref Planes[0]);                            
                                     }
                                     break;*/
 
@@ -755,7 +757,9 @@ namespace OrthoAid_3DSimulator
                 }
                 else
                 {
+#pragma warning disable CS0162 // Unreachable code detected
                     if (vbo.validMesh)
+#pragma warning restore CS0162 // Unreachable code detected
                         directory = Directory.GetCurrentDirectory() + "\\" + "Mesh";
                     else
                         directory = Directory.GetCurrentDirectory() + "\\" + "XYZ";
@@ -1104,13 +1108,13 @@ namespace OrthoAid_3DSimulator
 
         private void NumUD_DensityReduceThreshold_ValueChanged(object sender, EventArgs e)
         {
-            config.reduceDensityThreshold = (float)numUD_densityReduceThreshold.Value;
+            config.ReduceDensityThreshold = (float)numUD_densityReduceThreshold.Value;
             rb_viewPoints.Checked = true;
         }
 
         private void B_PreviewReduceDensity_Click(object sender, EventArgs e)
         {
-            status.Text = "Reducing Point Cloud density to " + config.reduceDensityThreshold.ToString() + "...";
+            status.Text = "Reducing Point Cloud density to " + config.ReduceDensityThreshold.ToString() + "...";
 
             Application.DoEvents();
 
@@ -1144,7 +1148,7 @@ namespace OrthoAid_3DSimulator
             {
                 InitialDirectory = Directory.GetCurrentDirectory() + "\\XYZ",
                 FileName =
-                    config.lastLoadedMeshName1 + "_DensityReduced" + config.reduceDensityThreshold.ToString("f2"),
+                    config.lastLoadedMeshName1 + "_DensityReduced" + config.ReduceDensityThreshold.ToString("f2"),
                 AddExtension = true,
                 DefaultExt = "xyz"
             };
@@ -1285,7 +1289,7 @@ namespace OrthoAid_3DSimulator
         private void LabelSelect(object sender, EventArgs e)
         {
             DeselectAllLabelsAndButtons();
-            selectedIndex = int.Parse(((Label)sender).Tag.ToString());
+            SelectedIndex = int.Parse(((Label)sender).Tag.ToString());
             ((Label)sender).BorderStyle = BorderStyle.FixedSingle;
 
             //if (DefineTangentFBB(selectedToothIndex))
@@ -1613,8 +1617,10 @@ All Rights Preserved.", "OrthoAid V2.0");
             {
                 config.weights[int.Parse(((TextBox)sender).Tag.ToString())] = double.Parse(((TextBox)sender).Text);
             }
-            catch (Exception err)
+            catch (Exception err)            
             {
+                Common.Logger.Log("MainForm", "Mainform.cs", "Tx_Weight_TextChanged", 
+                    err.Message, true);
                 config.weights[int.Parse(((TextBox)sender).Tag.ToString())] = 1;
             }
 

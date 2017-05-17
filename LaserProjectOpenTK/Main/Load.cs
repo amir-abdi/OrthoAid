@@ -285,27 +285,12 @@ namespace OrthoAid_3DSimulator
         }
 
         private void SetColor(ref Vbo handle)
-        {
-            //Color            
-            float rcolor = 0;
-            float gcolor = 0;
-            float bcolor = 0;
-            if (handle.vboName == "vbo1")
-            {
-                rcolor = 80.0f / 255f;
-                gcolor = 100.0f / 255f;
-                bcolor = 150.0f / 255f;
-            }
-            else if (handle.vboName == "vbo2")
-            {
-                rcolor = 255f / 255f;
-                gcolor = 200f / 255f;
-                bcolor = 74f / 255f;
-            }
-            //handle.color = new Vector3(rcolor, gcolor, bcolor);
+        {                        
             Color c = Color.Bisque;
-            handle.color = new Vector3((float) c.R/255f, (float) c.G / 255f, (float) c.B / 255f);
-            ;
+            handle.color = new Vector3(
+                (float) c.R/255f, 
+                (float) c.G / 255f, 
+                (float) c.B / 255f);            
         }
 
         void LoadIndices(ref Common.Vbo handle, UInt32[] indices)

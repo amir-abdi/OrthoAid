@@ -80,7 +80,7 @@ namespace OrthoAid_3DSimulator
             //float percent = 1f;
             //float distanceThres = ((verticesStats.RangeX / 100) * percent) * ((verticesStats.RangeX / 100) * percent);
 
-            float distanceThres = config.reduceDensityThreshold * config.reduceDensityThreshold;
+            float distanceThres = config.ReduceDensityThreshold * config.ReduceDensityThreshold;
 
             List<Vector3> newPointsL = new List<Vector3>();//vertices.Length/2);
             List<Vector3> newNormalsL = new List<Vector3>();//vertices.Length/2);
@@ -227,7 +227,9 @@ namespace OrthoAid_3DSimulator
             }
             catch (Exception e)
             {
-                return "error";
+                Common.Logger.Log("MainForm", "Triangulation.cs", "ComputeNormals",
+                    e.Message, true);
+                return e.Message;
             }
 
             try

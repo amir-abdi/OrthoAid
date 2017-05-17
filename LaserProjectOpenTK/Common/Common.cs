@@ -134,8 +134,7 @@ namespace OrthoAid_3DSimulator.Common
                 {
                     double s3 = (Math.Pow((0 - r), 0.333333333333333333333333333));
                     double s = (0 - s3);
-                    double t = (u / 2) - (Math.Pow(h, 0.5));
-                    double help = (1.0 / 3);
+                    double t = (u / 2) - (Math.Pow(h, 0.5));                    
                     if (t < 0)
                     {
                         double v = (Math.Pow((0 - t), 0.33333333333333333333));

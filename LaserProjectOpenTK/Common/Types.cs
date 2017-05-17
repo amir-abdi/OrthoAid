@@ -497,9 +497,9 @@ namespace OrthoAid_3DSimulator.Common
             //                                new Vector4(0,0,0,1)
             //                                );
 
+#pragma warning disable CS0618 // 'Matrix4.Rotate(Vector3, float)' is obsolete: 'Use CreateFromAxisAngle instead.'
             Matrix4 rotMat = Matrix4.Rotate(u, (float)Math.Acos(cosT));
-
-            
+#pragma warning restore CS0618 // 'Matrix4.Rotate(Vector3, float)' is obsolete: 'Use CreateFromAxisAngle instead.'
             Vector3[] newPoints = new Vector3[projectedPointsOnThisPlane.Length];
             for (int i = 0; i < newPoints.Length; i++)
             {
@@ -514,9 +514,9 @@ namespace OrthoAid_3DSimulator.Common
 
         public static Vector3[] RotatePointsAroundAxis(Vector3[] points, Vector3 Axis, float degreeInRadian)
         {
+#pragma warning disable CS0618 // 'Matrix4.Rotate(Vector3, float)' is obsolete: 'Use CreateFromAxisAngle instead.'
             Matrix4 rotMat = Matrix4.Rotate(Axis, degreeInRadian);
-
-
+#pragma warning restore CS0618 // 'Matrix4.Rotate(Vector3, float)' is obsolete: 'Use CreateFromAxisAngle instead.'
             Vector3[] newPoints = new Vector3[points.Length];
             for (int i = 0; i < newPoints.Length; i++)
             {

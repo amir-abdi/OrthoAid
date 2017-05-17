@@ -546,25 +546,7 @@ namespace OrthoAid_3DSimulator
                 tw.Write("OrthoAid - TXT Calculation File");
                 tw.Write("\n");
 
-                Common.Plane[] P;
-                
-                //used to write calculation files separately. now I write only one txt calculation file
-                /*if (GetSelectedVbOIndex() == 1)
-                    P = Planes[0];
-                else
-                    P = Planes[1];*/          
-                
-                //The following is commented, because reading the txt file seemed like a bad idea.
-                /*if (P[OCCLUSALPLANE_INDEX] != null && P[OCCLUSALPLANE_INDEX].valid)
-                    tw.Write("," + P[OCCLUSALPLANE_INDEX].centerForDraw.X.ToString() + "," +
-                                P[OCCLUSALPLANE_INDEX].centerForDraw.Y.ToString() + "," +
-                                P[OCCLUSALPLANE_INDEX].centerForDraw.Z.ToString() + "," +
-                                P[OCCLUSALPLANE_INDEX].GetNormal().X.ToString() + "," +
-                                P[OCCLUSALPLANE_INDEX].GetNormal().Y.ToString() + "," +
-                                P[OCCLUSALPLANE_INDEX].GetNormal().Z.ToString() + "\n");
-                else
-                    tw.Write("\n");*/
-
+                Common.Plane[] P;                
 
                 //Inclinations of Cast1
                 tw.Write("\n");
@@ -666,6 +648,10 @@ namespace OrthoAid_3DSimulator
             }
             catch (Exception e)
             {
+                Common.Logger.Log("MainForm", 
+                    "ReadWriteFile.cs", 
+                    "WriteCalculationResults_txt",
+                    e.Message);
                 if (tw != null)
                     tw.Close();
             }
@@ -957,14 +943,14 @@ namespace OrthoAid_3DSimulator
                     handle.selectedVertices.Add(uint.Parse(tokens[3]));
                 }
 
-                sr.Close();
+                
                 UpdateUI();
             }
             catch (Exception err)
-            {
-                sr.Close();
+            {                
                 Common.Logger.Log("MainForm", "ReadWriteFile", "ReadSelectionFile", err.ToString(), true);                
-            }           
+            }
+            sr.Close();
         }
 
         private void WriteExcelSelectionFile(string filename)
@@ -998,6 +984,10 @@ namespace OrthoAid_3DSimulator
             }
             catch (Exception err)
             {
+                Common.Logger.Log("MainForm",
+                    "ReadWriteFile.cs",
+                    "WriteExcelSelectionFile",
+                    err.Message);
                 workbook.Close();
             }
         }
@@ -1047,7 +1037,6 @@ namespace OrthoAid_3DSimulator
                         WirePolynomials[j][i].fitFunction = Common.FitFunction.polynomial;
                         sr.Close();
                     }
-                    
                 }
                 
             }

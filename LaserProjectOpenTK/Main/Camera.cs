@@ -26,23 +26,21 @@ namespace OrthoAid_3DSimulator
         {
             System.Drawing.Rectangle r = new System.Drawing.Rectangle(viewport[0], viewport[1], viewport[2], viewport[3]);
 
+#pragma warning disable CS0618 // 'GL' is obsolete: 'Use OpenTK.Graphics.OpenGL or one of the specific profiles instead.'
             GL.Viewport(r);
-
             Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
                                                                 glControlCast.Width / (float)glControlCast.Height, 0.1f, 1000.0f);
             
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref projection);
-
             Matrix4 lookat = Matrix4.LookAt(eyeOffset.X, eyeOffset.Y, eyeOffset.Z,
                 targetOffset.X, targetOffset.Y, targetOffset.Z, 0, 1, 0);
-
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref lookat);
-
             GL.Rotate(angleY, 1.0f, 0, 0);
             GL.Rotate(angleX, 0, 1.0f, 0);
             GL.Rotate(angleZ, 0, 0, 1.0f);
+#pragma warning restore CS0618 // 'GL' is obsolete: 'Use OpenTK.Graphics.OpenGL or one of the specific profiles instead.'
         }
 
         private void SetViewPort()

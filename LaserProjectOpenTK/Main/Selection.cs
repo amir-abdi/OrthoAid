@@ -191,7 +191,9 @@ namespace OrthoAid_3DSimulator
             x = new double[1];
             y = new double[1];
             z = new double[1];
+#pragma warning disable CS0618 // 'Glu' is obsolete: 'Use OpenTK math functions instead.'
             OpenTK.Graphics.Glu.UnProject((double)MouseX, viewport[3] - (double)MouseY - heightDiff, (double)z_cursor,
+#pragma warning restore CS0618 // 'Glu' is obsolete: 'Use OpenTK math functions instead.'
                                             modelview, projection, viewport,
                                             x, y, z);
 
@@ -252,6 +254,8 @@ namespace OrthoAid_3DSimulator
             }
             catch (Exception e)
             {
+                Common.Logger.Log("MainForm", "Selection", "VertexColorChange", 
+                    e.Message, true);
                 return false;
             }
 

@@ -34,7 +34,7 @@ namespace OrthoAid_3DSimulator.Common
         public string lastLoadedMeshType2 = "empty";
 
         public float lightIntensity = 0.5f;
-        public float reduceDensityThreshold { get; set; }
+        public float ReduceDensityThreshold { get; set; }
         //public bool showCast1, showCast2;
 
         public BBPChoice bbpChoice = BBPChoice.AutoMiddle;
