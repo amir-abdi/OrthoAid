@@ -51,15 +51,20 @@ namespace OrthoAid_3DSimulator
             {
                 double angle = Planes[GetSelectedVbOIndex()-1][CURVEPLANE_INDEX].Angle2Plane(Planes[0][OCCLUSALPLANE_INDEX]);
                 lb_curve2occlusalPlane.Text = "Angle to Occlusal Plane: " + angle.ToString("F2");
-            }            
+            }
 
-            //calculate sum of distances to this plane
+            //calculate sum of distances to this plane           
             double sumOfSquaredDistances = 0;
+            double[] z_distances = new double[num];            
             for (int i= 0; i<num; ++i)
             {
-                sumOfSquaredDistances += Math.Pow(curve_plane.Distance2Point(points[i]),2);
+                
+                double d = curve_plane.Distance2Point(points[i]);
+                z_distances[i] = d;                
+                sumOfSquaredDistances += Math.Pow(d, 2);
             }
             double rmse_z = Math.Sqrt(sumOfSquaredDistances / num);
+
 
             // find the x and y direction on the plane             
             var p0 = new Vector3(curve_plane.ProjectPointOnPlane(new Vector3(0, 0, 0)));
@@ -72,31 +77,31 @@ namespace OrthoAid_3DSimulator
 
 
             //project 3D points on the plane and create a 2D point set  
-            var xdata = new double[num];
-            var ydata = new double[num];
+            var points2DX = new double[num];
+            var points2DY = new double[num];
             
             for (int i=0; i< num; ++i)
             {                
-                xdata[i] = Vector3.Dot(pvx, points[i] - p0);
-                ydata[i] = Vector3.Dot(pvy, points[i] - p0);
+                points2DX[i] = Vector3.Dot(pvx, points[i] - p0);
+                points2DY[i] = Vector3.Dot(pvy, points[i] - p0);
             }
 
 
             //check and fix inverse y mode
             //fiiiiiiiiix.... r u fiiix? --> by yasaman, the best developer in Acadia
-            if (ydata[0] < ydata[ydata.Length / 2])
-                ydata = ydata.Select(el => -el).ToArray();
+            if (points2DY[0] < points2DY[points2DY.Length / 2])
+                points2DY = points2DY.Select(el => -el).ToArray();
 
             //move points to fit on the screen
-            var xMin = xdata.Min();
-            var yMin = ydata.Min();            
+            var xMin = points2DX.Min();
+            var yMin = points2DY.Min();            
             for (int i=0; i<num; ++i)
             {
-                xdata[i] -= xMin;
-                ydata[i] -= yMin;
+                points2DX[i] -= xMin;
+                points2DY[i] -= yMin;
 
-                xdata[i] += 10;
-                ydata[i] += 10;
+                points2DX[i] += 10;
+                points2DY[i] += 10;
             }
             
             
@@ -105,13 +110,13 @@ namespace OrthoAid_3DSimulator
             graphics.Clear(Color.White);
             for (int i = 0; i < num; ++i)
             {
-                DrawPoint2DOnControl(graphics, new PointF((float)xdata[i], (float)ydata[i]), Color.Black, 4);
+                DrawPoint2DOnControl(graphics, new PointF((float)points2DX[i], (float)points2DY[i]), Color.Black, 4);
             }
             //DrawPoint2DOnControl(graphics, new PointF((float)10, (float)20), Color.Red, 10);
 
             //change of parameter
-            var diffx = Diff(xdata);
-            var diffy = Diff(ydata);
+            var diffx = Diff(points2DX);
+            var diffy = Diff(points2DY);
             diffx= diffx.Select(el => el * el).ToArray();
             diffy = diffy.Select(el => el * el).ToArray();
             double[] t = new double[num];
@@ -133,8 +138,8 @@ namespace OrthoAid_3DSimulator
             try
             {
                 //f = Fit.Polynomial(xdata, ydata, order);
-                Wx = FitLeastSquaresBasis(t, xdata, fitFunction, deg);
-                Wy = FitLeastSquaresBasis(t, ydata, fitFunction, deg);
+                Wx = FitLeastSquaresBasis(t, points2DX, fitFunction, deg);
+                Wy = FitLeastSquaresBasis(t, points2DY, fitFunction, deg);
             }
             catch (Exception e)
             {
@@ -151,8 +156,8 @@ namespace OrthoAid_3DSimulator
             CurveFit[GetSelectedVbOIndex()-1].CoeffsX = Wx;
             CurveFit[GetSelectedVbOIndex()-1].CoeffsY = Wy;
             CurveFit[GetSelectedVbOIndex()-1].degree = deg;
-            CurveFit[GetSelectedVbOIndex()-1].minT = t.Min();
-            CurveFit[GetSelectedVbOIndex()-1].maxT = t.Max();
+            CurveFit[GetSelectedVbOIndex()-1].minT = t.Min()-5;
+            CurveFit[GetSelectedVbOIndex()-1].maxT = t.Max()+5;
             CurveFit[GetSelectedVbOIndex()-1].fitFunction = fitFunction;
 
             //calculate xx and yy
@@ -196,7 +201,27 @@ namespace OrthoAid_3DSimulator
 
             //calculate Error
             //var rmse_xy = CalculatePerpendicularDistancePointToCurve(xdata, ydata, W, fitFunction, deg, graphics);
-            var rmse_xy = CalculatePerpendicularDistancePointToCurve(xdata, ydata, XX, YY, graphics);
+            double[] xy_distances;
+            var rmse_xy = CalculatePerpendicularDistancePointToCurve(points2DX, points2DY, XX, YY, graphics, out xy_distances);
+
+
+            //fill the list view with point distances
+            lv_pointDistance.Clear();
+            lv_pointDistance.Columns.Add("#", 20, HorizontalAlignment.Center);
+            lv_pointDistance.Columns.Add("off", 40, HorizontalAlignment.Center);
+            lv_pointDistance.Columns.Add("intra", 40, HorizontalAlignment.Center);
+
+            for (int i = 0; i < num; ++i)
+            {
+                lv_pointDistance.Items.Add(new ListViewItem(new string[]
+                {
+                    i.ToString(),
+                    z_distances[i].ToString("F2"),
+                    xy_distances[i].ToString("F2")
+                }));
+            }
+            if (lv_pointDistance.Items.Count > 0)
+                lv_pointDistance.Items[0].Selected = true;
 
 
             status.Text = "Polynomial order " + deg.ToString() +
@@ -288,16 +313,16 @@ namespace OrthoAid_3DSimulator
         }
 
         double CalculatePerpendicularDistancePointToCurve(double[] xdata, double[] ydata, 
-            DenseVector PlotX, DenseVector PlotY, Graphics g)
+            DenseVector PlotX, DenseVector PlotY, Graphics g, out double[] distances)
         {            
             int numCurve = PlotX.Count;            
             int num = xdata.Length;            
-            
+            distances = new double[num];
             double s = 0;
             for (int i = 0; i < num; i++)
             {
                 double minDist = double.MaxValue;
-                int minIndex = -1;
+                int minIndex = 0;
 
                 for (int j = 0; j < numCurve; j++)
                 {
@@ -310,9 +335,10 @@ namespace OrthoAid_3DSimulator
                     }
                 }
 
+                distances[i] = Math.Sqrt(minDist);
                 s += minDist; //sum of squared error
 
-                //draw the perpendicular line
+                //draw the perpendicular line                
                 g.DrawLine(new Pen(new SolidBrush(Color.Red)), new PointF((float)xdata[i] * 3, (float)ydata[i] * 3),
                         new PointF((float)PlotX[minIndex] * 3, (float)PlotY[minIndex] * 3));
             }
@@ -416,77 +442,91 @@ namespace OrthoAid_3DSimulator
 
         private void B_MatchingWire_Clicked(object sender, EventArgs e)
         {
-            if ((GetSelectedVbOIndex() == 1 && (Planes[0][CURVEPLANE_INDEX] == null || !Planes[0][CURVEPLANE_INDEX].valid)) ||
-                (GetSelectedVbOIndex() == 2 && (Planes[1][CURVEPLANE_INDEX] == null || !Planes[1][CURVEPLANE_INDEX].valid)))
+            try
             {
-                MessageBox.Show("To find the matching arch wire, first Select some bracket points and fit a curve onto the selected points.", "No curve fitted");
-                return;
-            }
+                if ((GetSelectedVbOIndex() == 1 &&
+                     (Planes[0][CURVEPLANE_INDEX] == null || !Planes[0][CURVEPLANE_INDEX].valid)) ||
+                    (GetSelectedVbOIndex() == 2 && (Planes[1][CURVEPLANE_INDEX] == null ||
+                                                    !Planes[1][CURVEPLANE_INDEX].valid)))
+                {
+                    MessageBox.Show(
+                        "To find the matching arch wire, first Select some bracket points and fit a curve onto the selected points.",
+                        "No curve fitted");
+                    return;
+                }
 
-            int index_mandible_maxilla;
-            if (rb_mandible.Checked)
-                index_mandible_maxilla = 0;
-            else if (rb_maxilla.Checked)
-                index_mandible_maxilla = 1;
-            else
+                int index_mandible_maxilla;
+                if (rb_mandible.Checked)
+                    index_mandible_maxilla = 0;
+                else if (rb_maxilla.Checked)
+                    index_mandible_maxilla = 1;
+                else
+                {
+                    MessageBox.Show("Either Select mandible or maxilla.");
+                    return;
+                }
+
+                double[] errs = new double[config.NumWires];
+                int[] indices = new int[config.NumWires];
+                var CurveFits_temp = new Tuple<Tuple<DenseVector, DenseVector>, double, int>[config.NumWires];
+                for (int i = 0; i < config.NumWires; i++)
+                {
+                    var wire = WirePolynomials[index_mandible_maxilla][i];
+                    CurveFits_temp[i] = new Tuple<Tuple<DenseVector, DenseVector>, double, int>(
+                        RegisterCurveOnWire(wire, CurveFit[GetSelectedVbOIndex() - 1]).Item1,
+                        RegisterCurveOnWire(wire, CurveFit[GetSelectedVbOIndex() - 1]).Item2, i + 1);
+                    errs[i] = CurveFits_temp[i].Item2;
+                    indices[i] = i;
+                }
+
+                // sort results and put into CurveFits
+                Array.Sort(errs, indices);
+                for (int i = 0; i < config.NumWires; i++)
+                {
+                    int t = indices[i];
+                    CurveFits[i] = CurveFits_temp[t];
+                }
+
+                //insert items into listview
+                lv_wires.Clear();
+                lv_wires.Columns.Add("RMSE", 50, HorizontalAlignment.Center);
+                lv_wires.Columns.Add("Wire No.", 60, HorizontalAlignment.Center);
+                for (int i = 0; i < config.NumWires; i++)
+                    lv_wires.Items.Add(new ListViewItem(new String[]
+                    {
+                        ((double) CurveFits[i].Item2).ToString("F2"),
+                        ((int) CurveFits[i].Item3).ToString()
+                    }));
+
+
+
+                //lv_wires.Sorting = SortOrder.Ascending;
+                lv_wires.Items[0].Selected = true;
+
+                //if (least_error_index != -1)
+                //{
+                //    //lb_bestWire.Text = "Best Arch Wire:  No. " + (least_error_index + 1).ToString() + 
+                //    //    "\n                           RMSE: " + least_error.ToString("F2");
+
+                //    // draw best match 
+                //    var wirePoints = registeration.Item1;
+                //    var curvePoints = ParametricPolynomial_to_2DPoints(CurveFit[GetSelectedVbOIndex() - 1]);
+                //    //var new_wirePoints = TranslatePoints(wirePoints, 30.0, 0);
+                //    //var new_curvePoints = TranslatePoints(wirePoints, 30.0, 0);
+                //    //DenseVector wirePointsX = (DenseVector)wirePoints.Item1.Add(60);
+                //    //DenseVector curvePointsX = (DenseVector)curvePoints.Item1.Add(60);
+
+                //    var graphics = pl_wireMatch.CreateGraphics();
+                //    graphics.Clear(Color.White);
+                //    DrawCurve(graphics, curvePoints.Item1, curvePoints.Item2, Color.Blue);
+                //    DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
+
+                //}
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Either Select mandible or maxilla.");
-                return;
+                MessageBox.Show("Error: " + ex.Message);
             }
-            
-            double[] errs = new double[config.NumWires];
-            int[] indices = new int[config.NumWires];
-            var CurveFits_temp = new Tuple <Tuple<DenseVector, DenseVector>, double, int>[config.NumWires];
-            for (int i = 0; i < config.NumWires; i++)
-            {
-                var wire = WirePolynomials[index_mandible_maxilla][i];
-                CurveFits_temp[i] = new Tuple<Tuple<DenseVector, DenseVector>, double, int>(
-                    RegisterCurveOnWire(wire, CurveFit[GetSelectedVbOIndex()-1]).Item1,
-                    RegisterCurveOnWire(wire, CurveFit[GetSelectedVbOIndex() - 1]).Item2, i+1);
-                errs[i] = CurveFits_temp[i].Item2;                
-                indices[i] = i;
-            }
-
-            // sort results and put into CurveFits
-            Array.Sort(errs, indices);
-            for (int i = 0; i < config.NumWires; i++)
-            {
-                int t = indices[i];
-                CurveFits[i] = CurveFits_temp[t];
-            }
-
-            //insert items into listview
-            lv_wires.Clear();
-            lv_wires.Columns.Add("RMSE", 50, HorizontalAlignment.Center);
-            lv_wires.Columns.Add("Wire No.", 60, HorizontalAlignment.Center);
-            for (int i = 0; i < config.NumWires; i++)        
-                lv_wires.Items.Add(new ListViewItem(new String[] { (    (double)CurveFits[i].Item2).ToString("F2"),
-                                                                        ((int)CurveFits[i].Item3).ToString()}   ));
-            
-            
-
-            //lv_wires.Sorting = SortOrder.Ascending;
-            lv_wires.Items[0].Selected = true;
-
-            //if (least_error_index != -1)
-            //{
-            //    //lb_bestWire.Text = "Best Arch Wire:  No. " + (least_error_index + 1).ToString() + 
-            //    //    "\n                           RMSE: " + least_error.ToString("F2");
-
-            //    // draw best match 
-            //    var wirePoints = registeration.Item1;
-            //    var curvePoints = ParametricPolynomial_to_2DPoints(CurveFit[GetSelectedVbOIndex() - 1]);
-            //    //var new_wirePoints = TranslatePoints(wirePoints, 30.0, 0);
-            //    //var new_curvePoints = TranslatePoints(wirePoints, 30.0, 0);
-            //    //DenseVector wirePointsX = (DenseVector)wirePoints.Item1.Add(60);
-            //    //DenseVector curvePointsX = (DenseVector)curvePoints.Item1.Add(60);
-
-            //    var graphics = pl_wireMatch.CreateGraphics();
-            //    graphics.Clear(Color.White);
-            //    DrawCurve(graphics, curvePoints.Item1, curvePoints.Item2, Color.Blue);
-            //    DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
-
-            //}
         }
 
 
@@ -513,93 +553,116 @@ namespace OrthoAid_3DSimulator
 
         private Tuple<Tuple<DenseVector, DenseVector>, double> RegisterCurveOnWire(PolynomialParametric2DCurve wire, PolynomialParametric2DCurve curve)
         {
-            var graphics = pl_curveFit.CreateGraphics();
-            var wirePoints = ParametricPolynomial_to_2DPoints(wire);
-            var curvePoints = ParametricPolynomial_to_2DPoints(curve);
-            
-
-            int minYindex_wire = wirePoints.Item2.MinimumIndex();            
-            int minYindex_curve = curvePoints.Item2.MinimumIndex();
-            double[] point1_wire = { wirePoints.Item1[minYindex_wire], wirePoints.Item2[minYindex_wire] };
-            double[] point1_curve = { curvePoints.Item1[minYindex_curve], curvePoints.Item2[minYindex_curve] };
-
-            // second point is not necessary as I have already pre-aligned everything
-            //int maxXindex_wire = wirePoints.Item1.MaximumIndex();
-            //int maxXindex_curve = curvePoints.Item1.MaximumIndex();
-            //int minXindex_wire = wirePoints.Item1.MinimumIndex();
-            //int minXindex_curve = curvePoints.Item1.MinimumIndex();
-            //double[] point2_wire = { (wirePoints.Item1[maxXindex_wire] + wirePoints.Item1[minXindex_wire])/2,
-            //        (wirePoints.Item2[maxXindex_wire] + wirePoints.Item2[minXindex_wire])/2 };
-            //double[] point2_curve = { (curvePoints.Item1[maxXindex_curve] + curvePoints.Item1[minXindex_curve])/2,
-            //        (curvePoints.Item2[maxXindex_curve] + curvePoints.Item2[minXindex_curve])/2 };
-
-            //translate wire points to match the front of the curve
-            double[] translation = { (point1_wire[0] - point1_curve[0]), (point1_wire[1] - point1_curve[1]) };
-
-            // translate points
-            wirePoints = TranslatePoints(wirePoints, translation[0], translation[1]);
-            //wirePoints.Item1.Subtract(translation[0]);
-            //wirePoints.Item2.Subtract(translation[1]);
-
-            // test draw
-            //DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
-
-            // HOW TO SHIFT THE CURVE USING ITS PARAMETRIC EQUATION?!
-            //wire.CoeffsX[0] += translation[0];
-            //wire.CoeffsY[0] += translation[1];
-            //wirePoints = ParametricPolynomial_to_2DPoints_matlab(wire);
-            //DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
-
-            //Calculate error point-based
-
-            // // left and right side of arch
-            var curvePointsLeft = new Tuple<DenseVector, DenseVector>((DenseVector)curvePoints.Item1.SubVector(0, minYindex_curve),
-                                                                      (DenseVector)curvePoints.Item2.SubVector(0, minYindex_curve));
-            var curvePointsRight = new Tuple<DenseVector, DenseVector>((DenseVector)curvePoints.Item1.SubVector(minYindex_curve, curvePoints.Item1.Count- minYindex_curve),
-                                                                      (DenseVector)curvePoints.Item2.SubVector(minYindex_curve, curvePoints.Item1.Count - minYindex_curve));
-            var wirePointsLeft = new Tuple<DenseVector, DenseVector>((DenseVector)wirePoints.Item1.SubVector(0, minYindex_wire),
-                                                                      (DenseVector)wirePoints.Item2.SubVector(0, minYindex_wire));
-            var wirePointsRight = new Tuple<DenseVector, DenseVector>((DenseVector)wirePoints.Item1.SubVector(minYindex_wire, wirePoints.Item1.Count - minYindex_wire),
-                                                                      (DenseVector)wirePoints.Item2.SubVector(minYindex_wire, wirePoints.Item1.Count - minYindex_wire));
-
-            int maxYindex_curveLeft = curvePointsLeft.Item2.MaximumIndex();
-            int maxYindex_curveRight = curvePointsRight.Item2.MaximumIndex();
-            double[] maxY_curveLeft = { curvePointsLeft.Item1[maxYindex_curveLeft], curvePointsLeft.Item2[maxYindex_curveLeft] };            
-            double[] maxY_curveRight = { curvePointsRight.Item1[maxYindex_curveRight], curvePointsRight.Item2[maxYindex_curveRight] };
-
-
-
-            // // get rid of point beyond maxY_curve
-            var closestLeft = FindClosestToPoint(wirePointsLeft, maxY_curveLeft);
-            var closestRight = FindClosestToPoint(wirePointsRight, maxY_curveRight);
-            wirePointsLeft = new Tuple<DenseVector, DenseVector>((DenseVector)wirePointsLeft.Item1.SubVector(closestLeft.Item1, wirePointsLeft.Item1.Count - closestLeft.Item1),
-                                                                      (DenseVector)wirePointsLeft.Item2.SubVector(closestLeft.Item1, wirePointsLeft.Item1.Count - closestLeft.Item1));
-            wirePointsRight = new Tuple<DenseVector, DenseVector>((DenseVector)wirePointsRight.Item1.SubVector(0, closestRight.Item1),
-                                                                      (DenseVector)wirePointsRight.Item2.SubVector(0, closestRight.Item1));
-
-            //test draw
-            //DrawCurve(graphics, wirePointsLeft.Item1, wirePointsLeft.Item2, Color.Purple);
-            //DrawCurve(graphics, wirePointsRight.Item1, wirePointsRight.Item2, Color.Purple);
-
-            //RMSE
-            double sumOfSquares = 0;
-            for (int i = 0; i < curvePointsLeft.Item1.Count; i++)
+            try
             {
-                var closest = FindClosestToPoint(wirePointsLeft, new double[] { curvePointsLeft.Item1[i], curvePointsLeft.Item2[i] });
-                sumOfSquares += closest.Item2;
+                var graphics = pl_curveFit.CreateGraphics();
+                var wirePoints = ParametricPolynomial_to_2DPoints(wire);
+                var curvePoints = ParametricPolynomial_to_2DPoints(curve);
+
+
+                int minYindex_wire = wirePoints.Item2.MinimumIndex();
+                int minYindex_curve = curvePoints.Item2.MinimumIndex();
+                double[] point1_wire = {wirePoints.Item1[minYindex_wire], wirePoints.Item2[minYindex_wire]};
+                double[] point1_curve = {curvePoints.Item1[minYindex_curve], curvePoints.Item2[minYindex_curve]};
+
+                // second point is not necessary as I have already pre-aligned everything
+                //int maxXindex_wire = wirePoints.Item1.MaximumIndex();
+                //int maxXindex_curve = curvePoints.Item1.MaximumIndex();
+                //int minXindex_wire = wirePoints.Item1.MinimumIndex();
+                //int minXindex_curve = curvePoints.Item1.MinimumIndex();
+                //double[] point2_wire = { (wirePoints.Item1[maxXindex_wire] + wirePoints.Item1[minXindex_wire])/2,
+                //        (wirePoints.Item2[maxXindex_wire] + wirePoints.Item2[minXindex_wire])/2 };
+                //double[] point2_curve = { (curvePoints.Item1[maxXindex_curve] + curvePoints.Item1[minXindex_curve])/2,
+                //        (curvePoints.Item2[maxXindex_curve] + curvePoints.Item2[minXindex_curve])/2 };
+
+                //translate wire points to match the front of the curve
+                double[] translation = {(point1_wire[0] - point1_curve[0]), (point1_wire[1] - point1_curve[1])};
+
+                // translate points
+                wirePoints = TranslatePoints(wirePoints, translation[0], translation[1]);
+                //wirePoints.Item1.Subtract(translation[0]);
+                //wirePoints.Item2.Subtract(translation[1]);
+
+                // test draw
+                //DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
+
+                // HOW TO SHIFT THE CURVE USING ITS PARAMETRIC EQUATION?!
+                //wire.CoeffsX[0] += translation[0];
+                //wire.CoeffsY[0] += translation[1];
+                //wirePoints = ParametricPolynomial_to_2DPoints_matlab(wire);
+                //DrawCurve(graphics, wirePoints.Item1, wirePoints.Item2, Color.Green);
+
+                //Calculate error point-based
+
+                // // left and right side of arch
+                var curvePointsLeft = new Tuple<DenseVector, DenseVector>(
+                    (DenseVector) curvePoints.Item1.SubVector(0, minYindex_curve),
+                    (DenseVector) curvePoints.Item2.SubVector(0, minYindex_curve));
+                var curvePointsRight = new Tuple<DenseVector, DenseVector>(
+                    (DenseVector) curvePoints.Item1.SubVector(minYindex_curve,
+                        curvePoints.Item1.Count - minYindex_curve),
+                    (DenseVector) curvePoints.Item2.SubVector(minYindex_curve,
+                        curvePoints.Item1.Count - minYindex_curve));
+                var wirePointsLeft = new Tuple<DenseVector, DenseVector>(
+                    (DenseVector) wirePoints.Item1.SubVector(0, minYindex_wire),
+                    (DenseVector) wirePoints.Item2.SubVector(0, minYindex_wire));
+                var wirePointsRight = new Tuple<DenseVector, DenseVector>(
+                    (DenseVector) wirePoints.Item1.SubVector(minYindex_wire, wirePoints.Item1.Count - minYindex_wire),
+                    (DenseVector) wirePoints.Item2.SubVector(minYindex_wire, wirePoints.Item1.Count - minYindex_wire));
+
+                int maxYindex_curveLeft = curvePointsLeft.Item2.MaximumIndex();
+                int maxYindex_curveRight = curvePointsRight.Item2.MaximumIndex();
+                double[] maxY_curveLeft =
+                    {curvePointsLeft.Item1[maxYindex_curveLeft], curvePointsLeft.Item2[maxYindex_curveLeft]};
+                double[] maxY_curveRight =
+                    {curvePointsRight.Item1[maxYindex_curveRight], curvePointsRight.Item2[maxYindex_curveRight]};
+
+
+
+                // // get rid of point beyond maxY_curve
+                var closestLeft = FindClosestToPoint(wirePointsLeft, maxY_curveLeft);
+                var closestRight = FindClosestToPoint(wirePointsRight, maxY_curveRight);
+                wirePointsLeft = new Tuple<DenseVector, DenseVector>(
+                    (DenseVector) wirePointsLeft.Item1.SubVector(closestLeft.Item1,
+                        wirePointsLeft.Item1.Count - closestLeft.Item1),
+                    (DenseVector) wirePointsLeft.Item2.SubVector(closestLeft.Item1,
+                        wirePointsLeft.Item1.Count - closestLeft.Item1));
+                wirePointsRight = new Tuple<DenseVector, DenseVector>(
+                    (DenseVector) wirePointsRight.Item1.SubVector(0, closestRight.Item1),
+                    (DenseVector) wirePointsRight.Item2.SubVector(0, closestRight.Item1));
+
+                //test draw
+                //DrawCurve(graphics, wirePointsLeft.Item1, wirePointsLeft.Item2, Color.Purple);
+                //DrawCurve(graphics, wirePointsRight.Item1, wirePointsRight.Item2, Color.Purple);
+
+                //RMSE
+                double sumOfSquares = 0;
+                for (int i = 0; i < curvePointsLeft.Item1.Count; i++)
+                {
+                    var closest = FindClosestToPoint(wirePointsLeft,
+                        new double[] {curvePointsLeft.Item1[i], curvePointsLeft.Item2[i]});
+                    sumOfSquares += closest.Item2;
+                }
+                for (int i = 0; i < curvePointsRight.Item1.Count; i++)
+                {
+                    var closest = FindClosestToPoint(wirePointsRight,
+                        new double[] {curvePointsRight.Item1[i], curvePointsRight.Item2[i]});
+                    sumOfSquares += closest.Item2;
+                }
+                double rmse = Math.Sqrt(sumOfSquares / (curvePointsRight.Item1.Count + curvePointsLeft.Item1.Count));
+
+                // merge left and right wires
+                var finalWire = new Tuple<DenseVector, DenseVector>(
+                    new DenseVector(wirePointsLeft.Item1.ToArray().Concat(wirePointsRight.Item1.ToArray()).ToArray()),
+                    new DenseVector(wirePointsLeft.Item2.ToArray().Concat(wirePointsRight.Item2.ToArray()).ToArray()));
+
+                return new Tuple<Tuple<DenseVector, DenseVector>, double>(finalWire, rmse);
             }
-            for (int i = 0; i < curvePointsRight.Item1.Count; i++)
+            catch (Exception e)
             {
-                var closest = FindClosestToPoint(wirePointsRight, new double[] { curvePointsRight.Item1[i], curvePointsRight.Item2[i] });
-                sumOfSquares += closest.Item2;
+                MessageBox.Show("The curve could not be registered on any of the wires: " + e.Message);
+                return null;
             }
-            double rmse = Math.Sqrt(sumOfSquares / (curvePointsRight.Item1.Count + curvePointsLeft.Item1.Count));
-
-            // merge left and right wires
-            var finalWire = new Tuple<DenseVector, DenseVector>(new DenseVector(wirePointsLeft.Item1.ToArray().Concat(wirePointsRight.Item1.ToArray()).ToArray()),
-                                                                new DenseVector(wirePointsLeft.Item2.ToArray().Concat(wirePointsRight.Item2.ToArray()).ToArray()));
-
-            return new Tuple<Tuple<DenseVector, DenseVector>, double>(finalWire, rmse);
         }
 
         private Tuple<int, double> FindClosestToPoint(Tuple<DenseVector, DenseVector> line, double[] point)

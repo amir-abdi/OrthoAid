@@ -1677,6 +1677,7 @@ All Rights Preserved.", "OrthoAid V2.0");
                 config.fitFunction = Common.FitFunction.polynomial;
             else if (rb_fitNoroozi.Checked)
                 config.fitFunction = Common.FitFunction.noroozi;
-        }        
+        }
+        
     }
 }

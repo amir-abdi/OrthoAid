@@ -422,6 +422,7 @@ namespace OrthoAid_3DSimulator
             this.label45 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.tab_CurveFit = new System.Windows.Forms.TabPage();
+            this.lv_pointDistance = new System.Windows.Forms.ListView();
             this.lv_wires = new System.Windows.Forms.ListView();
             this.lb_curve2occlusalPlane = new System.Windows.Forms.Label();
             this.pl_wireMatch = new System.Windows.Forms.Panel();
@@ -3023,7 +3024,7 @@ namespace OrthoAid_3DSimulator
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(72, 13);
             this.label77.TabIndex = 158;
-            this.label77.Text = "Sagittal Plane";            
+            this.label77.Text = "Sagittal Plane";
             // 
             // label74
             // 
@@ -4833,6 +4834,7 @@ namespace OrthoAid_3DSimulator
             // 
             // tab_CurveFit
             // 
+            this.tab_CurveFit.Controls.Add(this.lv_pointDistance);
             this.tab_CurveFit.Controls.Add(this.lv_wires);
             this.tab_CurveFit.Controls.Add(this.lb_curve2occlusalPlane);
             this.tab_CurveFit.Controls.Add(this.pl_wireMatch);
@@ -4851,9 +4853,18 @@ namespace OrthoAid_3DSimulator
             this.tab_CurveFit.Text = "Curve Fit";
             this.tab_CurveFit.UseVisualStyleBackColor = true;
             // 
+            // lv_pointDistance
+            // 
+            this.lv_pointDistance.Location = new System.Drawing.Point(91, 68);
+            this.lv_pointDistance.Name = "lv_pointDistance";
+            this.lv_pointDistance.Size = new System.Drawing.Size(126, 124);
+            this.lv_pointDistance.TabIndex = 99;
+            this.lv_pointDistance.UseCompatibleStateImageBehavior = false;
+            this.lv_pointDistance.View = System.Windows.Forms.View.Details;
+            // 
             // lv_wires
             // 
-            this.lv_wires.Location = new System.Drawing.Point(189, 68);
+            this.lv_wires.Location = new System.Drawing.Point(216, 68);
             this.lv_wires.Name = "lv_wires";
             this.lv_wires.Size = new System.Drawing.Size(119, 124);
             this.lv_wires.TabIndex = 3;
@@ -4897,10 +4908,10 @@ namespace OrthoAid_3DSimulator
             this.groupBox8.Controls.Add(this.rb_mandible);
             this.groupBox8.Location = new System.Drawing.Point(6, 62);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(177, 111);
+            this.groupBox8.Size = new System.Drawing.Size(73, 111);
             this.groupBox8.TabIndex = 97;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Matching Wire";
+            this.groupBox8.Text = "Wire";
             // 
             // b_matchingWire
             // 
@@ -6224,6 +6235,7 @@ namespace OrthoAid_3DSimulator
         private System.Windows.Forms.TabPage tab_Planes;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ListView lv_wires;
+        private System.Windows.Forms.ListView lv_pointDistance;
     }
 }
 
