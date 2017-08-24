@@ -11,6 +11,7 @@ using OpenTK.Platform;
 using OpenTK.Input;
 using System.Drawing;
 using System.Drawing.Imaging;
+using OrthoAid_3DSimulator.Common;
 
 
 namespace OrthoAid_3DSimulator
@@ -214,11 +215,18 @@ namespace OrthoAid_3DSimulator
             GL.Color3(color);
             GL.Enable(EnableCap.ProgramPointSize);                        
             GL.LineWidth(3);
-            GL.Begin(BeginMode.Lines);            
+            GL.Begin(BeginMode.Lines);
 
-            for (int i = 0; i < list.Length; i++)
+            try
             {
-                GL.Vertex3(list[i]);
+                for (int i = 0; i < list.Length; i++)
+                {
+                    GL.Vertex3(list[i]);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Main", "Draw.cs", "DrawTangentLine", e.Message, true);
             }
 
             GL.End();
