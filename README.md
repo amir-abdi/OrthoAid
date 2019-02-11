@@ -1,6 +1,9 @@
 # OrthoAid
 The OrthoAid is an in-house software, developed at SBMU, to help orthodontists analyze pre and post operative 3D dental study models. 
 
+### Download Binaries for windows here:
+[OrthoAid_V11.3.zip](https://github.com/amir-abdi/OrthoAid/raw/master/Release/OrthoAid_V11.3.zip)
+
 OrthoAid comes with the following functionalities:
 - Draw occlusal and sagittal planes
 - Calculate inclination of teeth to the occlusal plane
