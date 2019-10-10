@@ -3,7 +3,7 @@ The OrthoAid is an in-house software, developed at the Shahid Beheshti Universit
 
 ### Executable Software (for windows):
 You can download the latest released version here:
-[OrthoAid_V11.4.zip](https://github.com/amir-abdi/OrthoAid/raw/master/Release/OrthoAid_V11.4.zip).
+[OrthoAid_V11.4.zip](Release/OrthoAid_v11.4.zip).
 The executables are built for windows. If you ran into problems running the application, please consider posting an issue [here](https://github.com/amir-abdi/OrthoAid/issues).
 
 
