@@ -1,8 +1,12 @@
 # OrthoAid
 The OrthoAid is an in-house software, developed at the Shahid Beheshti University of Medical Sciences (SBMU) in collaboration with the University of British Columbia (UBC), to help orthodontists analyze pre and post operative 3D dental study models. 
 
-### Download Binaries for windows here:
-[OrthoAid_V11.3.zip](https://github.com/amir-abdi/OrthoAid/raw/master/Release/OrthoAid_V11.3.zip)
+### Executable Software (for windows):
+You can download the latest released version here:
+[OrthoAid_V11.4.zip](https://github.com/amir-abdi/OrthoAid/raw/master/Release/OrthoAid_V11.4.zip).
+The executables are built for windows. If you ran into problems running the application, please consider posting an issue [here](https://github.com/amir-abdi/OrthoAid/issues).
+
+
 
 ### Source Code
 
