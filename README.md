@@ -6,7 +6,7 @@ You can download the latest released version here:
 [OrthoAid_V11.4.zip](https://github.com/amir-abdi/OrthoAid/raw/master/Release/OrthoAid_v11.4.zip).
 The executables are built for windows with .Net Framework 4.5, which is naturally shipped with every windows installation. If you ran into problems running the application, please consider posting an issue [here](https://github.com/amir-abdi/OrthoAid/issues).
 
-
+A sample cast of the upper jaw is shared [here](https://github.com/amir-abdi/OrthoAid/raw/master/SampleDentalCasts/upper_jaw.zip) for demo purposes.
 
 ### Source Code
 
