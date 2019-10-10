@@ -199,7 +199,7 @@ namespace OrthoAid
                     tstrip_Hand.Checked = false;
                     tstrip_Select.Checked = false;
                     tstrip_Ruler.Checked = true;
-                    glControlCast.Cursor = new Cursor(Properties.Resources.ruler_cursor1.GetHicon());
+                    glControlCast.Cursor = new Cursor(Properties.Resources.ruler_cursor_icon.GetHicon());
                     break;
                 default:
                     break;

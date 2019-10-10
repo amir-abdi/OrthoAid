@@ -265,6 +265,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="icons\ruler_cursor_icon.png" />
     <Content Include="lib\MathNet.Numerics.dll" />
     <Content Include="lib\OpenTK.Compatibility.dll" />
     <Content Include="lib\OpenTK.dll" />
