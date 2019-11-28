@@ -1003,17 +1003,11 @@ namespace OrthoAid
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    string resourceName = "OrthoAid_3DSimulator.wire_polynomials." + prefix[j] + "_" + (i + 1).ToString() + ".txt";
-
-                    //var t = Assembly.GetExecutingAssembly().GetManifestResourceNames(); 
-                    // should mark the file as "embedded resource" to work
+                    string resourceName = "OrthoAid.wire_polynomials." + prefix[j] + "_" + (i + 1).ToString() + ".txt";
+                    
                     using (Stream strm = @Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
                     {
                         StreamReader sr = new StreamReader(strm);
-
-
-                        //(Properties.Resources.ResourceManager.GetObject(prefix[j] + "_" + (i + 1).ToString() + ".txt");
-
                         int degree = int.Parse(sr.ReadLine());
                         double[] fitX = new double[degree + 1];
                         double[] fitY = new double[degree + 1];
