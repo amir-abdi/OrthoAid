@@ -86,9 +86,7 @@ namespace OrthoAid
                 points2DY[i] = Vector3.Dot(pvy, points[i] - p0);
             }
 
-
-            //check and fix inverse y mode
-            //fiiiiiiiiix.... r u fiiix? --> by yasaman, the best developer in Acadia
+            //check and fix inverse y mode            
             if (points2DY[0] < points2DY[points2DY.Length / 2])
                 points2DY = points2DY.Select(el => -el).ToArray();
 
@@ -177,7 +175,7 @@ namespace OrthoAid
 
             Tuple<DenseVector, DenseVector> tempTuple = ParametricPolynomial_to_2DPoints(CurveFit[GetSelectedVbOIndex() - 1]);
             DenseVector XX = tempTuple.Item1;
-            DenseVector YY = tempTuple.Item2;
+            DenseVector YY = tempTuple.Item2;            
 
             DrawCurve(graphics, XX, YY, Color.Blue);
 
@@ -202,12 +200,13 @@ namespace OrthoAid
             //calculate Error
             //var rmse_xy = CalculatePerpendicularDistancePointToCurve(xdata, ydata, W, fitFunction, deg, graphics);
             double[] xy_distances;
-            var rmse_xy = CalculatePerpendicularDistancePointToCurve(points2DX, points2DY, XX, YY, graphics, out xy_distances);
-
+            int[] closestPointsIndexOnCurve;
+            var rmse_xy = CalculatePerpendicularDistancePointToCurve(points2DX, points2DY, XX, YY, graphics, 
+                out xy_distances, out closestPointsIndexOnCurve);
 
             //fill the list view with point distances
             lv_pointDistance.Clear();
-            lv_pointDistance.Columns.Add("#", 20, HorizontalAlignment.Center);
+            lv_pointDistance.Columns.Add("Pt", 20, HorizontalAlignment.Center);
             lv_pointDistance.Columns.Add("off", 40, HorizontalAlignment.Center);
             lv_pointDistance.Columns.Add("intra", 40, HorizontalAlignment.Center);
 
@@ -222,12 +221,42 @@ namespace OrthoAid
             }
             if (lv_pointDistance.Items.Count > 0)
                 lv_pointDistance.Items[0].Selected = true;
-
-
-            status.Text = "Polynomial order " + deg.ToString() +
-                " was fit. Root Mean Square Error = " + rmse_xy.ToString("F2");
+            
             lb_curvefit_rmse_xy.Text = "in-plane RMS Error:   " + rmse_xy.ToString("F2");
             lb_curvefit_rmse_z.Text = "off-plane RMS Error:  " + rmse_z.ToString("F2");
+
+
+            // write results to disk
+            string resultsDir = "Results";
+            if (!System.IO.Directory.Exists(resultsDir))
+            {
+                System.IO.Directory.CreateDirectory(resultsDir);
+            }
+
+            string save_path = System.IO.Path.Combine(
+                resultsDir, "CurveFitResults_" + GetSelectedVbOIndex().ToString() + ".csv");
+            var writer = new StreamWriter(save_path);
+
+            writer.WriteLine("Point Number,X,Y,Z,Projected on WirePlane (X),Projected on WirePlane (Y)," +
+                             "Nearest Point on 2D Wire (projected wire) (X),Nearest Point on 2D Wire(projected wire)(Y)," +
+                             "InPlane Distance,OffPlane Distance");
+
+            for (int i = 0; i<num; ++i)
+            {
+                writer.Write(i.ToString() + ",");
+                writer.Write(points[i].X.ToString() + ",");
+                writer.Write(points[i].Y.ToString() + ",");
+                writer.Write(points[i].Z.ToString() + ",");
+                writer.Write(points2DX[i].ToString() + ",");
+                writer.Write(points2DY[i].ToString() + ",");
+                writer.Write(XX[closestPointsIndexOnCurve[i]].ToString() + ",");
+                writer.Write(YY[closestPointsIndexOnCurve[i]].ToString() + ",");
+                writer.Write(xy_distances[i].ToString() + ",");
+                writer.Write(z_distances[i].ToString());
+                writer.WriteLine("");
+            }
+            writer.Close();
+            status.Text = "Results of curve fitting are saved in: " + save_path; 
 
         }
 
@@ -313,11 +342,12 @@ namespace OrthoAid
         }
 
         double CalculatePerpendicularDistancePointToCurve(double[] xdata, double[] ydata,
-            DenseVector PlotX, DenseVector PlotY, Graphics g, out double[] distances)
+            DenseVector PlotX, DenseVector PlotY, Graphics g, out double[] distances, out int[] minPointsIndexOnCurve)
         {
             int numCurve = PlotX.Count;
             int num = xdata.Length;
             distances = new double[num];
+            minPointsIndexOnCurve = new int[num];
             double s = 0;
             for (int i = 0; i < num; i++)
             {
@@ -337,6 +367,7 @@ namespace OrthoAid
 
                 distances[i] = Math.Sqrt(minDist);
                 s += minDist; //sum of squared error
+                minPointsIndexOnCurve[i] = minIndex;
 
                 //draw the perpendicular line                
                 g.DrawLine(new Pen(new SolidBrush(Color.Red)), new PointF((float)xdata[i] * 3, (float)ydata[i] * 3),

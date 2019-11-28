@@ -636,7 +636,7 @@ namespace OrthoAid
             }
             UpdateTeethAndPlanesUI();
         }
-
+        
         #region LoadSave
         //LoadSave
         private void LoadPointCloud_ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1542,7 +1542,7 @@ Permission to use, copy, modify, and distribute this software for educational, r
 
 Contact: amir.h.abdi@gmail.com
 
-All Rights Preserved.", "OrthoAid V2.0");
+All Rights Preserved.", "OrthoAid V11.4");
         }
 
         private void MainForm_DragEnter(object sender, DragEventArgs e)
@@ -1638,7 +1638,6 @@ All Rights Preserved.", "OrthoAid V2.0");
                 config.fitFunction = Common.FitFunction.polynomial;
             else if (rb_fitNoroozi.Checked)
                 config.fitFunction = Common.FitFunction.noroozi;
-        }
-
+        }        
     }
 }

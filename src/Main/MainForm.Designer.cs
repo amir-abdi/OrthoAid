@@ -514,8 +514,8 @@ namespace OrthoAid
             // glControlCast
             // 
             this.glControlCast.AllowDrop = true;
-            this.glControlCast.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.glControlCast.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.glControlCast.BackColor = System.Drawing.Color.Black;
             this.glControlCast.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -699,7 +699,7 @@ namespace OrthoAid
             // 
             // lb_selectedPoints1
             // 
-            this.lb_selectedPoints1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.lb_selectedPoints1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_selectedPoints1.AutoSize = true;
             this.lb_selectedPoints1.BackColor = System.Drawing.Color.AliceBlue;
@@ -804,7 +804,7 @@ namespace OrthoAid
             // loadCalculationFileToolStripMenuItem
             // 
             this.loadCalculationFileToolStripMenuItem.Name = "loadCalculationFileToolStripMenuItem";
-            this.loadCalculationFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.loadCalculationFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.O)));
             this.loadCalculationFileToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.loadCalculationFileToolStripMenuItem.Text = "Load Calculation File";
@@ -813,7 +813,7 @@ namespace OrthoAid
             // saveCalculationFileToolStripMenuItem
             // 
             this.saveCalculationFileToolStripMenuItem.Name = "saveCalculationFileToolStripMenuItem";
-            this.saveCalculationFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.saveCalculationFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
             this.saveCalculationFileToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.saveCalculationFileToolStripMenuItem.Text = "Save Calculation File";
@@ -913,7 +913,7 @@ namespace OrthoAid
             // 
             this.showCast1ToolStripMenuItem.CheckOnClick = true;
             this.showCast1ToolStripMenuItem.Name = "showCast1ToolStripMenuItem";
-            this.showCast1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.showCast1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D1)));
             this.showCast1ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.showCast1ToolStripMenuItem.Text = "Show Cast1";
@@ -923,7 +923,7 @@ namespace OrthoAid
             // 
             this.showCast2ToolStripMenuItem.CheckOnClick = true;
             this.showCast2ToolStripMenuItem.Name = "showCast2ToolStripMenuItem";
-            this.showCast2ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.showCast2ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D2)));
             this.showCast2ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.showCast2ToolStripMenuItem.Text = "Show Cast2";
@@ -1285,7 +1285,7 @@ namespace OrthoAid
             // 
             // lb_selectedPoints2
             // 
-            this.lb_selectedPoints2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.lb_selectedPoints2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_selectedPoints2.AutoSize = true;
             this.lb_selectedPoints2.BackColor = System.Drawing.Color.AliceBlue;
@@ -1416,7 +1416,7 @@ namespace OrthoAid
             // 
             // lview_selectedPoints1
             // 
-            this.lview_selectedPoints1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.lview_selectedPoints1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lview_selectedPoints1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Selected_Points1});
@@ -1457,13 +1457,13 @@ namespace OrthoAid
             // 
             // b_Calculate
             // 
-            this.b_Calculate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.b_Calculate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.b_Calculate.BackgroundImage = global::OrthoAid.Properties.Resources.bottomControl;
-            this.b_Calculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
-            this.b_Calculate.Location = new System.Drawing.Point(815, 181);
+            this.b_Calculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
+            this.b_Calculate.Location = new System.Drawing.Point(806, 179);
             this.b_Calculate.Name = "b_Calculate";
-            this.b_Calculate.Size = new System.Drawing.Size(63, 29);
+            this.b_Calculate.Size = new System.Drawing.Size(94, 29);
             this.b_Calculate.TabIndex = 61;
             this.b_Calculate.Text = "Calculate";
             this.toolTip1.SetToolTip(this.b_Calculate, "( I )");
@@ -1532,13 +1532,13 @@ namespace OrthoAid
             // 
             // b_clearCalculations
             // 
-            this.b_clearCalculations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.b_clearCalculations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.b_clearCalculations.BackgroundImage = global::OrthoAid.Properties.Resources.bottomControl;
-            this.b_clearCalculations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
-            this.b_clearCalculations.Location = new System.Drawing.Point(815, 208);
+            this.b_clearCalculations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
+            this.b_clearCalculations.Location = new System.Drawing.Point(806, 208);
             this.b_clearCalculations.Name = "b_clearCalculations";
-            this.b_clearCalculations.Size = new System.Drawing.Size(63, 25);
+            this.b_clearCalculations.Size = new System.Drawing.Size(94, 25);
             this.b_clearCalculations.TabIndex = 88;
             this.b_clearCalculations.Text = "Clear All";
             this.b_clearCalculations.UseVisualStyleBackColor = true;
@@ -1598,7 +1598,7 @@ namespace OrthoAid
             // 
             // lb_saggitalPlane
             // 
-            this.lb_saggitalPlane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.lb_saggitalPlane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lb_saggitalPlane.BackColor = System.Drawing.Color.AliceBlue;
             this.lb_saggitalPlane.Location = new System.Drawing.Point(5, 81);
@@ -1667,7 +1667,7 @@ namespace OrthoAid
             // 
             // lb_occlusalPlane
             // 
-            this.lb_occlusalPlane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.lb_occlusalPlane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lb_occlusalPlane.BackColor = System.Drawing.Color.AliceBlue;
             this.lb_occlusalPlane.Location = new System.Drawing.Point(5, 26);
@@ -1758,7 +1758,7 @@ namespace OrthoAid
             // 
             // cb_t16
             // 
-            this.cb_t16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t16.AutoSize = true;
             this.cb_t16.Location = new System.Drawing.Point(753, 25);
@@ -1769,7 +1769,7 @@ namespace OrthoAid
             // 
             // cb_t15
             // 
-            this.cb_t15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t15.AutoSize = true;
             this.cb_t15.Location = new System.Drawing.Point(692, 25);
@@ -1780,7 +1780,7 @@ namespace OrthoAid
             // 
             // cb_t14
             // 
-            this.cb_t14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t14.AutoSize = true;
             this.cb_t14.Location = new System.Drawing.Point(640, 25);
@@ -1791,7 +1791,7 @@ namespace OrthoAid
             // 
             // cb_t13
             // 
-            this.cb_t13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t13.AutoSize = true;
             this.cb_t13.Location = new System.Drawing.Point(594, 25);
@@ -1802,7 +1802,7 @@ namespace OrthoAid
             // 
             // cb_t12
             // 
-            this.cb_t12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t12.AutoSize = true;
             this.cb_t12.Location = new System.Drawing.Point(554, 25);
@@ -1813,7 +1813,7 @@ namespace OrthoAid
             // 
             // cb_t11
             // 
-            this.cb_t11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t11.AutoSize = true;
             this.cb_t11.Location = new System.Drawing.Point(517, 25);
@@ -1824,7 +1824,7 @@ namespace OrthoAid
             // 
             // cb_t10
             // 
-            this.cb_t10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t10.AutoSize = true;
             this.cb_t10.Location = new System.Drawing.Point(480, 25);
@@ -1835,7 +1835,7 @@ namespace OrthoAid
             // 
             // cb_t9
             // 
-            this.cb_t9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t9.AutoSize = true;
             this.cb_t9.Location = new System.Drawing.Point(442, 25);
@@ -1846,7 +1846,7 @@ namespace OrthoAid
             // 
             // cb_t8
             // 
-            this.cb_t8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t8.AutoSize = true;
             this.cb_t8.Location = new System.Drawing.Point(405, 25);
@@ -1857,7 +1857,7 @@ namespace OrthoAid
             // 
             // cb_t7
             // 
-            this.cb_t7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t7.AutoSize = true;
             this.cb_t7.Location = new System.Drawing.Point(367, 25);
@@ -1868,7 +1868,7 @@ namespace OrthoAid
             // 
             // cb_t6
             // 
-            this.cb_t6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t6.AutoSize = true;
             this.cb_t6.Location = new System.Drawing.Point(332, 25);
@@ -1879,7 +1879,7 @@ namespace OrthoAid
             // 
             // cb_t5
             // 
-            this.cb_t5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t5.AutoSize = true;
             this.cb_t5.Location = new System.Drawing.Point(294, 25);
@@ -1890,7 +1890,7 @@ namespace OrthoAid
             // 
             // cb_t4
             // 
-            this.cb_t4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t4.AutoSize = true;
             this.cb_t4.Location = new System.Drawing.Point(253, 25);
@@ -1901,7 +1901,7 @@ namespace OrthoAid
             // 
             // cb_t3
             // 
-            this.cb_t3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t3.AutoSize = true;
             this.cb_t3.Location = new System.Drawing.Point(207, 25);
@@ -1912,7 +1912,7 @@ namespace OrthoAid
             // 
             // cb_t2
             // 
-            this.cb_t2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t2.AutoSize = true;
             this.cb_t2.Location = new System.Drawing.Point(154, 25);
@@ -1923,7 +1923,7 @@ namespace OrthoAid
             // 
             // cb_t1
             // 
-            this.cb_t1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.cb_t1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cb_t1.AutoSize = true;
             this.cb_t1.Location = new System.Drawing.Point(96, 25);
@@ -5533,7 +5533,7 @@ namespace OrthoAid
             // 
             // toolboxPanel_p
             // 
-            this.toolboxPanel_p.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.toolboxPanel_p.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.toolboxPanel_p.Controls.Add(this.collapse_b);
             this.toolboxPanel_p.Controls.Add(this.gb_viewMode);
